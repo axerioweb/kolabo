@@ -7,6 +7,9 @@ import { SocialIcon } from "@/components/social-icons";
 import { Badge } from "@/components/ui/badge";
 import { Input, Select } from "@/components/ui/form";
 import type { Platform } from "@/lib/taxonomy";
+import type { ProfileStatus } from "@/lib/types";
+import { Link } from "@/i18n/navigation";
+import { ProfileModeration } from "@/components/admin/admin-actions";
 
 export interface TableRow {
   id: string;
@@ -22,6 +25,8 @@ export interface TableRow {
   priceFrom: string | null;
   barter: "yes" | "no" | "depends" | null;
   joined: string; // formatted date
+  status?: ProfileStatus;
+  verified?: boolean;
 }
 
 export interface FilterOption {
@@ -35,7 +40,9 @@ export function InfluencerTable({
   countryOptions,
   platformOptions,
   barterLabels,
+  manage,
 }: {
+  manage?: boolean;
   rows: TableRow[];
   categoryOptions: FilterOption[];
   countryOptions: FilterOption[];
@@ -150,6 +157,8 @@ export function InfluencerTable({
               <th className="px-4 py-3">{t("priceFrom")}</th>
               <th className="px-4 py-3">{t("barter")}</th>
               <th className="px-4 py-3">{t("joined")}</th>
+              {manage && <th className="px-4 py-3">{t("status")}</th>}
+              {manage && <th className="px-4 py-3">{t("actions")}</th>}
             </tr>
           </thead>
           <tbody>
@@ -160,9 +169,18 @@ export function InfluencerTable({
               >
                 <td className="px-4 py-3">
                   <p className="font-semibold">{r.name}</p>
-                  {r.username && (
-                    <p className="text-xs text-muted">@{r.username}</p>
-                  )}
+                  {r.username &&
+                    (r.status === "active" ? (
+                      <Link
+                        href={{ pathname: "/creators/[username]", params: { username: r.username } }}
+                        className="text-xs text-brand-600 hover:underline"
+                        target="_blank"
+                      >
+                        @{r.username}
+                      </Link>
+                    ) : (
+                      <p className="text-xs text-muted">@{r.username}</p>
+                    ))}
                 </td>
                 <td className="px-4 py-3 text-ink-soft">
                   {r.city ? `${r.city}, ` : ""}
@@ -203,11 +221,30 @@ export function InfluencerTable({
                   )}
                 </td>
                 <td className="px-4 py-3 text-muted tabular-nums">{r.joined}</td>
+                {manage && (
+                  <td className="px-4 py-3">
+                    <Badge
+                      tone={r.status === "active" ? "success" : r.status === "suspended" ? "accent" : "warning"}
+                      className="!px-2 !py-0.5"
+                    >
+                      {t(`statusLabels.${r.status ?? "pending"}`)}
+                    </Badge>
+                  </td>
+                )}
+                {manage && (
+                  <td className="px-4 py-3">
+                    <ProfileModeration
+                      profileId={r.id}
+                      verified={!!r.verified}
+                      status={r.status ?? "pending"}
+                    />
+                  </td>
+                )}
               </tr>
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-4 py-10 text-center text-muted">
+                <td colSpan={manage ? 10 : 8} className="px-4 py-10 text-center text-muted">
                   {t("noResults")}
                 </td>
               </tr>
