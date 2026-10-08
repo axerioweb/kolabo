@@ -22,3 +22,22 @@ export async function markNotificationRead(id: string) {
   revalidatePath("/", "layout");
   return { ok: true };
 }
+
+export async function markAllNotificationsRead() {
+  if (!isSupabaseConfigured) return { ok: true, demo: true };
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false };
+
+  await supabase
+    .from("notifications")
+    .update({ read_at: new Date().toISOString() })
+    .eq("profile_id", user.id)
+    .is("read_at", null);
+
+  revalidatePath("/", "layout");
+  return { ok: true };
+}
