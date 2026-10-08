@@ -346,3 +346,160 @@ export function categoryBySlug(slug: string): Category | undefined {
 export function label(l: LocalizedLabel, locale: string): string {
   return locale === "en" ? l.en : l.sr;
 }
+
+/* ------------------------------------------------------------------ */
+/* Companies (firme / brendovi)                                        */
+/* ------------------------------------------------------------------ */
+
+export const COMPANY_TYPES = ["legal_entity", "entrepreneur", "agency"] as const;
+export type CompanyType = (typeof COMPANY_TYPES)[number];
+
+export const COMPANY_TYPE_LABELS: Record<CompanyType, LocalizedLabel> = {
+  legal_entity: { sr: "Pravno lice (d.o.o., a.d.)", en: "Company (LLC, JSC)" },
+  entrepreneur: { sr: "Preduzetnik", en: "Sole trader" },
+  agency: { sr: "Marketing agencija", en: "Marketing agency" },
+};
+
+export const COMPANY_INDUSTRIES = [
+  "fashion_beauty",
+  "food_drinks",
+  "hospitality_travel",
+  "health_fitness",
+  "tech_electronics",
+  "retail_ecommerce",
+  "home_living",
+  "kids_family",
+  "finance_services",
+  "automotive",
+  "entertainment_events",
+  "education",
+  "agency",
+  "other",
+] as const;
+export type CompanyIndustry = (typeof COMPANY_INDUSTRIES)[number];
+
+export const COMPANY_INDUSTRY_LABELS: Record<CompanyIndustry, LocalizedLabel> = {
+  fashion_beauty: { sr: "Moda i lepota", en: "Fashion & beauty" },
+  food_drinks: { sr: "Hrana i piće", en: "Food & drinks" },
+  hospitality_travel: { sr: "Turizam i ugostiteljstvo", en: "Hospitality & travel" },
+  health_fitness: { sr: "Zdravlje i fitnes", en: "Health & fitness" },
+  tech_electronics: { sr: "Tehnologija i elektronika", en: "Tech & electronics" },
+  retail_ecommerce: { sr: "Maloprodaja i e-commerce", en: "Retail & e-commerce" },
+  home_living: { sr: "Dom i enterijer", en: "Home & living" },
+  kids_family: { sr: "Deca i porodica", en: "Kids & family" },
+  finance_services: { sr: "Finansije i usluge", en: "Finance & services" },
+  automotive: { sr: "Auto industrija", en: "Automotive" },
+  entertainment_events: { sr: "Zabava i događaji", en: "Entertainment & events" },
+  education: { sr: "Obrazovanje", en: "Education" },
+  agency: { sr: "Agencija", en: "Agency" },
+  other: { sr: "Ostalo", en: "Other" },
+};
+
+export const COMPANY_SIZES = ["solo", "2_10", "11_50", "51_200", "200_plus"] as const;
+export type CompanySize = (typeof COMPANY_SIZES)[number];
+
+export const COMPANY_SIZE_LABELS: Record<CompanySize, LocalizedLabel> = {
+  solo: { sr: "Samo ja", en: "Just me" },
+  "2_10": { sr: "2–10 zaposlenih", en: "2–10 employees" },
+  "11_50": { sr: "11–50 zaposlenih", en: "11–50 employees" },
+  "51_200": { sr: "51–200 zaposlenih", en: "51–200 employees" },
+  "200_plus": { sr: "200+ zaposlenih", en: "200+ employees" },
+};
+
+/** Naziv poreskog identifikatora po zemlji (PIB, OIB, JIB...). */
+export const TAX_ID_LABELS: Partial<Record<Country, LocalizedLabel>> = {
+  RS: { sr: "PIB", en: "Tax ID (PIB)" },
+  HR: { sr: "OIB", en: "Tax ID (OIB)" },
+  BA: { sr: "JIB", en: "Tax ID (JIB)" },
+  ME: { sr: "PIB", en: "Tax ID (PIB)" },
+  MK: { sr: "EDB", en: "Tax ID (EDB)" },
+  SI: { sr: "Davčna številka", en: "Tax ID (DDV)" },
+};
+
+/* ------------------------------------------------------------------ */
+/* Collaboration requests (upiti za saradnju)                          */
+/* ------------------------------------------------------------------ */
+
+export const REQUEST_STATUSES = [
+  "pending",
+  "accepted",
+  "delivered",
+  "completed",
+  "declined",
+  "cancelled",
+] as const;
+export type RequestStatus = (typeof REQUEST_STATUSES)[number];
+
+export const COMPENSATION_TYPES = ["paid", "barter", "paid_and_barter"] as const;
+export type CompensationType = (typeof COMPENSATION_TYPES)[number];
+
+export const COMPENSATION_LABELS: Record<CompensationType, LocalizedLabel> = {
+  paid: { sr: "Plaćena saradnja", en: "Paid collaboration" },
+  barter: { sr: "Barter (proizvodi/usluge)", en: "Barter (products/services)" },
+  paid_and_barter: { sr: "Novac + barter", en: "Money + barter" },
+};
+
+export const USAGE_RIGHTS = [
+  "organic_only",
+  "repost",
+  "paid_ads_30d",
+  "paid_ads_90d",
+  "unlimited",
+] as const;
+export type UsageRights = (typeof USAGE_RIGHTS)[number];
+
+export const USAGE_RIGHTS_LABELS: Record<UsageRights, LocalizedLabel> = {
+  organic_only: { sr: "Samo objava na profilu kreatora", en: "Creator's profile only" },
+  repost: { sr: "Brend sme da podeli objavu", en: "Brand may repost" },
+  paid_ads_30d: { sr: "Plaćeni oglasi do 30 dana", en: "Paid ads up to 30 days" },
+  paid_ads_90d: { sr: "Plaćeni oglasi do 90 dana", en: "Paid ads up to 90 days" },
+  unlimited: { sr: "Neograničeno korišćenje", en: "Unlimited usage" },
+};
+
+export const REPORT_REASONS = [
+  "spam",
+  "fake_profile",
+  "inappropriate",
+  "scam",
+  "hidden_advertising",
+  "other",
+] as const;
+export type ReportReason = (typeof REPORT_REASONS)[number];
+
+export const REPORT_REASON_LABELS: Record<ReportReason, LocalizedLabel> = {
+  spam: { sr: "Spam ili neželjene poruke", en: "Spam or unwanted messages" },
+  fake_profile: { sr: "Lažan profil ili lažni pratioci", en: "Fake profile or followers" },
+  inappropriate: { sr: "Neprimeren sadržaj ili ponašanje", en: "Inappropriate content or behaviour" },
+  scam: { sr: "Prevara ili neisplata", en: "Scam or non-payment" },
+  hidden_advertising: { sr: "Traži prikrivenu reklamu", en: "Asks for hidden advertising" },
+  other: { sr: "Drugo", en: "Other" },
+};
+
+export const REPORT_STATUSES = ["open", "resolved", "dismissed"] as const;
+export type ReportStatus = (typeof REPORT_STATUSES)[number];
+
+/**
+ * Kategorije koje traže oprez kada publika uključuje maloletnike
+ * (13–17): alkohol, kockanje, suplementi itd. Prikazujemo upozorenje
+ * u formi upita — vidi docs/RESEARCH.md.
+ */
+export const REGULATED_INDUSTRIES: CompanyIndustry[] = ["food_drinks", "health_fitness"];
+
+/** Rezervisana korisnička imena (kolizija sa rutama). */
+export const RESERVED_USERNAMES = [
+  "admin",
+  "kategorija",
+  "category",
+  "kolabo",
+  "panel",
+  "dashboard",
+  "api",
+  "auth",
+  "support",
+  "podrska",
+];
+
+/** Granica za numeričke raspone publike — za filtere "od/do". */
+export function followerRangeIndex(r: FollowerRange): number {
+  return FOLLOWER_RANGES.indexOf(r);
+}

@@ -1,4 +1,15 @@
-import type { InfluencerFull, AppNotification } from "./types";
+import type {
+  AppNotification,
+  CompanyFull,
+  CreatorCardData,
+  InboxItem,
+  InfluencerFull,
+  Message,
+  PublicCreator,
+  RequestDetail,
+  SessionContext,
+} from "./types";
+import { FOLLOWER_RANGES } from "./taxonomy";
 
 /**
  * Demo podaci — koriste se dok Supabase nije konfigurisan (demo mode),
@@ -32,6 +43,9 @@ function demoInfluencer(
       city: profile.city ?? "Beograd",
       content_languages: profile.content_languages ?? ["sr"],
       onboarding_completed: true,
+      verified_at: i <= 3 ? new Date(Date.now() - i * 86400000).toISOString() : null,
+      terms_accepted_at: new Date(Date.now() - i * 86400000 * 3).toISOString(),
+      marketing_opt_in: false,
       created_at: new Date(Date.now() - i * 86400000 * 3).toISOString(),
       updated_at: new Date().toISOString(),
     },
@@ -247,6 +261,8 @@ export const DEMO_NOTIFICATIONS: AppNotification[] = [
     title: "Nova prilika za saradnju",
     body: "Brend iz kategorije Lepota i šminka traži mikro influensere iz Srbije.",
     link: null,
+    template: "request_new",
+    data: { request_id: "demo-r1", name: "Zdravo Organic", title: "Jesenja kampanja — nova granola" },
     read_at: null,
     created_at: new Date(Date.now() - 3600e3 * 5).toISOString(),
   },
@@ -257,6 +273,8 @@ export const DEMO_NOTIFICATIONS: AppNotification[] = [
     title: "Dobrodošla na Kolabo 🎉",
     body: "Tvoj profil je aktivan. Dopuni cene usluga da bi te brendovi lakše pronašli.",
     link: null,
+    template: null,
+    data: {},
     read_at: null,
     created_at: new Date(Date.now() - 86400e3).toISOString(),
   },
@@ -267,7 +285,291 @@ export const DEMO_NOTIFICATIONS: AppNotification[] = [
     title: "Dopuni statistiku publike",
     body: "Profili sa podacima o publici dobijaju 3x više upita.",
     link: null,
+    template: null,
+    data: {},
     read_at: new Date().toISOString(),
     created_at: new Date(Date.now() - 86400e3 * 3).toISOString(),
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Firme, upiti i poruke (demo)                                        */
+/* ------------------------------------------------------------------ */
+
+const now = Date.now();
+const iso = (msAgo: number) => new Date(now - msAgo).toISOString();
+const day = (daysFromNow: number) =>
+  new Date(now + 86400e3 * daysFromNow).toISOString().slice(0, 10);
+
+export const DEMO_COMPANY: CompanyFull = {
+  profile: {
+    ...DEMO_INFLUENCERS[0].profile,
+    id: "demo-company",
+    role: "company",
+    full_name: "Marko Petrović",
+    username: null,
+    bio: null,
+    birth_year: null,
+    gender: null,
+    verified_at: iso(86400e3 * 2),
+  },
+  company: {
+    profile_id: "demo-company",
+    name: "Zdravo Organic",
+    legal_name: "Zdravo Organic d.o.o.",
+    tax_id: "101234567",
+    registration_number: "07654321",
+    company_type: "legal_entity",
+    industry: "food_drinks",
+    size: "11_50",
+    website: "https://example.com",
+    instagram: "zdravo.organic",
+    country: "RS",
+    city: "Beograd",
+    description:
+      "Domaći proizvođač organskih granola, namaza i grickalica. Tražimo kreatore koji vole zdravu ishranu i aktivan život.",
+    logo_url: null,
+    contact_name: "Marko Petrović",
+    contact_role: "Brand menadžer",
+    interested_categories: ["food", "fitness", "wellness", "lifestyle"],
+    budget_min: 100,
+    budget_max: 600,
+    currency: "EUR",
+    created_at: iso(86400e3 * 20),
+    updated_at: iso(86400e3),
+  },
+  contact: {
+    profile_id: "demo-company",
+    contact_email: "marketing@example.com",
+    phone: "+381 60 000 0000",
+    preferred_channel: "platform",
+    allowed_channels: ["platform", "email"],
+    allow_platform_messages: true,
+    email_notifications: true,
+  },
+};
+
+export type DemoRole = "influencer" | "company" | "admin";
+
+/** Demo session per role — chosen via the demo role switcher cookie. */
+export function demoSession(role: DemoRole): SessionContext {
+  if (role === "company") {
+    return {
+      userId: DEMO_COMPANY.profile.id,
+      email: "firma.demo@example.com",
+      profile: DEMO_COMPANY.profile,
+      company: DEMO_COMPANY.company,
+      unreadNotifications: 1,
+      unreadMessages: 1,
+      demo: true,
+    };
+  }
+  const p = DEMO_INFLUENCERS[0].profile;
+  return {
+    userId: p.id,
+    email: "influenser.demo@example.com",
+    profile: role === "admin" ? { ...p, role: "admin" } : p,
+    company: null,
+    unreadNotifications: 2,
+    unreadMessages: 1,
+    demo: true,
+  };
+}
+
+export function demoCardData(full: InfluencerFull): CreatorCardData {
+  const prices = full.services
+    .map((s) => s.price_min)
+    .filter((p): p is number => p != null);
+  return {
+    id: full.profile.id,
+    full_name: full.profile.full_name,
+    username: full.profile.username ?? full.profile.id,
+    avatar_url: full.profile.avatar_url,
+    bio: full.profile.bio,
+    city: full.profile.city,
+    country: full.profile.country,
+    verified: full.profile.verified_at != null,
+    socials: [...full.socials]
+      .sort(
+        (a, b) =>
+          Number(b.is_primary) - Number(a.is_primary) ||
+          FOLLOWER_RANGES.indexOf(b.follower_range) -
+            FOLLOWER_RANGES.indexOf(a.follower_range)
+      )
+      .map((s) => ({
+        platform: s.platform,
+        handle: s.handle,
+        follower_range: s.follower_range,
+        engagement_rate: s.engagement_rate,
+        is_primary: s.is_primary,
+      })),
+    categories: full.categories,
+    min_price_eur: prices.length ? Math.min(...prices) : null,
+    barter: full.collaboration?.barter ?? null,
+    rating: full.profile.id === "demo-1" ? 4.9 : null,
+    reviews_count: full.profile.id === "demo-1" ? 3 : 0,
+  };
+}
+
+export function demoPublicCreator(username: string): PublicCreator | null {
+  const full = DEMO_INFLUENCERS.find((i) => i.profile.username === username);
+  if (!full) return null;
+  return {
+    profile: full.profile,
+    socials: full.socials,
+    categories: full.categories,
+    services: full.services,
+    collaboration: full.collaboration,
+    reviews:
+      full.profile.id === "demo-1"
+        ? [
+            {
+              id: "rv1",
+              rating: 5,
+              comment:
+                "Sadržaj isporučen pre roka, odlična komunikacija i preko 40 upita u DM-u posle objave.",
+              created_at: iso(86400e3 * 9),
+            },
+            {
+              id: "rv2",
+              rating: 5,
+              comment: "Profesionalna i kreativna — sarađivaćemo ponovo.",
+              created_at: iso(86400e3 * 30),
+            },
+          ]
+        : [],
+  };
+}
+
+const demoMessages: Message[] = [
+  {
+    id: "m1",
+    request_id: "demo-r1",
+    sender_id: "demo-company",
+    recipient_id: "demo-1",
+    body: "Zdravo Milice! Pratimo tvoj sadržaj i mislimo da bi naša nova granola savršeno legla uz tvoje jutarnje rutine. Detalji su u briefu 🙂",
+    read_at: iso(3600e3 * 3),
+    created_at: iso(3600e3 * 5),
+  },
+  {
+    id: "m2",
+    request_id: "demo-r1",
+    sender_id: "demo-1",
+    recipient_id: "demo-company",
+    body: "Hvala, zvuči super! Da li paket može da stigne do petka, da snimim reel za vikend?",
+    read_at: null,
+    created_at: iso(3600e3 * 2),
+  },
+];
+
+export const DEMO_REQUEST_DETAIL: RequestDetail = {
+  request: {
+    id: "demo-r1",
+    company_id: "demo-company",
+    influencer_id: "demo-1",
+    title: "Jesenja kampanja — nova granola",
+    goal: "Predstavljanje nove linije organske granole mlađoj publici u Beogradu.",
+    brief:
+      "Tražimo autentičan prikaz jutarnje rutine sa našom granolom. Ton: opušten, svakodnevni, bez preteranog prodajnog jezika.",
+    key_messages: "100% organski sastojci • bez dodatog šećera • proizvedeno u Srbiji",
+    restrictions: "Bez poređenja sa konkurentskim brendovima.",
+    deliverables: ["ig_reel", "ig_story"],
+    deliverable_counts: [1, 3],
+    compensation: "paid_and_barter",
+    budget_amount: 250,
+    currency: "EUR",
+    barter_description: "Paket proizvoda (6 granola + 2 namaza)",
+    barter_value: 40,
+    usage_rights: "repost",
+    revisions: 1,
+    start_date: day(5),
+    end_date: day(19),
+    respond_by: day(3),
+    ad_disclosure_ack: true,
+    status: "pending",
+    viewed_at: iso(3600e3 * 3),
+    decline_reason: null,
+    responded_at: null,
+    completed_at: null,
+    created_at: iso(3600e3 * 5),
+    updated_at: iso(3600e3 * 2),
+  },
+  company: {
+    id: "demo-company",
+    name: "Zdravo Organic",
+    avatar_url: null,
+    verified: true,
+    industry: "food_drinks",
+    website: "https://example.com",
+    city: "Beograd",
+    country: "RS",
+    description: DEMO_COMPANY.company.description,
+  },
+  influencer: {
+    id: "demo-1",
+    name: "Milica Jovanović",
+    avatar_url: null,
+    verified: true,
+    username: "milica.style",
+  },
+  messages: demoMessages,
+  myReview: null,
+  contact: null,
+};
+
+export const DEMO_INBOX: InboxItem[] = [
+  {
+    id: "demo-r1",
+    title: DEMO_REQUEST_DETAIL.request.title,
+    status: "pending",
+    compensation: "paid_and_barter",
+    budget_amount: 250,
+    currency: "EUR",
+    deliverables: ["ig_reel", "ig_story"],
+    respond_by: DEMO_REQUEST_DETAIL.request.respond_by,
+    viewed_at: iso(3600e3 * 3),
+    created_at: iso(3600e3 * 5),
+    updated_at: iso(3600e3 * 2),
+    company: { id: "demo-company", name: "Zdravo Organic", logo_url: null, verified: true },
+    influencer: {
+      id: "demo-1",
+      full_name: "Milica Jovanović",
+      username: "milica.style",
+      avatar_url: null,
+      verified: true,
+    },
+    unread: 1,
+    last_message: {
+      body: demoMessages[1].body,
+      created_at: demoMessages[1].created_at,
+      mine: false,
+    },
+  },
+  {
+    id: "demo-r2",
+    title: "Recenzija fitnes narukvice",
+    status: "accepted",
+    compensation: "barter",
+    budget_amount: null,
+    currency: "EUR",
+    deliverables: ["tiktok_video"],
+    respond_by: null,
+    viewed_at: iso(86400e3 * 4),
+    created_at: iso(86400e3 * 5),
+    updated_at: iso(86400e3 * 2),
+    company: { id: "demo-company-2", name: "TechHub", logo_url: null, verified: false },
+    influencer: {
+      id: "demo-2",
+      full_name: "Stefan Petrović",
+      username: "stefan.gains",
+      avatar_url: null,
+      verified: true,
+    },
+    unread: 0,
+    last_message: {
+      body: "Super, šaljemo narukvicu u ponedeljak!",
+      created_at: iso(86400e3 * 2),
+      mine: true,
+    },
   },
 ];

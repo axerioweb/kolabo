@@ -15,6 +15,10 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Skip static files, images and Next internals
-  matcher: ["/((?!api|auth|_next|_vercel|.*\\..*).*)"],
+  // Skip API/auth handlers, Next internals and real static files.
+  // Note: only known file extensions are excluded — usernames may contain
+  // dots (e.g. /kreatori/milica.style) and must still hit the middleware.
+  matcher: [
+    "/((?!api|auth|_next|_vercel|.*\\.(?:svg|png|jpe?g|gif|webp|avif|ico|txt|xml|json|webmanifest|js|css|map|woff2?)$).*)",
+  ],
 };

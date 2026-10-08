@@ -10,6 +10,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
+    // Balkan market — one shared zone avoids server/client date mismatches
+    timeZone: "Europe/Belgrade",
     messages: (await import(`../messages/${locale}.json`)).default,
   };
 });
