@@ -8,10 +8,8 @@ export default function LegalLayout({
 }) {
   return (
     <>
-      <Navbar />
-      <main className="mx-auto max-w-3xl px-4 pt-32 pb-20 sm:px-6">
-        {children}
-      </main>
+      <Navbar solid />
+      <main className="mx-auto max-w-3xl px-4 pt-28 pb-20 sm:px-6">{children}</main>
       <Footer />
     </>
   );

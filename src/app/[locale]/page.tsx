@@ -38,7 +38,7 @@ export default async function LandingPage({ params }: Props) {
       },
       {
         "@type": "FAQPage",
-        mainEntity: (["q1", "q2", "q3", "q4"] as const).map((q) => ({
+        mainEntity: (["q1", "q2", "q3", "q4", "q5", "q6"] as const).map((q) => ({
           "@type": "Question",
           name: faq(q),
           acceptedAnswer: {
@@ -54,7 +54,7 @@ export default async function LandingPage({ params }: Props) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <Navbar />
       <main>

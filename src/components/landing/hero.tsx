@@ -104,7 +104,7 @@ export function Hero() {
               <Link href="/signup">{t("ctaPrimary")}</Link>
             </Button>
             <Button asChild variant="secondary" size="lg">
-              <a href="#kako-radi">{t("ctaSecondary")}</a>
+              <Link href="/for-brands">{t("ctaSecondary")}</Link>
             </Button>
           </motion.div>
 

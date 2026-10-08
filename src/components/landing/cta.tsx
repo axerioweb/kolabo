@@ -20,9 +20,17 @@ export function ForBrands() {
               {t("subtitle")}
             </p>
           </div>
-          <Button asChild variant="secondary">
-            <a href="mailto:hello@kolabo.rs">{t("cta")}</a>
-          </Button>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <Button asChild variant="secondary">
+              <Link href="/creators">{t("browse")}</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/for-brands">
+                {t("cta")}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </Reveal>
     </section>

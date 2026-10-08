@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { Reveal } from "@/components/motion";
 import { cn } from "@/lib/utils";
 
-const items = ["q1", "q2", "q3", "q4"] as const;
+const items = ["q1", "q2", "q3", "q4", "q5", "q6"] as const;
 
 export function Faq() {
   const t = useTranslations("landing.faq");
