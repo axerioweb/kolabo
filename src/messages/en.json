@@ -1,0 +1,275 @@
+{
+  "meta": {
+    "title": "Kolabo — the platform connecting micro influencers and brands in the Balkans",
+    "description": "Create a free profile, showcase your networks, audience and rates, and land your first or next brand collaboration. The platform for micro influencers from the Balkans.",
+    "keywords": "micro influencers, influencer marketing, brand collaborations, Balkans, Serbia, influencer platform"
+  },
+  "common": {
+    "brand": "Kolabo",
+    "loading": "Loading...",
+    "save": "Save",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "search": "Search",
+    "all": "All",
+    "yes": "Yes",
+    "no": "No",
+    "optional": "optional",
+    "logout": "Log out",
+    "error": "Something went wrong. Please try again.",
+    "demoBadge": "Demo mode — Supabase is not connected yet",
+    "onRequest": "On request"
+  },
+  "nav": {
+    "howItWorks": "How it works",
+    "categories": "Categories",
+    "forBrands": "For brands",
+    "faq": "FAQ",
+    "login": "Log in",
+    "signup": "Create profile",
+    "dashboard": "My dashboard",
+    "admin": "Admin"
+  },
+  "landing": {
+    "hero": {
+      "badge": "The platform for Balkan creators",
+      "title1": "Your content.",
+      "title2": "Your first collaboration.",
+      "subtitle": "Kolabo connects micro influencers and brands across the Balkans. Build your profile in 5 minutes, showcase your audience and rates — and let the right brands find you.",
+      "ctaPrimary": "Create a free profile",
+      "ctaSecondary": "See how it works",
+      "socialProof": "Join creators from Serbia, Croatia, Bosnia and Montenegro",
+      "noFollowersMin": "No minimum follower count"
+    },
+    "stats": {
+      "title": "Why micro influencers?",
+      "subtitle": "The numbers are on your side — brands increasingly choose smaller, authentic creators.",
+      "stat1Value": "65%",
+      "stat1Label": "of all brand partnerships are with micro influencers",
+      "stat2Value": "5–8%",
+      "stat2Label": "engagement of nano creators — higher than celebrities",
+      "stat3Value": "3x",
+      "stat3Label": "more inquiries go to complete profiles",
+      "stat4Value": "5 min",
+      "stat4Label": "is all it takes to build your profile"
+    },
+    "how": {
+      "title": "How Kolabo works",
+      "subtitle": "Three steps from sign-up to collaboration.",
+      "step1Title": "Create your profile",
+      "step1Text": "Connect your networks, pick your content categories and add your audience ranges. Everything in one place — like your media kit.",
+      "step2Title": "Set your terms",
+      "step2Text": "Define price ranges for your services, choose whether you accept barter deals and how you want to be contacted.",
+      "step3Title": "Get collaborations",
+      "step3Text": "Brands find you by category, audience and budget. You decide who you work with and how."
+    },
+    "categories": {
+      "title": "For every type of content",
+      "subtitle": "Pick up to 5 categories that best describe your content — that is how brands find you."
+    },
+    "networks": {
+      "title": "All your networks on one profile",
+      "subtitle": "Instagram, TikTok, YouTube, Facebook and LinkedIn — one profile instead of five links."
+    },
+    "forBrands": {
+      "title": "Running a brand?",
+      "subtitle": "Coming soon: company accounts with creator search by category, audience and budget. Join the waitlist.",
+      "cta": "Register interest"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": "Is Kolabo free for influencers?",
+      "a1": "Yes. Creating a profile and basic use of the platform is free for creators.",
+      "q2": "How many followers do I need?",
+      "a2": "There is no minimum follower count. Brands care about audience engagement, content quality and category fit — not just numbers.",
+      "q3": "What is a barter collaboration?",
+      "a3": "A collaboration where instead of money you receive products, services, travel or tickets in exchange for a post. On your profile you choose whether and under which conditions you accept barter.",
+      "q4": "How do brands contact me?",
+      "a4": "You choose: platform messages, email, phone, WhatsApp, Viber or Instagram DM. We only show what you allow."
+    },
+    "cta": {
+      "title": "Ready for your first collaboration?",
+      "subtitle": "Build your profile once — opportunities keep coming. It's free.",
+      "button": "Start now"
+    }
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Log in to your Kolabo account.",
+    "signupTitle": "Create your profile",
+    "signupSubtitle": "Free sign-up — your profile is ready in 5 minutes.",
+    "fullName": "Full name",
+    "email": "Email address",
+    "password": "Password",
+    "passwordHint": "At least 8 characters",
+    "loginButton": "Log in",
+    "signupButton": "Sign up",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "signupLink": "Sign up",
+    "loginLink": "Log in",
+    "terms": "By signing up you accept the terms of service and privacy policy.",
+    "checkEmail": "Check your email — we sent you a confirmation link.",
+    "demoDisabled": "Sign-up and login will be enabled once the Supabase project is connected. See docs/SETUP.md for instructions.",
+    "invalidCredentials": "Wrong email or password."
+  },
+  "onboarding": {
+    "title": "Profile setup",
+    "stepOf": "Step {current} of {total}",
+    "steps": {
+      "basics": "About you",
+      "socials": "Networks & audience",
+      "categories": "Categories",
+      "pricing": "Rates & barter",
+      "contact": "Contact"
+    },
+    "basics": {
+      "title": "Introduce yourself",
+      "subtitle": "The basics brands see first.",
+      "username": "Username",
+      "usernameHint": "Part of your profile link, e.g. kolabo.rs/@milica.style",
+      "bio": "Short bio",
+      "bioPlaceholder": "Who you are, what content you create and which brands you want to work with...",
+      "birthYear": "Year of birth",
+      "gender": "Gender",
+      "country": "Country",
+      "city": "City",
+      "languages": "Content languages"
+    },
+    "socials": {
+      "title": "Your networks and audience",
+      "subtitle": "Add the networks you post on. Ranges are enough — exact numbers are optional.",
+      "addNetwork": "Add network",
+      "handle": "Username / handle",
+      "profileUrl": "Profile link",
+      "followerRange": "Follower count",
+      "engagementRate": "Engagement rate (%)",
+      "engagementHint": "Average share of your audience that engages with posts. Nano: 5–8%, micro: 2–4%.",
+      "avgViews": "Average views",
+      "audienceGender": "Audience by gender",
+      "audienceAge": "Dominant audience age group",
+      "audienceCountries": "Where your audience is from",
+      "isPrimary": "Primary network",
+      "atLeastOne": "Add at least one network to continue."
+    },
+    "categoriesStep": {
+      "title": "What is your content about?",
+      "subtitle": "Pick up to {max} categories. Brands filter and find you by them.",
+      "selected": "Selected: {count} / {max}"
+    },
+    "pricing": {
+      "title": "Services, rates and barter",
+      "subtitle": "Price ranges are a guide for brands — the final deal is always yours.",
+      "servicesTitle": "Services you offer",
+      "priceMin": "Price from",
+      "priceMax": "Price to",
+      "currency": "Currency",
+      "barterTitle": "Promotional packages (barter)",
+      "barterQuestion": "Do you accept products or services in exchange for promotion?",
+      "barterTypes": "What would you accept?",
+      "barterMinValue": "Minimum value of a barter offer (EUR)",
+      "minBudget": "Minimum budget for paid collaborations (EUR)",
+      "openToTravel": "I am willing to travel for collaborations",
+      "notes": "Note for brands"
+    },
+    "contact": {
+      "title": "Contact & notifications",
+      "subtitle": "You choose how brands can reach you — we only show what you allow.",
+      "contactEmail": "Contact email",
+      "contactEmailHint": "Can be different from your login email.",
+      "phone": "Phone",
+      "preferredChannel": "Preferred contact method",
+      "allowedChannels": "Allowed channels",
+      "platformMessages": "Allow messages via the Kolabo platform",
+      "emailNotifications": "Send me email notifications about opportunities and messages"
+    },
+    "done": {
+      "title": "Your profile is ready! 🎉",
+      "subtitle": "Your profile is active. You can update it anytime from your dashboard.",
+      "cta": "Go to dashboard"
+    }
+  },
+  "dashboard": {
+    "title": "My dashboard",
+    "welcome": "Hi, {name}",
+    "profileCompleteness": "Profile completeness",
+    "completenessHint": "Complete profiles get more inquiries from brands.",
+    "sections": {
+      "profile": "Profile",
+      "socials": "Networks & audience",
+      "categories": "Categories",
+      "services": "Services & rates",
+      "barter": "Barter",
+      "contact": "Contact"
+    },
+    "notifications": "Notifications",
+    "noNotifications": "No new notifications.",
+    "markRead": "Mark as read",
+    "viewAll": "View all",
+    "editProfile": "Edit profile",
+    "profilePreview": "How brands see you",
+    "barterYes": "Accepts barter",
+    "barterNo": "Paid collaborations only",
+    "barterDepends": "Barter negotiable",
+    "primaryNetwork": "Primary network",
+    "completeOnboarding": "Finish setting up your profile to become visible to brands.",
+    "continueOnboarding": "Continue setup"
+  },
+  "admin": {
+    "title": "Admin panel",
+    "subtitle": "Overview of all influencers, metrics and platform statistics.",
+    "kpi": {
+      "totalInfluencers": "Total influencers",
+      "newThisMonth": "New this month",
+      "completedProfiles": "Complete profiles",
+      "barterReady": "Accept barter",
+      "avgEngagement": "Average engagement",
+      "activeNetworks": "Connected networks"
+    },
+    "charts": {
+      "byCategory": "Influencers by category",
+      "byNetwork": "Network presence",
+      "byTier": "Distribution by audience size",
+      "byCountry": "By country",
+      "avgPrices": "Average price ranges per service (EUR)",
+      "barterSplit": "Attitude towards barter deals"
+    },
+    "table": {
+      "title": "All influencers",
+      "name": "Name",
+      "location": "Location",
+      "categories": "Categories",
+      "networks": "Networks",
+      "followers": "Audience",
+      "priceFrom": "Prices from",
+      "barter": "Barter",
+      "joined": "Joined",
+      "filterCategory": "Category",
+      "filterNetwork": "Network",
+      "filterCountry": "Country",
+      "filterBarter": "Barter",
+      "noResults": "No results for the selected filters.",
+      "searchPlaceholder": "Search by name or username..."
+    },
+    "notAdmin": "You do not have access to the admin panel."
+  },
+  "footer": {
+    "tagline": "The platform connecting micro influencers and brands in the Balkans.",
+    "product": "Platform",
+    "legal": "Legal",
+    "privacy": "Privacy policy",
+    "terms": "Terms of service",
+    "rights": "All rights reserved."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The page you are looking for does not exist or has been moved.",
+    "home": "Back to home"
+  }
+}

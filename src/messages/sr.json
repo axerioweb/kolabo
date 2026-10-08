@@ -1,0 +1,275 @@
+{
+  "meta": {
+    "title": "Kolabo — platforma koja spaja mikro influensere i brendove na Balkanu",
+    "description": "Napravi besplatan profil, prikaži svoje mreže, publiku i cene, i dođi do prve ili nove saradnje sa brendovima. Platforma za mikro influensere sa Balkana.",
+    "keywords": "mikro influenseri, influencer marketing, saradnja sa brendovima, Balkan, Srbija, influenser platforma"
+  },
+  "common": {
+    "brand": "Kolabo",
+    "loading": "Učitavanje...",
+    "save": "Sačuvaj",
+    "saving": "Čuvanje...",
+    "cancel": "Otkaži",
+    "back": "Nazad",
+    "next": "Dalje",
+    "finish": "Završi",
+    "edit": "Izmeni",
+    "delete": "Obriši",
+    "add": "Dodaj",
+    "search": "Pretraga",
+    "all": "Sve",
+    "yes": "Da",
+    "no": "Ne",
+    "optional": "opciono",
+    "logout": "Odjavi se",
+    "error": "Došlo je do greške. Pokušaj ponovo.",
+    "demoBadge": "Demo režim — Supabase još nije povezan",
+    "onRequest": "Na upit"
+  },
+  "nav": {
+    "howItWorks": "Kako radi",
+    "categories": "Kategorije",
+    "forBrands": "Za brendove",
+    "faq": "Pitanja",
+    "login": "Prijava",
+    "signup": "Napravi profil",
+    "dashboard": "Moj panel",
+    "admin": "Admin"
+  },
+  "landing": {
+    "hero": {
+      "badge": "Platforma za kreatore sa Balkana",
+      "title1": "Tvoj sadržaj.",
+      "title2": "Tvoja prva saradnja.",
+      "subtitle": "Kolabo spaja mikro influensere i brendove na Balkanu. Napravi profil za 5 minuta, prikaži svoju publiku i cene — i pusti da te pravi brendovi pronađu.",
+      "ctaPrimary": "Napravi besplatan profil",
+      "ctaSecondary": "Pogledaj kako radi",
+      "socialProof": "Pridruži se kreatorima iz Srbije, Hrvatske, BiH i Crne Gore",
+      "noFollowersMin": "Bez minimalnog broja pratilaca"
+    },
+    "stats": {
+      "title": "Zašto mikro influenseri?",
+      "subtitle": "Brojevi su na tvojoj strani — brendovi sve više biraju manje, autentične kreatore.",
+      "stat1Value": "65%",
+      "stat1Label": "svih saradnji brendova čine mikro influenseri",
+      "stat2Value": "5–8%",
+      "stat2Label": "engagement nano kreatora — više nego kod zvezda",
+      "stat3Value": "3x",
+      "stat3Label": "više upita dobijaju kompletni profili",
+      "stat4Value": "5 min",
+      "stat4Label": "je dovoljno da napraviš profil"
+    },
+    "how": {
+      "title": "Kako Kolabo radi",
+      "subtitle": "Tri koraka od registracije do saradnje.",
+      "step1Title": "Napravi profil",
+      "step1Text": "Poveži svoje mreže, izaberi kategorije sadržaja i unesi raspon publike. Sve na jednom mestu — kao tvoj media kit.",
+      "step2Title": "Postavi uslove",
+      "step2Text": "Odredi raspon cena za usluge, naznači da li prihvataš barter saradnje i kako želiš da te kontaktiraju.",
+      "step3Title": "Dobij saradnje",
+      "step3Text": "Brendovi te pronalaze po kategoriji, publici i budžetu. Ti odlučuješ sa kim i kako sarađuješ."
+    },
+    "categories": {
+      "title": "Za svaki tip sadržaja",
+      "subtitle": "Izaberi do 5 kategorija koje najbolje opisuju tvoj sadržaj — po njima te brendovi pronalaze."
+    },
+    "networks": {
+      "title": "Sve tvoje mreže na jednom profilu",
+      "subtitle": "Instagram, TikTok, YouTube, Facebook i LinkedIn — jedan profil umesto pet linkova."
+    },
+    "forBrands": {
+      "title": "Vodiš brend?",
+      "subtitle": "Uskoro: nalozi za firme sa pretragom kreatora po kategoriji, publici i budžetu. Prijavi se na listu čekanja.",
+      "cta": "Prijavi interesovanje"
+    },
+    "faq": {
+      "title": "Česta pitanja",
+      "q1": "Da li je Kolabo besplatan za influensere?",
+      "a1": "Da. Pravljenje profila i osnovno korišćenje platforme je besplatno za kreatore.",
+      "q2": "Koliko pratilaca mi treba?",
+      "a2": "Ne postoji minimalan broj pratilaca. Brendovima su bitni angažovanost publike, kvalitet sadržaja i uklapanje sa kategorijom — ne samo brojke.",
+      "q3": "Šta je barter saradnja?",
+      "a3": "Saradnja u kojoj umesto novca dobijaš proizvode, usluge, putovanja ili ulaznice u zameni za objavu. Na profilu sam biraš da li i pod kojim uslovima prihvataš barter.",
+      "q4": "Kako me brendovi kontaktiraju?",
+      "a4": "Ti biraš način: poruke na platformi, email, telefon, WhatsApp, Viber ili Instagram DM. Prikazujemo samo ono što ti dozvoliš."
+    },
+    "cta": {
+      "title": "Spreman za prvu saradnju?",
+      "subtitle": "Profil praviš jednom, a prilike stižu stalno. Besplatno je.",
+      "button": "Kreni odmah"
+    }
+  },
+  "auth": {
+    "loginTitle": "Dobrodošao nazad",
+    "loginSubtitle": "Prijavi se na svoj Kolabo nalog.",
+    "signupTitle": "Napravi svoj profil",
+    "signupSubtitle": "Besplatna registracija — profil je spreman za 5 minuta.",
+    "fullName": "Ime i prezime",
+    "email": "Email adresa",
+    "password": "Lozinka",
+    "passwordHint": "Najmanje 8 karaktera",
+    "loginButton": "Prijavi se",
+    "signupButton": "Registruj se",
+    "noAccount": "Nemaš nalog?",
+    "haveAccount": "Već imaš nalog?",
+    "signupLink": "Registruj se",
+    "loginLink": "Prijavi se",
+    "terms": "Registracijom prihvataš uslove korišćenja i politiku privatnosti.",
+    "checkEmail": "Proveri email — poslali smo ti link za potvrdu naloga.",
+    "demoDisabled": "Registracija i prijava biće aktivne kada se poveže Supabase projekat. Pogledaj docs/SETUP.md za uputstvo.",
+    "invalidCredentials": "Pogrešan email ili lozinka."
+  },
+  "onboarding": {
+    "title": "Podešavanje profila",
+    "stepOf": "Korak {current} od {total}",
+    "steps": {
+      "basics": "O tebi",
+      "socials": "Mreže i publika",
+      "categories": "Kategorije",
+      "pricing": "Cene i barter",
+      "contact": "Kontakt"
+    },
+    "basics": {
+      "title": "Predstavi se",
+      "subtitle": "Osnovni podaci koje brendovi prvo vide.",
+      "username": "Korisničko ime",
+      "usernameHint": "Deo linka tvog profila, npr. kolabo.rs/@milica.style",
+      "bio": "Kratka biografija",
+      "bioPlaceholder": "Ko si, kakav sadržaj praviš i sa kakvim brendovima želiš da sarađuješ...",
+      "birthYear": "Godina rođenja",
+      "gender": "Pol",
+      "country": "Zemlja",
+      "city": "Grad",
+      "languages": "Jezici sadržaja"
+    },
+    "socials": {
+      "title": "Tvoje mreže i publika",
+      "subtitle": "Dodaj mreže na kojima objavljuješ. Rasponi su dovoljni — tačne brojke su opcione.",
+      "addNetwork": "Dodaj mrežu",
+      "handle": "Korisničko ime / handle",
+      "profileUrl": "Link ka profilu",
+      "followerRange": "Broj pratilaca",
+      "engagementRate": "Engagement rate (%)",
+      "engagementHint": "Prosečan procenat publike koji reaguje na objave. Nano: 5–8%, mikro: 2–4%.",
+      "avgViews": "Prosečan broj pregleda",
+      "audienceGender": "Publika po polu",
+      "audienceAge": "Najzastupljenije godište publike",
+      "audienceCountries": "Odakle je tvoja publika",
+      "isPrimary": "Glavna mreža",
+      "atLeastOne": "Dodaj bar jednu mrežu da nastaviš."
+    },
+    "categoriesStep": {
+      "title": "Čime se bavi tvoj sadržaj?",
+      "subtitle": "Izaberi do {max} kategorija. Po njima te brendovi filtriraju i pronalaze.",
+      "selected": "Izabrano: {count} / {max}"
+    },
+    "pricing": {
+      "title": "Usluge, cene i barter",
+      "subtitle": "Raspon cena je orijentir za brendove — konačan dogovor je uvek tvoj.",
+      "servicesTitle": "Usluge koje nudiš",
+      "priceMin": "Cena od",
+      "priceMax": "Cena do",
+      "currency": "Valuta",
+      "barterTitle": "Promotivni paketi (barter)",
+      "barterQuestion": "Da li prihvataš proizvode ili usluge u zameni za reklamu?",
+      "barterTypes": "Šta bi prihvatio/la?",
+      "barterMinValue": "Minimalna vrednost barter ponude (EUR)",
+      "minBudget": "Minimalni budžet za plaćene saradnje (EUR)",
+      "openToTravel": "Spreman/na sam da putujem zbog saradnje",
+      "notes": "Napomena za brendove"
+    },
+    "contact": {
+      "title": "Kontakt i obaveštenja",
+      "subtitle": "Ti biraš kako brendovi mogu da te kontaktiraju — prikazujemo samo ono što dozvoliš.",
+      "contactEmail": "Kontakt email",
+      "contactEmailHint": "Može biti različit od emaila za prijavu.",
+      "phone": "Telefon",
+      "preferredChannel": "Najdraži način kontakta",
+      "allowedChannels": "Dozvoljeni kanali",
+      "platformMessages": "Dozvoli poruke preko Kolabo platforme",
+      "emailNotifications": "Šalji mi email obaveštenja o prilikama i porukama"
+    },
+    "done": {
+      "title": "Profil je spreman! 🎉",
+      "subtitle": "Tvoj profil je aktivan. Možeš ga dopunjavati u svakom trenutku iz panela.",
+      "cta": "Idi na panel"
+    }
+  },
+  "dashboard": {
+    "title": "Moj panel",
+    "welcome": "Zdravo, {name}",
+    "profileCompleteness": "Popunjenost profila",
+    "completenessHint": "Kompletni profili dobijaju više upita od brendova.",
+    "sections": {
+      "profile": "Profil",
+      "socials": "Mreže i publika",
+      "categories": "Kategorije",
+      "services": "Usluge i cene",
+      "barter": "Barter",
+      "contact": "Kontakt"
+    },
+    "notifications": "Obaveštenja",
+    "noNotifications": "Nemaš novih obaveštenja.",
+    "markRead": "Označi kao pročitano",
+    "viewAll": "Prikaži sva",
+    "editProfile": "Uredi profil",
+    "profilePreview": "Ovako te vide brendovi",
+    "barterYes": "Prihvata barter",
+    "barterNo": "Samo plaćene saradnje",
+    "barterDepends": "Barter po dogovoru",
+    "primaryNetwork": "Glavna mreža",
+    "completeOnboarding": "Završi podešavanje profila da bi bio vidljiv brendovima.",
+    "continueOnboarding": "Nastavi podešavanje"
+  },
+  "admin": {
+    "title": "Admin panel",
+    "subtitle": "Pregled svih influensera, metrika i statistike platforme.",
+    "kpi": {
+      "totalInfluencers": "Ukupno influensera",
+      "newThisMonth": "Novi ovog meseca",
+      "completedProfiles": "Kompletni profili",
+      "barterReady": "Prihvataju barter",
+      "avgEngagement": "Prosečan engagement",
+      "activeNetworks": "Povezanih mreža"
+    },
+    "charts": {
+      "byCategory": "Influenseri po kategorijama",
+      "byNetwork": "Zastupljenost mreža",
+      "byTier": "Raspodela po veličini publike",
+      "byCountry": "Po zemljama",
+      "avgPrices": "Prosečni rasponi cena po usluzi (EUR)",
+      "barterSplit": "Odnos prema barter saradnjama"
+    },
+    "table": {
+      "title": "Svi influenseri",
+      "name": "Ime",
+      "location": "Lokacija",
+      "categories": "Kategorije",
+      "networks": "Mreže",
+      "followers": "Publika",
+      "priceFrom": "Cene od",
+      "barter": "Barter",
+      "joined": "Registrovan",
+      "filterCategory": "Kategorija",
+      "filterNetwork": "Mreža",
+      "filterCountry": "Zemlja",
+      "filterBarter": "Barter",
+      "noResults": "Nema rezultata za izabrane filtere.",
+      "searchPlaceholder": "Pretraži po imenu ili korisničkom imenu..."
+    },
+    "notAdmin": "Nemaš pristup admin panelu."
+  },
+  "footer": {
+    "tagline": "Platforma koja spaja mikro influensere i brendove na Balkanu.",
+    "product": "Platforma",
+    "legal": "Pravno",
+    "privacy": "Politika privatnosti",
+    "terms": "Uslovi korišćenja",
+    "rights": "Sva prava zadržana."
+  },
+  "notFound": {
+    "title": "Stranica nije pronađena",
+    "text": "Stranica koju tražiš ne postoji ili je premeštena.",
+    "home": "Nazad na početnu"
+  }
+}
