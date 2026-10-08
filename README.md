@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kolabo
 
-## Getting Started
+**Platforma koja spaja mikro influensere i brendove na Balkanu.**
 
-First, run the development server:
+Next.js 15 (App Router) + Supabase + Tailwind CSS v4 + next-intl (sr/en) + Framer Motion.
+
+## Brzi start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Bez podešenog Supabase-a aplikacija radi u **demo režimu**: landing, onboarding,
+dashboard i admin panel se prikazuju sa demo podacima, a registracija/prijava su
+isključene. Za pravi rad prati [docs/SETUP.md](docs/SETUP.md).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Struktura
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Putanja | Šta je |
+|---|---|
+| `src/app/[locale]/` | Sve stranice (sr bez prefiksa, en pod `/en`) |
+| `src/components/` | UI komponente (landing, onboarding, dashboard, admin, ui) |
+| `src/lib/taxonomy.ts` | **Jedini izvor istine** za kategorije, mreže, raspone, usluge |
+| `src/lib/supabase/` | Supabase klijenti (browser, server, middleware) |
+| `src/app/actions/` | Server Actions (onboarding, auth, notifikacije) |
+| `src/messages/` | Prevodi (sr.json, en.json) |
+| `supabase/migrations/` | SQL šema + RLS polise |
+| `supabase/seed.sql` | Šifarnik kategorija |
+| `docs/` | Setup, arhitektura, roadmap |
+| `CLAUDE.md` + `.claude/skills/` | Pravila i skilovi za rad sa Claude Code |
 
-## Learn More
+## Uloge
 
-To learn more about Next.js, take a look at the following resources:
+- **Influenser** — registruje se, prolazi onboarding u 5 koraka (osnovni podaci,
+  mreže i publika, kategorije, cene i barter, kontakt), dobija dashboard sa
+  pregledom profila i obaveštenjima.
+- **Admin** — vidi sve metrike i statistiku (KPI, grafikoni, tabela sa filterima).
+  Admin postaješ tako što u bazi postaviš `role = 'admin'` na svom profilu
+  (vidi docs/SETUP.md).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Komande
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev      # razvoj
+npm run build    # produkcijski build
+npm run lint     # eslint
+```
