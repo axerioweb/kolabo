@@ -1,26 +1,184 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/* Kolabo design tokens                                                */
+/* ------------------------------------------------------------------ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand — electric violet → pink gradient world */
+  --brand-50: #f4f1ff;
+  --brand-100: #ebe4ff;
+  --brand-200: #d9cdff;
+  --brand-300: #bda6ff;
+  --brand-400: #9d74ff;
+  --brand-500: #7c3aed;
+  --brand-600: #6d28d9;
+  --brand-700: #5b21b6;
+  --brand-800: #4c1d95;
+  --brand-900: #3b1677;
+
+  --accent-400: #f472b6;
+  --accent-500: #ec4899;
+  --accent-600: #db2777;
+
+  --amber-400: #fbbf24;
+
+  /* Neutrals with a violet undertone */
+  --ink: #150c2e;
+  --ink-soft: #453a66;
+  --muted: #6f6790;
+  --line: #e8e4f4;
+  --surface: #ffffff;
+  --surface-soft: #f8f6fe;
+  --bg: #fdfcff;
+
+  --radius-card: 1.25rem;
+
+  /* Self-hosted fonts (Fontsource variable) */
+  --font-manrope: "Manrope Variable";
+  --font-space-grotesk: "Space Grotesk Variable";
+
+  --shadow-soft: 0 2px 8px -2px rgb(21 12 46 / 0.06),
+    0 12px 32px -8px rgb(21 12 46 / 0.08);
+  --shadow-lift: 0 4px 12px -2px rgb(21 12 46 / 0.08),
+    0 24px 48px -12px rgb(109 40 217 / 0.18);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-surface-soft: var(--surface-soft);
+  --color-bg: var(--bg);
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-manrope), ui-sans-serif,
+    system-ui, sans-serif;
+
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
+
+  --radius-card: var(--radius-card);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--brand-200);
+  color: var(--brand-900);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reusable primitives                                                 */
+/* ------------------------------------------------------------------ */
+
+.text-gradient {
+  background: linear-gradient(
+    92deg,
+    var(--brand-500) 0%,
+    var(--accent-500) 55%,
+    var(--amber-400) 110%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-hero-glow {
+  background:
+    radial-gradient(52rem 30rem at 15% -8%, rgb(124 58 237 / 0.14), transparent 60%),
+    radial-gradient(44rem 28rem at 88% 8%, rgb(236 72 153 / 0.12), transparent 60%),
+    radial-gradient(36rem 24rem at 55% 105%, rgb(251 191 36 / 0.1), transparent 60%);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Floating decorative blobs */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0) scale(1.04);
+  }
+}
+
+@keyframes float-slower {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(12px, -24px, 0) rotate(6deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+.animate-float-slower {
+  animation: float-slower 11s ease-in-out infinite;
+}
+
+/* Marquee for the category strip */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow,
+  .animate-float-slower,
+  .animate-marquee {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }
