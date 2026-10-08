@@ -10,7 +10,8 @@ import {
 } from "@/lib/taxonomy";
 import { SocialIcon } from "@/components/social-icons";
 import { Badge } from "@/components/ui/badge";
-import { formatPrice, initials } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
+import { Avatar } from "@/components/ui/avatar";
 
 /** Public-style profile preview — "how brands see you". */
 export async function ProfileCard({ full }: { full: InfluencerFull }) {
@@ -36,13 +37,18 @@ export async function ProfileCard({ full }: { full: InfluencerFull }) {
       <div className="h-20 bg-gradient-to-r from-brand-600 via-brand-500 to-accent-500" />
       <div className="p-6">
         <div className="-mt-14 flex items-end gap-4">
-          <div className="flex h-20 w-20 items-center justify-center rounded-2xl border-4 border-white bg-gradient-to-br from-brand-500 to-accent-500 font-display text-2xl font-bold text-white shadow-soft">
-            {initials(profile.full_name)}
-          </div>
+          <Avatar
+            src={profile.avatar_url}
+            name={profile.full_name}
+            size={80}
+            className="border-4 border-white shadow-soft"
+          />
           <div className="pb-1">
             <p className="flex items-center gap-1.5 font-display text-lg font-bold">
               {profile.full_name}
-              <BadgeCheck className="h-5 w-5 text-brand-500" />
+              {profile.verified_at && (
+                <BadgeCheck className="h-5 w-5 text-brand-500" aria-label={t("verified")} />
+              )}
             </p>
             <p className="text-sm text-muted">
               {profile.username && <>@{profile.username} · </>}

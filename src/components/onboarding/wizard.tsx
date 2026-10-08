@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Check, PartyPopper } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowLeft, ArrowRight, Check, ExternalLink, PartyPopper } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
+import { normalizeUsername, usernameError } from "@/lib/validation";
 import { saveOnboarding } from "@/app/actions/onboarding";
 import {
   emptyOnboardingData,
@@ -30,12 +31,15 @@ const STEP_KEYS = [
 
 export function OnboardingWizard({
   initialData,
+  mode = "onboarding",
 }: {
   initialData?: Partial<OnboardingData>;
+  mode?: "onboarding" | "edit";
 }) {
   const t = useTranslations("onboarding");
   const tc = useTranslations("common");
   const router = useRouter();
+  const reduce = useReducedMotion();
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -54,19 +58,35 @@ export function OnboardingWizard({
   const canContinue =
     step === 1 ? data.socials.length > 0 && data.socials.every((s) => s.handle.trim() !== "") : true;
 
+  function errorText(code?: string) {
+    const key = `errors.${code}`;
+    return code && t.has(key) ? t(key) : tc("error");
+  }
+
   function goNext() {
     setError(null);
+    if (step === 0 && data.basics.username.trim()) {
+      const err = usernameError(data.basics.username);
+      if (err) {
+        setError(errorText(`username_${err}`));
+        return;
+      }
+    }
+    if (isLast && !normalizeUsername(data.basics.username)) {
+      setError(errorText("username_required"));
+      return;
+    }
     startTransition(async () => {
       const result = await saveOnboarding(data, isLast);
       if (!result.ok) {
-        setError(tc("error"));
+        setError(errorText(result.error));
         return;
       }
       if (isLast) {
         setDone(true);
       } else {
         setStep((s) => s + 1);
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
       }
     });
   }
@@ -74,7 +94,7 @@ export function OnboardingWizard({
   if (done) {
     return (
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={reduce ? false : { opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="card mx-auto max-w-lg p-10 text-center"
       >
@@ -82,13 +102,30 @@ export function OnboardingWizard({
           <PartyPopper className="h-8 w-8" />
         </span>
         <h2 className="mt-6 font-display text-2xl font-bold">
-          {t("done.title")}
+          {mode === "edit" ? t("done.savedTitle") : t("done.title")}
         </h2>
-        <p className="mt-3 text-muted">{t("done.subtitle")}</p>
-        <Button className="mt-8" onClick={() => router.push("/dashboard")}>
-          {t("done.cta")}
-          <ArrowRight className="h-4 w-4" />
-        </Button>
+        <p className="mt-3 text-muted">
+          {mode === "edit" ? t("done.savedSubtitle") : t("done.subtitle")}
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <Button onClick={() => router.push("/dashboard")}>
+            {t("done.cta")}
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+          {normalizeUsername(data.basics.username) && (
+            <Button asChild variant="secondary">
+              <Link
+                href={{
+                  pathname: "/creators/[username]",
+                  params: { username: normalizeUsername(data.basics.username) },
+                }}
+              >
+                <ExternalLink className="h-4 w-4" />
+                {t("done.viewPublic")}
+              </Link>
+            </Button>
+          )}
+        </div>
       </motion.div>
     );
   }
@@ -135,9 +172,9 @@ export function OnboardingWizard({
       <AnimatePresence mode="wait">
         <motion.div
           key={stepKey}
-          initial={{ opacity: 0, x: 24 }}
+          initial={reduce ? false : { opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -24 }}
+          exit={reduce ? undefined : { opacity: 0, x: -24 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <h1 className="font-display text-2xl font-bold sm:text-3xl">

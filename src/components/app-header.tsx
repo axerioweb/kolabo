@@ -1,55 +1,78 @@
 import { getTranslations } from "next-intl/server";
-import { LogOut } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "@/components/ui/logo";
-import { LangSwitcher } from "@/components/lang-switcher";
-import { Badge } from "@/components/ui/badge";
-import { isSupabaseConfigured } from "@/lib/supabase/config";
-import { signOut } from "@/app/actions/auth";
+import { getSession } from "@/lib/session";
+import { AppNav, type NavItem } from "@/components/app-nav";
 
-export async function AppHeader({ isAdmin }: { isAdmin?: boolean }) {
-  const t = await getTranslations("common");
-  const nav = await getTranslations("nav");
+/**
+ * Header for every signed-in page. Navigation depends on the role;
+ * session data comes from the request-cached getSession().
+ */
+export async function AppHeader() {
+  const session = await getSession();
+  const t = await getTranslations("nav");
+
+  const role = session?.profile.role ?? "influencer";
+  const items: NavItem[] =
+    role === "admin"
+      ? [
+          { href: "/admin", label: t("overview") },
+          { href: "/admin/influencers", label: t("influencers") },
+          { href: "/admin/companies", label: t("companies") },
+          { href: "/admin/requests", label: t("requests") },
+          { href: "/admin/reports", label: t("reports") },
+        ]
+      : role === "company"
+        ? [
+            { href: "/dashboard", label: t("dashboard"), exact: true },
+            { href: "/creators", label: t("findCreators") },
+            {
+              href: "/dashboard/requests",
+              label: t("requests"),
+              badge: session?.unreadMessages,
+            },
+            { href: "/dashboard/saved", label: t("saved") },
+          ]
+        : [
+            { href: "/dashboard", label: t("dashboard"), exact: true },
+            {
+              href: "/dashboard/requests",
+              label: t("requests"),
+              badge: session?.unreadMessages,
+            },
+            { href: "/dashboard/profile", label: t("myProfile") },
+          ];
+
+  const displayName =
+    role === "company"
+      ? session?.company?.name || session?.profile.full_name || ""
+      : session?.profile.full_name ?? "";
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/85 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <div className="flex items-center gap-4">
-          <Link href="/" aria-label="Kolabo">
-            <Logo />
-          </Link>
-          {!isSupabaseConfigured && (
-            <Badge tone="warning" className="hidden sm:inline-flex">
-              {t("demoBadge")}
-            </Badge>
-          )}
-        </div>
-        <div className="flex items-center gap-3">
-          {isAdmin && (
-            <Link
-              href="/admin"
-              className="rounded-full px-3 py-1.5 text-sm font-semibold text-brand-700 hover:bg-brand-50"
-            >
-              {nav("admin")}
-            </Link>
-          )}
-          <Link
-            href="/dashboard"
-            className="rounded-full px-3 py-1.5 text-sm font-semibold text-ink-soft hover:bg-brand-50 hover:text-brand-700"
-          >
-            {nav("dashboard")}
-          </Link>
-          <LangSwitcher />
-          <form action={signOut}>
-            <button
-              type="submit"
-              title={t("logout")}
-              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-muted transition-colors hover:bg-red-50 hover:text-red-600"
-            >
-              <LogOut className="h-4.5 w-4.5" />
-            </button>
-          </form>
-        </div>
+      <div className="relative mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+        <Link href={role === "admin" ? "/admin" : "/dashboard"} aria-label="Kolabo">
+          <Logo />
+        </Link>
+        <AppNav
+          items={items}
+          user={{
+            name: displayName,
+            email: session?.email ?? "",
+            avatarUrl:
+              role === "company"
+                ? session?.company?.logo_url ?? null
+                : session?.profile.avatar_url ?? null,
+            role,
+            username: session?.profile.username ?? null,
+            isPublic:
+              role === "influencer" &&
+              session?.profile.status === "active" &&
+              !!session?.profile.username,
+          }}
+          unreadNotifications={session?.unreadNotifications ?? 0}
+          demo={session?.demo ?? false}
+        />
       </div>
     </header>
   );
