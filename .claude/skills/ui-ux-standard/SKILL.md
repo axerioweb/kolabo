@@ -33,8 +33,12 @@ description: Dizajn sistem i UI/UX standard Kolabo platforme — tokeni boja, ti
   ne pisati nove whileInView varijante po komponentama.
 - Dekorativno plutanje: klase `animate-float-slow` / `animate-float-slower`.
 - Trajanja: mikrointerakcije 150–200ms, ulasci 600–800ms; easing `[0.22,1,0.36,1]`.
-- SVE animacije poštuju `prefers-reduced-motion` (motion.tsx i globals.css to već rade —
-  nove animacije moraju isto).
+- SVE animacije poštuju `prefers-reduced-motion`: framer-motion kroz globalni
+  `<MotionProvider>` (`MotionConfig reducedMotion="user"` u `[locale]/layout.tsx`),
+  CSS animacije kroz media query u globals.css.
+- **NE granaj `initial`/`variants`/`animate` po `useReducedMotion()` u renderu** — na
+  serveru vraća `null`, na klijentu `true`, pa nastaje hydration mismatch. Hook je
+  dozvoljen samo u event handlerima (npr. `scrollTo` behavior).
 - Hover na karticama: `hover:-translate-y-1` ili `-0.5` + `hover:shadow-lift`. Ništa agresivnije.
 
 ## Komponente

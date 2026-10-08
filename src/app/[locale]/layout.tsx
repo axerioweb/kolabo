@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { MotionProvider } from "@/components/motion-provider";
 import { SITE_URL } from "@/lib/site";
 // Self-hosted variable fonts (uključuju latin-ext za š, đ, č, ć, ž)
 import "@fontsource-variable/manrope";
@@ -71,7 +72,9 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale === "sr" ? "sr-Latn" : "en"}>
       <body className="antialiased">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <MotionProvider>{children}</MotionProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

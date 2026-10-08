@@ -94,7 +94,7 @@ export function OnboardingWizard({
   if (done) {
     return (
       <motion.div
-        initial={reduce ? false : { opacity: 0, scale: 0.95 }}
+        initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="card mx-auto max-w-lg p-10 text-center"
       >
@@ -172,9 +172,9 @@ export function OnboardingWizard({
       <AnimatePresence mode="wait">
         <motion.div
           key={stepKey}
-          initial={reduce ? false : { opacity: 0, x: 24 }}
+          initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={reduce ? undefined : { opacity: 0, x: -24 }}
+          exit={{ opacity: 0, x: -24 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <h1 className="font-display text-2xl font-bold sm:text-3xl">

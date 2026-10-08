@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { BadgeCheck, Heart, Sparkles, TrendingUp } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -19,11 +19,10 @@ function FloatingCard({
   delay: number;
   children: React.ReactNode;
 }) {
-  const reduce = useReducedMotion();
   return (
     <motion.div
       className={className}
-      initial={reduce ? false : { opacity: 0, y: 30, scale: 0.95 }}
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.8, delay, ease }}
     >
@@ -35,7 +34,6 @@ function FloatingCard({
 export function Hero() {
   const t = useTranslations("landing.hero");
   const locale = useLocale();
-  const reduce = useReducedMotion();
 
   return (
     <section className="relative overflow-hidden bg-hero-glow pt-32 pb-20 sm:pt-40 sm:pb-28">
@@ -64,7 +62,7 @@ export function Hero() {
         {/* Copy */}
         <div className="text-center lg:text-left">
           <motion.div
-            initial={reduce ? false : { opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease }}
           >
@@ -76,7 +74,7 @@ export function Hero() {
 
           <motion.h1
             className="font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl"
-            initial={reduce ? false : { opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.08, ease }}
           >
@@ -87,7 +85,7 @@ export function Hero() {
 
           <motion.p
             className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-soft lg:mx-0"
-            initial={reduce ? false : { opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.16, ease }}
           >
@@ -96,7 +94,7 @@ export function Hero() {
 
           <motion.div
             className="mt-9 flex flex-col items-center gap-4 sm:flex-row lg:justify-start sm:justify-center"
-            initial={reduce ? false : { opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.24, ease }}
           >
@@ -110,7 +108,7 @@ export function Hero() {
 
           <motion.p
             className="mt-6 flex items-center justify-center gap-2 text-sm text-muted lg:justify-start"
-            initial={reduce ? false : { opacity: 0 }}
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >

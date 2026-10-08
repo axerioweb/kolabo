@@ -123,7 +123,7 @@ export function CompanyForm({
   if (done) {
     return (
       <motion.div
-        initial={reduce ? false : { opacity: 0, scale: 0.96 }}
+        initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         className="card mx-auto max-w-lg p-10 text-center"
       >
