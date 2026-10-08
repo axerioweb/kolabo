@@ -14,14 +14,18 @@ type Href = Parameters<typeof getPathname>[0]["href"];
 
 function entry(
   href: Href,
-  opts: { priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }
+  opts: {
+    priority: number;
+    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+    lastModified?: Date;
+  }
 ): MetadataRoute.Sitemap[number] {
   const languages = Object.fromEntries(
     routing.locales.map((locale) => [locale, SITE_URL + getPathname({ locale, href })])
   );
   return {
     url: SITE_URL + getPathname({ locale: routing.defaultLocale, href }),
-    lastModified: new Date(),
+    ...(opts.lastModified ? { lastModified: opts.lastModified } : {}),
     changeFrequency: opts.changeFrequency,
     priority: opts.priority,
     alternates: { languages },
@@ -46,12 +50,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   if (isSupabaseConfigured) {
-    const usernames = await getPublicUsernames(createPublicClient());
+    const profiles = await getPublicUsernames(createPublicClient());
     pages.push(
-      ...usernames.map((username) =>
+      ...profiles.map(({ username, updated_at }) =>
         entry(
           { pathname: "/creators/[username]", params: { username } },
-          { priority: 0.6, changeFrequency: "weekly" }
+          { priority: 0.6, changeFrequency: "weekly", lastModified: new Date(updated_at) }
         )
       )
     );
