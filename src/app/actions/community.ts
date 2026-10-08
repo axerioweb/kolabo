@@ -100,6 +100,10 @@ export async function createReport(
     reason,
     details: details.trim().slice(0, 1000) || null,
   });
-  if (error) return { ok: false, error: "save_failed" };
+  if (error) {
+    if (error.code === "23505") return { ok: false, error: "already_reported" };
+    if (error.message.includes("rate_limited")) return { ok: false, error: "rate_limited" };
+    return { ok: false, error: "save_failed" };
+  }
   return { ok: true };
 }

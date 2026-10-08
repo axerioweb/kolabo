@@ -55,6 +55,7 @@ function mapDbError(message: string | undefined, code: string | undefined): stri
   if (code === "23505") return "duplicate_pending";
   if (message?.includes("rate_limited")) return "rate_limited";
   if (message?.includes("invalid_status_transition")) return "invalid_transition";
+  if (message?.includes("suspended")) return "suspended";
   if (code === "42501" || message?.includes("row-level security")) return "not_allowed";
   return "save_failed";
 }
@@ -208,7 +209,7 @@ export async function sendMessage(
 ): Promise<ActionResult<Message>> {
   const text = body.trim();
   if (!text) return { ok: false, error: "required" };
-  if (text.length > 4000) return { ok: false, error: "too_long" };
+  if (text.length > 2000) return { ok: false, error: "too_long" };
   if (!isSupabaseConfigured) {
     return {
       ok: true,

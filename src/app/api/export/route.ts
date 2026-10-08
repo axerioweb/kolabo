@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import { COMPANY_COLS, PROFILE_COLS } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -21,7 +22,9 @@ export async function GET() {
   const uid = user.id;
   const [
     profile,
+    privateProfile,
     company,
+    companyPrivate,
     socials,
     categories,
     services,
@@ -35,8 +38,10 @@ export async function GET() {
     notifications,
     reports,
   ] = await Promise.all([
-    supabase.from("profiles").select("*").eq("id", uid).maybeSingle(),
-    supabase.from("companies").select("*").eq("profile_id", uid).maybeSingle(),
+    supabase.from("profiles").select(PROFILE_COLS).eq("id", uid).maybeSingle(),
+    supabase.rpc("my_private_profile").maybeSingle(),
+    supabase.from("companies").select(COMPANY_COLS).eq("profile_id", uid).maybeSingle(),
+    supabase.rpc("company_private", { pid: uid }).maybeSingle(),
     supabase.from("social_accounts").select("*").eq("profile_id", uid),
     supabase.from("profile_categories").select("*").eq("profile_id", uid),
     supabase.from("services").select("*").eq("profile_id", uid),
@@ -57,8 +62,8 @@ export async function GET() {
   const body = {
     exported_at: new Date().toISOString(),
     account: { id: uid, email: user.email, created_at: user.created_at },
-    profile: profile.data,
-    company: company.data,
+    profile: { ...(profile.data ?? {}), ...(privateProfile.data ?? {}) },
+    company: company.data ? { ...company.data, ...(companyPrivate.data ?? {}) } : null,
     social_accounts: socials.data,
     categories: categories.data,
     services: services.data,

@@ -5,7 +5,13 @@ import { PUBLIC_CREATORS_TAG } from "@/lib/supabase/public";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import type { OnboardingData } from "@/lib/onboarding-types";
-import { MAX_CATEGORIES } from "@/lib/taxonomy";
+import {
+  CATEGORIES,
+  CONTENT_LANGUAGES,
+  MAX_CATEGORIES,
+  PLATFORMS,
+  SERVICE_TYPES,
+} from "@/lib/taxonomy";
 import { normalizeUsername, usernameError } from "@/lib/validation";
 
 function num(v: string): number | null {
@@ -48,7 +54,17 @@ export async function saveOnboarding(
   if (!user) return { ok: false, error: "not_authenticated" };
   const uid = user.id;
 
-  // --- Validation -------------------------------------------------
+  // Only creators have a creator profile (companies use saveCompanyProfile)
+  const { data: me } = await supabase.from("profiles").select("role").eq("id", uid).single();
+  if (me?.role !== "influencer") return { ok: false, error: "not_allowed" };
+
+  // --- Validation (enums are validated before they reach any filter) ---
+  const validSlugs = new Set(CATEGORIES.map((c) => c.slug));
+  const validLangs = new Set<string>(CONTENT_LANGUAGES.map((l) => l.code));
+  data.categories = data.categories.filter((s) => validSlugs.has(s));
+  data.socials = data.socials.filter((s) => (PLATFORMS as readonly string[]).includes(s.platform));
+  data.services = data.services.filter((s) => (SERVICE_TYPES as readonly string[]).includes(s.service_type));
+  data.basics.languages = data.basics.languages.filter((l) => validLangs.has(l));
   const username = normalizeUsername(data.basics.username);
   if (username) {
     const err = usernameError(username);

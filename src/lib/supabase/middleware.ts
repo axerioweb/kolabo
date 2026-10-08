@@ -7,15 +7,16 @@ import {
 } from "./config";
 
 /**
- * Refreshes the Supabase auth session on every request.
+ * Refreshes the Supabase auth session on every request and reports
+ * whether a user is signed in (used by the auth gate in middleware).
  * Refreshed auth cookies are written onto the response produced by the
  * next-intl middleware, so locale rewrites/redirects stay intact.
  */
 export async function updateSession(
   request: NextRequest,
   response: NextResponse
-) {
-  if (!isSupabaseConfigured) return response;
+): Promise<{ response: NextResponse; signedIn: boolean }> {
+  if (!isSupabaseConfigured) return { response, signedIn: true };
 
   const supabase = createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     cookies: {
@@ -32,7 +33,9 @@ export async function updateSession(
   });
 
   // Do not remove — refreshes the auth token when it is about to expire
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  return response;
+  return { response, signedIn: !!user };
 }

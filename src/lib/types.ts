@@ -192,6 +192,18 @@ export interface CreatorCardData {
   barter: BarterPreference | null;
   rating: number | null;
   reviews_count: number;
+  /** % of requests (last 180 days) the creator answered; null = no data yet */
+  response_rate: number | null;
+  median_response_hours: number | null;
+  last_active_at: string | null;
+}
+
+/** Output of the `creator_stats` RPC. */
+export interface CreatorStats {
+  response_rate: number | null;
+  median_response_hours: number | null;
+  last_active_at: string | null;
+  responded_count: number;
 }
 
 export interface SearchResult {
@@ -219,6 +231,7 @@ export interface PublicCreator {
   services: Service[];
   collaboration: CollaborationPrefs | null;
   reviews: PublicReview[];
+  stats: CreatorStats;
 }
 
 export interface PublicReview {
@@ -259,6 +272,7 @@ export interface CollaborationRequest {
   decline_reason: string | null;
   responded_at: string | null;
   completed_at: string | null;
+  reminded_at?: string | null;
   created_at: string;
   updated_at: string;
 }

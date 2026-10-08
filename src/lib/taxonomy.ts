@@ -416,6 +416,16 @@ export const TAX_ID_LABELS: Partial<Record<Country, LocalizedLabel>> = {
   SI: { sr: "Davčna številka", en: "Tax ID (DDV)" },
 };
 
+/** Javni registri privrednih subjekata — za admin proveru PIB/MB. */
+export const COMPANY_REGISTRY_URLS: Partial<Record<Country, string>> = {
+  RS: "https://pretraga2.apr.gov.rs/unifiedentitysearch",
+  HR: "https://sudreg.pravosudje.hr/registar/f?p=150:1",
+  BA: "https://bizreg.pravosudje.ba/",
+  ME: "https://www.crps.me/",
+  MK: "https://www.crm.com.mk/",
+  SI: "https://www.ajpes.si/prs/",
+};
+
 /* ------------------------------------------------------------------ */
 /* Collaboration requests (upiti za saradnju)                          */
 /* ------------------------------------------------------------------ */
@@ -427,6 +437,7 @@ export const REQUEST_STATUSES = [
   "completed",
   "declined",
   "cancelled",
+  "expired",
 ] as const;
 export type RequestStatus = (typeof REQUEST_STATUSES)[number];
 

@@ -5,6 +5,7 @@ import type { AppPathname } from "@/i18n/routing";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 import { demoSession, type DemoRole } from "@/lib/demo-data";
+import { COMPANY_COLS, getMyPrivateProfile, PROFILE_COLS } from "@/lib/queries";
 import type { Company, Profile, SessionContext, UserRole } from "@/lib/types";
 
 /** Cookie that picks which role the demo mode previews. */
@@ -29,9 +30,9 @@ export const getSession = cache(async (): Promise<SessionContext | null> => {
   } = await supabase.auth.getUser();
   if (!user) return null;
 
-  const [profileRes, companyRes, notifRes, msgRes] = await Promise.all([
-    supabase.from("profiles").select("*").eq("id", user.id).maybeSingle(),
-    supabase.from("companies").select("*").eq("profile_id", user.id).maybeSingle(),
+  const [profileRes, companyRes, notifRes, msgRes, priv] = await Promise.all([
+    supabase.from("profiles").select(PROFILE_COLS).eq("id", user.id).maybeSingle(),
+    supabase.from("companies").select(COMPANY_COLS).eq("profile_id", user.id).maybeSingle(),
     supabase
       .from("notifications")
       .select("id", { count: "exact", head: true })
@@ -42,6 +43,7 @@ export const getSession = cache(async (): Promise<SessionContext | null> => {
       .select("id", { count: "exact", head: true })
       .eq("recipient_id", user.id)
       .is("read_at", null),
+    getMyPrivateProfile(supabase),
   ]);
 
   if (!profileRes.data) return null;
@@ -49,8 +51,19 @@ export const getSession = cache(async (): Promise<SessionContext | null> => {
   return {
     userId: user.id,
     email: user.email ?? null,
-    profile: profileRes.data as Profile,
-    company: (companyRes.data as Company) ?? null,
+    profile: { ...(profileRes.data as Profile), ...priv },
+    company: companyRes.data
+      ? ({
+          legal_name: null,
+          tax_id: null,
+          registration_number: null,
+          contact_name: null,
+          contact_role: null,
+          budget_min: null,
+          budget_max: null,
+          ...(companyRes.data as object),
+        } as Company)
+      : null,
     unreadNotifications: notifRes.count ?? 0,
     unreadMessages: msgRes.count ?? 0,
     demo: false,

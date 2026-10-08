@@ -70,12 +70,31 @@ export async function setSuspended(profileId: string, suspended: boolean): Promi
   return { ok: true };
 }
 
+/** Admin asks a company for missing verification details (in-app + email). */
+export async function requestCompanyInfo(profileId: string, note: string): Promise<AdminResult> {
+  if (!isSupabaseConfigured) return { ok: true, demo: true };
+  const text = note.trim().slice(0, 500);
+  if (!text) return { ok: false, error: "required" };
+  const supabase = await adminClient();
+  if (!supabase) return { ok: false, error: "not_admin" };
+
+  const { error } = await supabase.from("notifications").insert({
+    profile_id: profileId,
+    type: "system",
+    template: "company_info_needed",
+    data: { note: text },
+  });
+  if (error) return { ok: false, error: "save_failed" };
+  return { ok: true };
+}
+
 export async function resolveReport(
   id: string,
   status: Exclude<ReportStatus, "open">,
   note: string
 ): Promise<AdminResult> {
   if (!isSupabaseConfigured) return { ok: true, demo: true };
+  if (status !== "resolved" && status !== "dismissed") return { ok: false, error: "invalid" };
   const supabase = await adminClient();
   if (!supabase) return { ok: false, error: "not_admin" };
 

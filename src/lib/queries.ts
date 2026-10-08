@@ -1,6 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type {
   AppNotification,
+  CreatorStats,
   CollaborationPrefs,
   CollaborationRequest,
   Company,
@@ -34,6 +35,45 @@ import {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type AnyClient = SupabaseClient<any, any, any>;
+
+/**
+ * Columns `authenticated` may read on profiles / companies (column-level
+ * grants in 0014_hardening.sql). `select("*")` would be a permission error.
+ * Private columns come from the RPCs my_private_profile / company_private.
+ */
+export const PROFILE_COLS =
+  "id, role, status, full_name, username, avatar_url, bio, country, city, content_languages, onboarding_completed, verified_at, created_at, updated_at";
+export const COMPANY_COLS =
+  "profile_id, name, company_type, industry, size, website, instagram, country, city, description, logo_url, interested_categories, currency, created_at, updated_at";
+
+const EMPTY_PRIVATE = {
+  birth_year: null,
+  gender: null,
+  marketing_opt_in: false,
+  terms_accepted_at: null,
+} as const;
+
+const EMPTY_COMPANY_PRIVATE = {
+  legal_name: null,
+  tax_id: null,
+  registration_number: null,
+  contact_name: null,
+  contact_role: null,
+  budget_min: null,
+  budget_max: null,
+} as const;
+
+/** Own private profile columns (birth year, gender, consents). */
+export async function getMyPrivateProfile(supabase: AnyClient) {
+  const { data } = await supabase.rpc("my_private_profile").maybeSingle();
+  return (data as typeof EMPTY_PRIVATE | null) ?? EMPTY_PRIVATE;
+}
+
+/** Private company columns: own (pid = me) or, for admins, all/one. */
+export async function getCompanyPrivate(supabase: AnyClient, pid?: string) {
+  const { data } = await supabase.rpc("company_private", { pid: pid ?? null });
+  return ((data as (typeof EMPTY_COMPANY_PRIVATE & { profile_id: string })[]) ?? []);
+}
 
 /** PostgREST embed for everything that makes up an influencer profile. */
 const INFLUENCER_EMBED =
@@ -75,23 +115,34 @@ export async function getProfile(
 ): Promise<Profile | null> {
   const { data } = await supabase
     .from("profiles")
-    .select("*")
+    .select(PROFILE_COLS)
     .eq("id", userId)
     .maybeSingle();
-  return (data as Profile) ?? null;
+  return data ? ({ ...EMPTY_PRIVATE, ...(data as object) } as Profile) : null;
 }
 
-/** Full influencer profile in ONE request (embedded relations). */
+/**
+ * Full influencer profile in ONE request (embedded relations).
+ * `own = true` also loads the private columns (birth year, gender) via RPC —
+ * needed when the creator edits their own profile.
+ */
 export async function getInfluencerFull(
   supabase: AnyClient,
-  userId: string
+  userId: string,
+  own = false
 ): Promise<InfluencerFull | null> {
-  const { data } = await supabase
-    .from("profiles")
-    .select(`*, ${INFLUENCER_EMBED}`)
-    .eq("id", userId)
-    .maybeSingle();
-  return data ? toInfluencerFull(data) : null;
+  const [{ data }, priv] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select(`${PROFILE_COLS}, ${INFLUENCER_EMBED}`)
+      .eq("id", userId)
+      .maybeSingle(),
+    own ? getMyPrivateProfile(supabase) : Promise.resolve(EMPTY_PRIVATE),
+  ]);
+  if (!data) return null;
+  const full = toInfluencerFull(data);
+  full.profile = { ...full.profile, ...priv };
+  return full;
 }
 
 /** Admin: all influencers in one request. */
@@ -100,7 +151,7 @@ export async function getAllInfluencers(
 ): Promise<InfluencerFull[]> {
   const { data } = await supabase
     .from("profiles")
-    .select(`*, ${INFLUENCER_EMBED}`)
+    .select(`${PROFILE_COLS}, ${INFLUENCER_EMBED}`)
     .eq("role", "influencer")
     .order("created_at", { ascending: false })
     .limit(1000);
@@ -111,37 +162,51 @@ export async function getCompanyFull(
   supabase: AnyClient,
   userId: string
 ): Promise<CompanyFull | null> {
-  const { data } = await supabase
-    .from("profiles")
-    .select("*, companies(*), contact_prefs(*)")
-    .eq("id", userId)
-    .maybeSingle();
+  const [{ data }, priv, companyPriv] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select(`${PROFILE_COLS}, companies(${COMPANY_COLS}), contact_prefs(*)`)
+      .eq("id", userId)
+      .maybeSingle(),
+    getMyPrivateProfile(supabase),
+    getCompanyPrivate(supabase, userId),
+  ]);
   if (!data) return null;
   const { companies, contact_prefs, ...profile } = data as any;
   const company = one(companies) as Company | null;
   if (!company) return null;
+  const { profile_id: _pid, ...privCols } = companyPriv[0] ?? { profile_id: userId, ...EMPTY_COMPANY_PRIVATE };
+  void _pid;
   return {
-    profile: profile as Profile,
-    company,
+    profile: { ...(profile as Profile), ...priv },
+    company: { ...company, ...EMPTY_COMPANY_PRIVATE, ...privCols },
     contact: one(contact_prefs) as ContactPrefs | null,
   };
 }
 
 /** Admin: all companies with their profile row. */
 export async function getAllCompanies(supabase: AnyClient): Promise<CompanyFull[]> {
-  const { data } = await supabase
-    .from("profiles")
-    .select("*, companies(*), contact_prefs(*)")
-    .eq("role", "company")
-    .order("created_at", { ascending: false })
-    .limit(1000);
+  const [{ data }, privRows] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select(`${PROFILE_COLS}, companies(${COMPANY_COLS}), contact_prefs(*)`)
+      .eq("role", "company")
+      .order("created_at", { ascending: false })
+      .limit(1000),
+    getCompanyPrivate(supabase), // admin → all rows
+  ]);
+  const priv = new Map(privRows.map((r) => [r.profile_id, r]));
   return (data ?? [])
     .map((row: any) => {
       const { companies, contact_prefs, ...profile } = row;
       const company = one(companies) as Company | null;
-      return company
-        ? { profile: profile as Profile, company, contact: one(contact_prefs) }
-        : null;
+      if (!company) return null;
+      const p = priv.get(company.profile_id);
+      return {
+        profile: { ...(profile as Profile), ...EMPTY_PRIVATE },
+        company: { ...company, ...EMPTY_COMPANY_PRIVATE, ...(p ?? {}) },
+        contact: one(contact_prefs),
+      };
     })
     .filter(Boolean) as CompanyFull[];
 }
@@ -207,6 +272,9 @@ export async function searchCreators(
       min_price_eur:
         r.profile.min_price_eur != null ? Number(r.profile.min_price_eur) : null,
       rating: r.profile.rating != null ? Number(r.profile.rating) : null,
+      response_rate: r.profile.response_rate ?? null,
+      median_response_hours: r.profile.median_response_hours ?? null,
+      last_active_at: r.profile.last_active_at ?? null,
     })),
     total: rows[0] ? Number(rows[0].total_count) : 0,
   };
@@ -232,7 +300,15 @@ export async function getPublicCreator(
     .maybeSingle();
   if (!data) return null;
   const row = data as any;
+  const { data: stats } = await client.rpc("creator_stats", { pid: row.id }).maybeSingle();
+  const st = (stats ?? {}) as Partial<CreatorStats>;
   return {
+    stats: {
+      response_rate: st.response_rate ?? null,
+      median_response_hours: st.median_response_hours ?? null,
+      last_active_at: st.last_active_at ?? null,
+      responded_count: st.responded_count ?? 0,
+    },
     profile: {
       id: row.id,
       full_name: row.full_name,
@@ -257,17 +333,19 @@ export async function getPublicCreator(
   };
 }
 
-/** Usernames for sitemap / static params (public profiles only). */
-export async function getPublicUsernames(client: AnyClient): Promise<string[]> {
+/** Public profiles for the sitemap (username + last change). */
+export async function getPublicUsernames(
+  client: AnyClient
+): Promise<{ username: string; updated_at: string }[]> {
   const { data } = await client
     .from("profiles")
-    .select("username")
+    .select("username, updated_at")
     .eq("role", "influencer")
     .eq("status", "active")
     .eq("onboarding_completed", true)
     .not("username", "is", null)
     .limit(5000);
-  return (data ?? []).map((r: { username: string }) => r.username);
+  return (data ?? []) as { username: string; updated_at: string }[];
 }
 
 /** Maps an embedded influencer row to the search card shape. */
@@ -305,6 +383,9 @@ export function toCardData(full: InfluencerFull): CreatorCardData {
     barter: full.collaboration?.barter ?? null,
     rating: null,
     reviews_count: 0,
+    response_rate: null,
+    median_response_hours: null,
+    last_active_at: null,
   };
 }
 
@@ -371,7 +452,7 @@ export async function getRequestDetail(
     await Promise.all([
       supabase
         .from("profiles")
-        .select("id, full_name, avatar_url, verified_at, companies(*)")
+        .select(`id, full_name, avatar_url, verified_at, companies(${COMPANY_COLS})`)
         .eq("id", r.company_id)
         .maybeSingle(),
       supabase

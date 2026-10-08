@@ -408,6 +408,9 @@ export function demoCardData(full: InfluencerFull): CreatorCardData {
     barter: full.collaboration?.barter ?? null,
     rating: full.profile.id === "demo-1" ? 4.9 : null,
     reviews_count: full.profile.id === "demo-1" ? 3 : 0,
+    response_rate: full.profile.id === "demo-1" ? 100 : full.profile.id === "demo-2" ? 80 : null,
+    median_response_hours: full.profile.id === "demo-1" ? 6 : full.profile.id === "demo-2" ? 30 : null,
+    last_active_at: new Date(Date.now() - 3600e3 * 2).toISOString(),
   };
 }
 
@@ -420,6 +423,12 @@ export function demoPublicCreator(username: string): PublicCreator | null {
     categories: full.categories,
     services: full.services,
     collaboration: full.collaboration,
+    stats: {
+      response_rate: full.profile.id === "demo-1" ? 100 : null,
+      median_response_hours: full.profile.id === "demo-1" ? 6 : null,
+      last_active_at: iso(3600e3 * 2),
+      responded_count: full.profile.id === "demo-1" ? 3 : 0,
+    },
     reviews:
       full.profile.id === "demo-1"
         ? [

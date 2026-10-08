@@ -100,8 +100,10 @@ export async function saveCompanyProfile(
   const categories = input.interested_categories.filter((s) => validSlugs.has(s)).slice(0, 10);
 
   // --- Writes -------------------------------------------------------
-  const { error: companyError } = await supabase.from("companies").upsert({
-    profile_id: user.id,
+  // UPDATE, not upsert: ON CONFLICT DO UPDATE needs SELECT on every column,
+  // but authenticated only sees the public company columns (0014).
+  // The row always exists — handle_new_user creates it at sign-up.
+  const companyRow = {
     name: name.slice(0, 120),
     legal_name: input.legal_name.trim().slice(0, 200) || null,
     company_type: input.company_type,
@@ -120,8 +122,18 @@ export async function saveCompanyProfile(
     budget_min: budgetMin,
     budget_max: budgetMax,
     currency: input.currency,
-  });
+  };
+  const { error: companyError, count } = await supabase
+    .from("companies")
+    .update(companyRow, { count: "exact" })
+    .eq("profile_id", user.id);
   if (companyError) return { ok: false, error: "save_failed" };
+  if (!count) {
+    const { error: insertError } = await supabase
+      .from("companies")
+      .insert({ profile_id: user.id, ...companyRow });
+    if (insertError) return { ok: false, error: "save_failed" };
+  }
 
   const phone = input.phone.trim().slice(0, 30);
   const [profileRes, contactRes] = await Promise.all([
