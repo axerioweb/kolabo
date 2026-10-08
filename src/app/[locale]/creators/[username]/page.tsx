@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { cache } from "react";
+import { publicMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import {
   BadgeCheck,
   Calendar,
@@ -12,6 +14,7 @@ import {
   MapPin,
   Plane,
   Users,
+  Zap,
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
@@ -52,11 +55,12 @@ export function generateStaticParams() {
 
 type Props = { params: Promise<{ locale: string; username: string }> };
 
-async function load(username: string): Promise<PublicCreator | null> {
+// cache(): generateMetadata and the page share ONE query per request
+const load = cache(async (username: string): Promise<PublicCreator | null> => {
   const u = decodeURIComponent(username).toLowerCase();
   if (!isSupabaseConfigured) return demoPublicCreator(u);
   return getPublicCreator(createPublicClient(), u);
-}
+});
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, username } = await params;
@@ -75,23 +79,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description =
     p.bio?.slice(0, 155) ||
     t("metaDescription", { name: p.full_name, categories: cats, city: p.city ?? "" });
-  const srPath = `/kreatori/${p.username}`;
-  const enPath = `/en/creators/${p.username}`;
-
-  return {
+  return publicMetadata({
+    locale,
     title,
     description,
-    alternates: {
-      canonical: locale === "sr" ? srPath : enPath,
-      languages: { sr: srPath, en: enPath, "x-default": srPath },
-    },
-    openGraph: {
-      type: "profile",
-      title,
-      description,
-      images: p.avatar_url ? [{ url: p.avatar_url, width: 400, height: 400 }] : undefined,
-    },
-  };
+    sr: `/kreatori/${p.username}`,
+    en: `/en/creators/${p.username}`,
+    type: "profile",
+  });
 }
 
 export default async function CreatorProfilePage({ params }: Props) {
@@ -101,7 +96,8 @@ export default async function CreatorProfilePage({ params }: Props) {
   if (!creator) notFound();
 
   const t = await getTranslations({ locale, namespace: "profile" });
-  const { profile: p, socials, services, collaboration: collab, reviews } = creator;
+  const format = await getFormatter({ locale });
+  const { profile: p, socials, services, collaboration: collab, reviews, stats } = creator;
 
   const location = [p.city, p.country && label(COUNTRY_LABELS[p.country], locale)]
     .filter(Boolean)
@@ -176,7 +172,12 @@ export default async function CreatorProfilePage({ params }: Props) {
                   <h1 className="flex flex-wrap items-center gap-2 font-display text-3xl font-bold tracking-tight">
                     {p.full_name}
                     {p.verified_at && (
-                      <BadgeCheck className="h-7 w-7 text-brand-500" aria-label={t("verified")} />
+                      <BadgeCheck
+                        className="h-7 w-7 text-brand-500"
+                        aria-label={t("verified")}
+                        // native tooltip explains what the badge certifies
+                        {...{ title: t("verifiedMeaning") }}
+                      />
                     )}
                   </h1>
                   <p className="mt-1 text-muted">@{p.username}</p>
@@ -408,6 +409,33 @@ export default async function CreatorProfilePage({ params }: Props) {
                   <p className="text-xs text-muted">{label(SERVICE_LABELS[startingPrice.service_type], locale)}</p>
                 )}
                 <ul className="mt-5 space-y-2.5 text-sm">
+                  {stats.response_rate != null ? (
+                    <li className="flex items-center gap-2.5">
+                      <Zap className="h-4 w-4 text-emerald-600" />
+                      <span>
+                        <span className="font-semibold">{t("responseRate")}: {stats.response_rate}%</span>
+                        {stats.median_response_hours != null && (
+                          <span className="text-muted">
+                            {" · "}
+                            {t("responseTime")} {t("responseHours", { hours: Math.max(1, stats.median_response_hours) })}
+                          </span>
+                        )}
+                      </span>
+                    </li>
+                  ) : (
+                    <li className="flex items-center gap-2.5 text-muted">
+                      <Zap className="h-4 w-4" />
+                      {t("noStats")}
+                    </li>
+                  )}
+                  {stats.last_active_at && (
+                    <li className="flex items-center gap-2.5 text-muted">
+                      <Calendar className="h-4 w-4" />
+                      {t("lastActive", {
+                        when: format.relativeTime(new Date(stats.last_active_at), new Date()),
+                      })}
+                    </li>
+                  )}
                   {collab && (
                     <li className="flex items-center gap-2.5">
                       <Gift className="h-4 w-4 text-muted" />

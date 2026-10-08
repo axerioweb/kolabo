@@ -20,20 +20,20 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion";
+import { publicMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "forBrands" });
-  return {
+  return publicMetadata({
+    locale,
     title: t("metaTitle"),
     description: t("metaDescription"),
-    alternates: {
-      canonical: locale === "sr" ? "/za-brendove" : "/en/for-brands",
-      languages: { sr: "/za-brendove", en: "/en/for-brands", "x-default": "/za-brendove" },
-    },
-  };
+    sr: "/za-brendove",
+    en: "/en/for-brands",
+  });
 }
 
 const FAQ = ["q1", "q2", "q3", "q4"] as const;
@@ -74,7 +74,7 @@ export default async function ForBrandsPage({ params }: Props) {
         {/* Hero */}
         <section className="relative overflow-hidden bg-hero-glow pt-32 pb-20 sm:pt-40">
           <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
-            <Reveal>
+            <div className="animate-fade-up">
               <Badge tone="brand" className="mb-6">
                 <BadgeCheck className="h-3.5 w-3.5" />
                 {t("badge")}
@@ -98,7 +98,7 @@ export default async function ForBrandsPage({ params }: Props) {
                 </Button>
               </div>
               <p className="mt-5 text-sm text-muted">{t("note")}</p>
-            </Reveal>
+            </div>
           </div>
         </section>
 

@@ -26,7 +26,8 @@ export default async function LandingPage({ params }: Props) {
         "@type": "Organization",
         name: "Kolabo",
         url: SITE_URL,
-        logo: `${SITE_URL}/icon.svg`,
+        // generated 1200x630 PNG card (OG routes live under the locale segment)
+        logo: `${SITE_URL}/sr/opengraph-image`,
         description: t("description"),
         areaServed: ["RS", "HR", "BA", "ME", "MK", "SI"],
       },

@@ -1,6 +1,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { CATEGORIES, label } from "@/lib/taxonomy";
 import { Reveal } from "@/components/motion";
+import { Link } from "@/i18n/navigation";
 
 export function CategoriesMarquee() {
   const t = useTranslations("landing.categories");
@@ -29,13 +30,17 @@ export function CategoriesMarquee() {
               style={i === 1 ? { animationDirection: "reverse" } : undefined}
             >
               {[...row, ...row].map((c, j) => (
-                <span
+                <Link
                   key={`${c.slug}-${j}`}
+                  href={{ pathname: "/creators/category/[slug]", params: { slug: c.slug } }}
+                  // second copy exists only for the seamless loop
+                  aria-hidden={j >= row.length || undefined}
+                  tabIndex={j >= row.length ? -1 : undefined}
                   className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-semibold text-ink-soft shadow-soft transition-colors hover:border-brand-300 hover:text-brand-700"
                 >
                   <span aria-hidden>{c.emoji}</span>
                   {label(c.label, locale)}
-                </span>
+                </Link>
               ))}
             </div>
           </div>

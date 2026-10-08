@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LegalDocument } from "@/components/legal-document";
+import { publicMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "legal.terms" });
-  return {
+  return publicMetadata({
+    locale,
     title: t("title"),
-    alternates: {
-      canonical: locale === "sr" ? "/uslovi" : "/en/terms",
-      languages: { sr: "/uslovi", en: "/en/terms", "x-default": "/uslovi" },
-    },
-  };
+    description: t.raw("intro") as string,
+    sr: "/uslovi",
+    en: "/en/terms",
+  });
 }
 
 export default async function TermsPage({ params }: Props) {

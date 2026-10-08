@@ -16,6 +16,7 @@ import { Footer } from "@/components/footer";
 import { CreatorCard } from "@/components/creators/creator-card";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
+import { publicMetadata } from "@/lib/seo";
 
 // Programmatic SEO landing pages — one per category, refreshed every 10 min
 export const revalidate = 600;
@@ -34,16 +35,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return {};
   const t = await getTranslations({ locale, namespace: "categoryPage" });
   const name = label(category.label, locale);
-  const sr = `/kreatori/kategorija/${slug}`;
-  const en = `/en/creators/category/${slug}`;
-  return {
+  return publicMetadata({
+    locale,
     title: t("metaTitle", { category: name }),
     description: t("metaDescription", { category: name.toLowerCase() }),
-    alternates: {
-      canonical: locale === "sr" ? sr : en,
-      languages: { sr, en, "x-default": sr },
-    },
-  };
+    sr: `/kreatori/kategorija/${slug}`,
+    en: `/en/creators/category/${slug}`,
+  });
 }
 
 export default async function CategoryPage({ params }: Props) {

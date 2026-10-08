@@ -1,14 +1,10 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { BadgeCheck, Heart, Sparkles, TrendingUp } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SocialIcon } from "@/components/social-icons";
-
-const ease = [0.22, 1, 0.36, 1] as const;
+import { cn } from "@/lib/utils";
 
 function FloatingCard({
   className,
@@ -20,20 +16,18 @@ function FloatingCard({
   children: React.ReactNode;
 }) {
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 30, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.8, delay, ease }}
+    <div
+      className={cn("animate-fade-up", className)}
+      style={{ "--fade-delay": `${delay}s` } as React.CSSProperties}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 export function Hero() {
   const t = useTranslations("landing.hero");
-  const locale = useLocale();
+  const c = useTranslations("landing.hero.card");
 
   return (
     <section className="relative overflow-hidden bg-hero-glow pt-32 pb-20 sm:pt-40 sm:pb-28">
@@ -61,60 +55,31 @@ export function Hero() {
       <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.1fr_1fr]">
         {/* Copy */}
         <div className="text-center lg:text-left">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease }}
-          >
-            <Badge tone="brand" className="mb-6">
+          <div className="animate-fade-up"><Badge tone="brand" className="mb-6">
               <Sparkles className="h-3.5 w-3.5" />
               {t("badge")}
             </Badge>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            className="font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.08, ease }}
-          >
-            {t("title1")}
+          <h1 className="animate-fade-up font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl" style={{ "--fade-delay": "0.08s" } as React.CSSProperties}>{t("title1")}
             <br />
             <span className="text-gradient">{t("title2")}</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-soft lg:mx-0"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.16, ease }}
-          >
-            {t("subtitle")}
-          </motion.p>
+          <p className="animate-fade-up mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-soft lg:mx-0" style={{ "--fade-delay": "0.16s" } as React.CSSProperties}>{t("subtitle")}
+          </p>
 
-          <motion.div
-            className="mt-9 flex flex-col items-center gap-4 sm:flex-row lg:justify-start sm:justify-center"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.24, ease }}
-          >
-            <Button asChild size="lg">
+          <div className="animate-fade-up mt-9 flex flex-col items-center gap-4 sm:flex-row lg:justify-start sm:justify-center" style={{ "--fade-delay": "0.24s" } as React.CSSProperties}><Button asChild size="lg">
               <Link href="/signup">{t("ctaPrimary")}</Link>
             </Button>
             <Button asChild variant="secondary" size="lg">
               <Link href="/for-brands">{t("ctaSecondary")}</Link>
             </Button>
-          </motion.div>
+          </div>
 
-          <motion.p
-            className="mt-6 flex items-center justify-center gap-2 text-sm text-muted lg:justify-start"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <BadgeCheck className="h-4 w-4 text-emerald-500" />
+          <p className="animate-fade-up mt-6 flex items-center justify-center gap-2 text-sm text-muted lg:justify-start" style={{ "--fade-delay": "0.4s" } as React.CSSProperties}><BadgeCheck className="h-4 w-4 text-emerald-500" />
             {t("noFollowersMin")} · {t("socialProof")}
-          </motion.p>
+          </p>
         </div>
 
         {/* Visual — mock profile card with floating stat chips */}
@@ -125,31 +90,31 @@ export function Hero() {
                 MJ
               </div>
               <div>
-                <p className="font-display font-bold">Milica Jovanović</p>
-                <p className="text-sm text-muted">@milica.style · Beograd</p>
+                <p className="font-display font-bold">{c("name")}</p>
+                <p className="text-sm text-muted">{c("handle")}</p>
               </div>
               <BadgeCheck className="ml-auto h-6 w-6 text-brand-500" />
             </div>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Badge tone="neutral">👗 {locale === "en" ? "Fashion" : "Moda"}</Badge>
-              <Badge tone="neutral">💄 {locale === "en" ? "Beauty" : "Lepota"}</Badge>
-              <Badge tone="neutral">🌿 Lifestyle</Badge>
+              <Badge tone="neutral">👗 {c("tag1")}</Badge>
+              <Badge tone="neutral">💄 {c("tag2")}</Badge>
+              <Badge tone="neutral">🌿 {c("tag3")}</Badge>
             </div>
             <div className="mt-5 grid grid-cols-3 gap-3 rounded-2xl bg-surface-soft p-4 text-center">
               <div>
                 <p className="font-display text-lg font-bold">25–50k</p>
                 <p className="text-xs text-muted">
-                  {locale === "en" ? "followers" : "pratilaca"}
+                  {c("followers")}
                 </p>
               </div>
               <div>
                 <p className="font-display text-lg font-bold text-brand-600">4.2%</p>
-                <p className="text-xs text-muted">engagement</p>
+                <p className="text-xs text-muted">{c("engagement")}</p>
               </div>
               <div>
                 <p className="font-display text-lg font-bold">80–150€</p>
                 <p className="text-xs text-muted">
-                  {locale === "en" ? "per post" : "po objavi"}
+                  {c("perPost")}
                 </p>
               </div>
             </div>
@@ -159,7 +124,7 @@ export function Hero() {
               <SocialIcon platform="youtube" />
               <span className="ml-auto">
                 <Badge tone="success">
-                  {locale === "en" ? "Open to collabs" : "Otvorena za saradnje"}
+                  {c("open")}
                 </Badge>
               </span>
             </div>
@@ -174,9 +139,9 @@ export function Hero() {
                 <TrendingUp className="h-4.5 w-4.5 text-emerald-600" />
               </span>
               <div className="text-sm">
-                <p className="font-bold">+3 {locale === "en" ? "inquiries" : "upita"}</p>
+                <p className="font-bold">{c("inquiries")}</p>
                 <p className="text-xs text-muted">
-                  {locale === "en" ? "this week" : "ove nedelje"}
+                  {c("thisWeek")}
                 </p>
               </div>
             </div>
@@ -192,10 +157,10 @@ export function Hero() {
               </span>
               <div className="text-sm">
                 <p className="font-bold">
-                  {locale === "en" ? "New collab" : "Nova saradnja"} 🎉
+                  {c("newCollab")} 🎉
                 </p>
                 <p className="text-xs text-muted">
-                  {locale === "en" ? "Beauty brand · barter + fee" : "Beauty brend · barter + honorar"}
+                  {c("newCollabSub")}
                 </p>
               </div>
             </div>

@@ -18,6 +18,7 @@ import { CreatorFiltersPanel } from "@/components/creators/filters";
 import { Pagination } from "@/components/creators/pagination";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Button } from "@/components/ui/button";
+import { publicMetadata } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -29,16 +30,15 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const t = await getTranslations({ locale, namespace: "creators" });
   const sp = await searchParams;
   const hasFilters = Object.keys(sp).length > 0;
-  return {
+  // Filter combinations would create endless duplicate URLs
+  return publicMetadata({
+    locale,
     title: t("metaTitle"),
     description: t("metaDescription"),
-    alternates: {
-      canonical: locale === "sr" ? "/kreatori" : "/en/creators",
-      languages: { sr: "/kreatori", en: "/en/creators", "x-default": "/kreatori" },
-    },
-    // Filter combinations would create endless duplicate URLs
-    robots: hasFilters ? { index: false, follow: true } : undefined,
-  };
+    sr: "/kreatori",
+    en: "/en/creators",
+    noIndex: hasFilters,
+  });
 }
 
 export default async function CreatorsPage({ params, searchParams }: Props) {
