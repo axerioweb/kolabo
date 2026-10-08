@@ -18,7 +18,13 @@ Stack: Next.js 15 (App Router) + Supabase + Tailwind v4 + next-intl + Framer Mot
 5. **Demo režim mora nastaviti da radi**: svaka stranica koja čita iz Supabase mora
    imati granu za `!isSupabaseConfigured` (koristi `src/lib/demo-data.ts`).
 6. **Ne razotkrivaj kontakt podatke**: `contact_prefs` se prikazuju samo vlasniku i
-   adminu; na budućim javnim profilima samo kanali iz `allowed_channels`.
+   adminu; drugoj strani u upitu samo kroz RPC `get_request_contact` (posle
+   prihvatanja, samo kanali iz `allowed_channels`). Javni profili nikad ne čitaju kontakt.
+7. **Uloge**: `influencer`, `company`, `admin`. Stranice štiti `requireSession(locale,
+   { roles })` iz `src/lib/session.ts`; admin se dodeljuje samo SQL-om.
+8. **Javne stranice** (katalog, profil, kategorije, sitemap) čitaju kroz
+   `createPublicClient()` (anon, keš sa tagom `public-creators`). Akcija koja menja
+   javne podatke kreatora mora da pozove `revalidateTag(PUBLIC_CREATORS_TAG)`.
 
 ## Konvencije
 
@@ -33,12 +39,21 @@ Stack: Next.js 15 (App Router) + Supabase + Tailwind v4 + next-intl + Framer Mot
 - Animacije: primitivi iz `src/components/motion.tsx` (`Reveal`, `StaggerGroup`);
   svaka animacija poštuje `prefers-reduced-motion`.
 
+## Baza
+
+- Prelazi statusa upita, zaštita uloge/verifikacije, limiti i obaveštenja su
+  trigeri u bazi — UI ih samo prati, ne zamenjuje.
+- Obaveštenja se upisuju kao `template` + `data` i prevode u
+  `notifications.templates.*` — novi šablon = ključ u oba fajla prevoda.
+- Migracije pisati BEZ `DROP` naredbi (polise menjati kroz `ALTER POLICY`);
+  Supabase konektor traži ručnu potvrdu za `DROP`/`DELETE`.
+
 ## Komande
 
 ```bash
-npm run dev      # razvoj (demo režim bez .env.local)
-npm run build    # OBAVEZNO prolazi pre svakog commita
-npm run lint
+npm run dev          # razvoj (demo režim bez .env.local)
+npm run i18n:check   # ključevi prevoda u oba jezika
+npm run check        # i18n + lint + build — OBAVEZNO pre svakog commita
 ```
 
 ## Skilovi

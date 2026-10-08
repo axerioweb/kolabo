@@ -46,8 +46,12 @@ description: Pravila za rad sa Supabase u Kolabo projektu — migracije, RLS pol
 
 - Čitanje kompozitnog profila: `getInfluencerFull()` / `getAllInfluencers()` iz
   `src/lib/queries.ts` — proširuj njih umesto ad-hoc upita po stranicama.
-- Zamena seta (mreže, kategorije, usluge): delete pa insert u okviru iste akcije
-  (vidi `saveOnboarding`) — idempotentno i jednostavno; optimizuj tek kad zatreba.
+- Zamena seta (mreže, kategorije, usluge): PRVO upsert, PA brisanje viška
+  (vidi `saveOnboarding`) — neuspeh na pola nikad ne ostavlja prazan profil.
+- Pretraga i inbox idu kroz RPC (`search_influencers`, `my_requests`); kontakt
+  druge strane samo kroz `get_request_contact`.
+- Javni podaci (anon) se čitaju eksplicitnim kolonama — `anon` nema pravo na
+  `profiles.birth_year`/`gender` (0009), pa `select *` kao anon puca.
 - Novi upit vraća tipove iz `src/lib/types.ts`; kada se uvedu generisani tipovi
   (`supabase gen types`), zameni ručne tipove jednim potezom.
 

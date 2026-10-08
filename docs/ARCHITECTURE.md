@@ -3,60 +3,94 @@
 ## Pregled
 
 ```
-Browser ──► Next.js 15 (App Router, RSC + Server Actions) ──► Supabase (Postgres + Auth + RLS)
+Browser ──► Next.js 15 (App Router, RSC + Server Actions) ──► Supabase (Postgres + Auth + RLS + Storage + Realtime)
 ```
 
-- **Server Components** čitaju podatke direktno preko `src/lib/supabase/server.ts`
-- **Server Actions** (`src/app/actions/`) pišu podatke — nikad direktan write iz klijenta
-- **RLS u bazi** je poslednja linija odbrane: i da klijent zaobiđe UI, baza ne da tuđe redove
-- **Middleware** radi dve stvari: i18n rutiranje (next-intl) + osvežavanje auth sesije
+- **Server Components** čitaju podatke (`src/lib/queries.ts`), sesija se čita jednom
+  po zahtevu kroz `getSession()` (`src/lib/session.ts`, React `cache`).
+- **Server Actions** (`src/app/actions/`) pišu podatke — nikad direktan write iz klijenta.
+- **RLS + trigeri u bazi** su poslednja linija odbrane: prelazi statusa upita,
+  zaštita uloge/verifikacije, limiti upita i obaveštenja žive u bazi.
+- **Javne stranice** (katalog, profil, kategorije, sitemap) koriste klijent bez
+  kolačića (`src/lib/supabase/public.ts`) — rade kao `anon`, keširaju se 5 min sa
+  tagom `public-creators`, a akcije koje menjaju javne podatke ga odmah poništavaju.
 
-## i18n
+## Uloge
 
-- `sr` (podrazumevani, bez URL prefiksa — bolje za SEO na Balkanu) i `en` (pod `/en`)
-- Lokalizovane putanje: `/registracija` ↔ `/en/signup` (mapa u `src/i18n/routing.ts`)
-- UI stringovi u `src/messages/{sr,en}.json`; domenske vrednosti (kategorije, mreže,
-  rasponi) nose svoje sr/en labele u `src/lib/taxonomy.ts`
+| Uloga | Šta radi |
+|---|---|
+| `influencer` | profil (5 koraka), javni profil, prima upite, poruke, isporuka, ocene |
+| `company` | profil firme (PIB/MB), pretraga, sačuvani kreatori, šalje upite, poruke, ocene |
+| `admin` | KPI i grafikoni, verifikacija i suspenzija, pregled upita, prijave |
+
+Uloga se bira pri registraciji (`account_type` u metadata → trigger
+`handle_new_user`). Admin se dodeljuje isključivo SQL-om.
 
 ## Model podataka
 
 ```
-auth.users 1──1 profiles ──┬──< social_accounts   (mreža + metrike publike po mreži)
-                           ├──< profile_categories >── categories (šifarnik, maks 5)
-                           ├──< services            (tip usluge + raspon cena)
-                           ├──1 collaboration_prefs (barter, min budžet)
-                           ├──1 contact_prefs       (kanali kontakta, notifikacije)
-                           ├──< notifications       (in-app obaveštenja)
-                           └──< messages            (osnova budućeg inboxa)
+auth.users 1──1 profiles ──┬──< social_accounts      (mreža + publika)
+                           ├──< profile_categories >── categories
+                           ├──< services             (usluga + raspon cena)
+                           ├──1 collaboration_prefs  (barter, min budžet)
+                           ├──1 contact_prefs        (kontakt — samo vlasnik/admin)
+                           ├──1 companies            (ako je role = company)
+                           ├──< notifications        (template + data → prevod u UI)
+                           └──< saved_influencers    (shortlista firme)
+
+collaboration_requests (company_id, influencer_id, brief, isporuke, kompenzacija, status)
+   ├──< messages   (recipient_id postavlja trigger)
+   ├──< reviews    (posle completed, jedna po strani)
+   └──< reports    (prijave zloupotrebe)
 ```
 
-Ključne odluke:
+### Tok upita
 
-- **Rasponi umesto tačnih brojki** (`follower_range` enum) — lakši unos, iskren podatak,
-  dovoljan za filtriranje; tačne brojke su opcione kolone.
-- **Metrike publike žive na `social_accounts`** (pol, godište, zemlje publike po mreži),
-  jer se publika razlikuje od mreže do mreže.
-- **`taxonomy.ts` ↔ `categories` tabela**: frontend čita konstante (brzo, typesafe),
-  baza drži šifarnik za integritet i buduću pretragu. Menjaš li jedno — menjaj i drugo.
-- **Demo režim**: bez env promenljivih aplikacija radi sa `src/lib/demo-data.ts`,
-  pa se dizajn može pregledati bez baze.
+```
+pending ──(kreator)──► accepted ──(kreator)──► delivered ──(firma)──► completed
+   │                       │                       │
+   ├─(kreator)► declined   └─(oba)► cancelled      └─(firma)► accepted (izmene)
+   └─(firma)──► cancelled
+```
 
-## Uloge i pristup
+Prelaze proverava trigger `requests_guard_update`; obaveštenja pravi `requests_notify`.
+Kontakt druge strane vraća RPC `get_request_contact` tek od `accepted`, i to samo
+kanale iz `allowed_channels`.
 
-| Uloga | Pristup |
+### Ključne odluke
+
+- **Rasponi umesto tačnih brojki** (`follower_range`) — lakši unos, dovoljni za filtere.
+- **Kontakt tek posle prihvatanja** — štiti kreatore i podiže odziv (vidi docs/RESEARCH.md).
+- **Poruke pripadaju upitu** — nema neželjenih DM-ova bez konkretne ponude.
+- **Obaveštenja kao šabloni** (`template` + `data`) — prevode se na jezik korisnika.
+- **Prava na nivou kolona** — `anon` ne vidi `birth_year`/`gender`; primalac poruke
+  menja samo `read_at`.
+- **Limit upita** — neverifikovana firma 5/dan, verifikovana 30/dan; jedan otvoren upit
+  po paru firma–kreator.
+- **Migracije bez DROP** — postojeće polise se menjaju kroz `ALTER POLICY`.
+
+## RPC funkcije
+
+| Funkcija | Svrha |
 |---|---|
-| `influencer` | svoj profil, svoje mreže/usluge/preference, svoja obaveštenja |
-| `admin` | read sve (metrike, statistika, tabela), upravljanje notifikacijama |
+| `search_influencers(...)` | pretraga sa filterima + paginacija (security invoker) |
+| `my_requests(status)` | inbox sa poslednjom porukom i brojem nepročitanih |
+| `get_request_contact(rid)` | kontakt posle prihvatanja (security definer) |
+| `delete_my_account()` | GDPR brisanje (migracija 0011, ručno) |
 
-Provera uloge: `public.is_admin()` (security definer) u RLS polisama;
-u aplikaciji `profile.role === "admin"` posle server-side fetch-a.
+## i18n
 
-## Spremno za sledeće faze
+- `sr` (bez prefiksa) i `en` (`/en`), lokalizovane putanje u `src/i18n/routing.ts`.
+- `npm run i18n:check` proverava da svaki statički ključ iz koda postoji u oba fajla.
 
-- **Naplata**: `services.currency` + rasponi cena su tu; dodaješ `subscriptions` /
-  `orders` tabele i Stripe (ili lokalni provajder) bez menjanja postojećeg.
-- **Nalozi za firme**: nova uloga `company` u `user_role` enumu + `companies` tabela;
-  pretraga influensera već ima filtere u admin tabeli koje ćeš reciklirati.
-- **Verifikacija**: `profiles.status` enum već ima `pending/active/suspended`;
-  dodaš `verified_at` kolonu i admin akciju.
-- **Poruke**: `messages` tabela + RLS su postavljeni; treba UI inbox + realtime kanal.
+## SEO
+
+- Javni profili `/kreatori/<username>` (ProfilePage + Person JSON-LD, ISR).
+- Stranice po kategorijama `/kreatori/kategorija/<slug>` (CollectionPage, 30 × 2 jezika).
+- `/za-brendove` (FAQPage), dinamički `sitemap.xml` sa javnim profilima.
+
+## Privatnost i pravo
+
+- Odvojeni pristanci pri registraciji (uslovi + 18+ obavezno, marketing opciono).
+- Izvoz podataka (`/api/export`) i brisanje naloga u Podešavanjima.
+- Obavezna potvrda označavanja reklame u svakom upitu (Zakon o oglašavanju čl. 13).

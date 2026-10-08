@@ -1,69 +1,96 @@
-# Podešavanje Supabase projekta
+# Podešavanje projekta
 
-## 1. Kreiraj projekat
+Supabase projekat `kolabo` (region Frankfurt, ref `ttbnifsemyhyhmbqqtgh`) je već
+napravljen i sve migracije osim jedne su primenjene. Ovaj dokument opisuje stanje
+i korake za novo okruženje.
 
-1. Idi na [supabase.com](https://supabase.com) → **New project**
-2. Naziv: `kolabo` (ili po želji), region: **Frankfurt (eu-central-1)** — najbliži Balkanu
-3. Sačuvaj database lozinku na sigurno mesto
-
-## 2. Pokreni migracije
-
-U Supabase dashboardu otvori **SQL Editor** i pokreni redom:
-
-1. `supabase/migrations/0001_schema.sql` — enumi, tabele, trigeri
-2. `supabase/migrations/0002_rls.sql` — Row Level Security polise
-3. `supabase/seed.sql` — šifarnik kategorija
-
-> Alternativa preko CLI: `supabase link --project-ref <ref>` pa `supabase db push`,
-> zatim seed kroz SQL editor.
-
-## 3. Poveži aplikaciju
+## 1. Lokalno pokretanje
 
 ```bash
-cp .env.example .env.local
+npm install
+cp .env.example .env.local   # popuni URL i publishable ključ (vidi korak 3)
+npm run dev                   # http://localhost:3000
 ```
 
-U **Project Settings → API** nađi:
-- `Project URL` → `NEXT_PUBLIC_SUPABASE_URL`
-- `anon public` ključ → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+Bez `.env.local` aplikacija radi u **demo režimu** (demo podaci, izbor uloge u
+zaglavlju, auth isključen).
 
-Restartuj `npm run dev` — demo režim se automatski gasi.
+## 2. Migracije
 
-## 4. Auth podešavanja
+Redosled (folder `supabase/migrations/`):
 
-U **Authentication → URL Configuration**:
+| Fajl | Sadržaj | Stanje |
+|---|---|---|
+| `0001_schema.sql` | enumi, tabele, trigeri | primenjeno |
+| `0002_rls.sql` | RLS polise | primenjeno |
+| `0003_harden_functions.sql` | search_path, EXECUTE | primenjeno |
+| `0004_company_role.sql` | uloga `company` | primenjeno |
+| `0005_companies.sql` | firme, verifikacija, pristanci, šabloni obaveštenja | primenjeno |
+| `0006_rls_public_profiles.sql` | optimizovane polise, javni profili, indeksi | primenjeno |
+| `0007_collaboration.sql` | upiti, poruke, sačuvani, ocene, prijave | primenjeno |
+| `0008_rpc_and_storage.sql` | pretraga, inbox, kontakt, bucket `avatars` | primenjeno |
+| `0009_column_privileges.sql` | anon ne vidi godište/pol | primenjeno |
+| `0010_delete_policies.sql` | polise za brisanje | primenjeno |
+| `0011_account_deletion.sql` | RPC `delete_my_account()` | **pokreni ručno** |
+| `0012_revoke_anon_helpers.sql` | EXECUTE samo za prijavljene | primenjeno |
+| `seed.sql` | šifarnik kategorija | primenjeno |
+
+> **0011 se pokreće ručno** u Supabase dashboardu → SQL Editor (nalepi sadržaj
+> fajla i Run). Supabase konektor koji koristi Claude traži ručnu potvrdu za
+> naredbe sa `DELETE`, a bez ove funkcije dugme „Obriši nalog” prikazuje poruku
+> da se korisnik javi podršci.
+
+Na novom projektu: pokreni sve fajlove redom u SQL editoru (ili
+`supabase link --project-ref <ref>` pa `supabase db push`), zatim `seed.sql`.
+
+## 3. Ključevi (`.env.local`)
+
+| Promenljiva | Odakle |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Project Settings → API → Project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Project Settings → API Keys → **publishable** ključ (`sb_publishable_…`) |
+| `NEXT_PUBLIC_SITE_URL` | `http://localhost:3000` lokalno, pravi domen u produkciji |
+| `NEXT_PUBLIC_LEGAL_NAME`, `…_ADDRESS`, `…_MB`, `…_PIB`, `NEXT_PUBLIC_CONTACT_EMAIL` | podaci o pružaocu usluge (Zakon o e-trgovini) — prikazuju se u footeru i pravnim stranicama |
+
+`service_role` ključ se NIGDE ne koristi.
+
+## 4. Auth podešavanja (Supabase dashboard — ručno)
+
+**Authentication → URL Configuration**
 - Site URL: `http://localhost:3000` (kasnije produkcijski domen)
-- Redirect URLs: dodaj `http://localhost:3000/auth/callback`
+- Redirect URLs: `http://localhost:3000/**` i `https://<domen>/**`
+  (potrebno za potvrdu emaila i reset lozinke kroz `/auth/callback`)
 
-U **Authentication → Providers → Email**: uključen je podrazumevano
-(email + lozinka, sa potvrdom preko emaila).
+**Authentication → SMTP**: ugrađeni Supabase email šalje svega nekoliko poruka
+na sat — za produkciju poveži Resend/Postmark (SMTP host, port, user, lozinka).
 
-## 5. Napravi sebi admin nalog
+**Authentication → Providers → Email**: ostavi „Confirm email” uključeno.
 
-1. Registruj se normalno kroz aplikaciju (`/registracija`)
-2. U SQL editoru pokreni:
+## 5. Nalozi
+
+| Uloga | Email | Napomena |
+|---|---|---|
+| admin | vlasnikov email | uloga dodeljena SQL-om |
+| influenser (demo) | `influenser.demo@example.com` | kompletan profil `milica.demo` |
+| firma (demo) | `firma.demo@example.com` | „Zdravo Organic”, nije verifikovana |
+
+Lozinke nisu u repou. Promeni ih posle prve prijave (Podešavanja → Lozinka).
+
+Novi admin:
 
 ```sql
-update public.profiles
-set role = 'admin', status = 'active', onboarding_completed = true
-where id = (select id from auth.users where email = 'tvoj@email.com');
+update public.profiles set role = 'admin', status = 'active', onboarding_completed = true
+where id = (select id from auth.users where email = 'neko@primer.rs');
 ```
 
-3. Nakon ponovne prijave imaš pristup `/admin`
-
-## 6. (Opciono) Regeneriši TypeScript tipove
+## 6. Provere pre commita
 
 ```bash
-npx supabase gen types typescript --project-id <ref> > src/lib/database.types.ts
+npm run check   # i18n:check + lint + build
 ```
 
-Trenutno aplikacija koristi ručno pisane tipove u `src/lib/types.ts` —
-kada uvedeš generisane tipove, prebaci klijente na `createClient<Database>()`.
+## 7. Deploy (Vercel)
 
-## Bezbednosne napomene
-
-- **RLS je uključen na svim tabelama** — influenser vidi/menja samo svoje redove,
-  admin ima read pristup svemu preko `is_admin()` security definer funkcije.
-- Korisnik **ne može sam sebi da promeni ulogu** (polisa na `profiles`).
-- `service_role` ključ NIKAD ne ide u `NEXT_PUBLIC_*` promenljive niti u klijentski kod.
-- Trigger `handle_new_user` automatski pravi profil i welcome notifikaciju.
+1. Importuj GitHub repo u Vercel.
+2. Dodaj iste env promenljive kao u `.env.local` (sa produkcijskim `NEXT_PUBLIC_SITE_URL`).
+3. U Supabase dodaj produkcijski domen u Site URL i Redirect URLs.

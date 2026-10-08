@@ -1,39 +1,48 @@
 # Roadmap
 
-## Faza 1 — MVP (urađeno u ovom projektu)
+## Faza 1 — MVP ✅
 
-- [x] Landing stranica (sr/en) sa animacijama, SEO, JSON-LD, sitemap
-- [x] Registracija/prijava (Supabase Auth, email + potvrda)
-- [x] Onboarding u 5 koraka (profil, mreže+publika, kategorije, cene+barter, kontakt)
-- [x] Influenser dashboard (pregled profila, popunjenost, obaveštenja)
-- [x] Admin panel (KPI, grafikoni, tabela sa filterima)
-- [x] Baza: šema + RLS + seed
+- [x] Landing (sr/en), SEO, JSON-LD, sitemap
+- [x] Registracija/prijava, onboarding influensera u 5 koraka
+- [x] Influenser panel, admin panel, šema + RLS + seed
 
-## Faza 2 — Lansiranje
+## Faza 2 — Lansiranje ✅
 
-- [ ] Javni profili influensera (`/@username`) — najveći SEO dobitak
-- [ ] Upload avatara (Supabase Storage + RLS na bucket)
-- [ ] Email obaveštenja (Resend/Postmark preko Supabase Edge Functions ili webhooks)
-- [ ] Verifikacija profila (admin odobrava, `verified_at`, bedž na profilu)
-- [ ] Analitika (Vercel Analytics / Plausible — GDPR friendly)
+- [x] Javni profili kreatora `/kreatori/<username>` (ISR, JSON-LD)
+- [x] SEO stranice po kategorijama
+- [x] Upload avatara i logotipa (Storage + RLS)
+- [x] Verifikacija profila (admin) i suspenzija
+- [x] Zaboravljena lozinka, podešavanja, izvoz podataka, brisanje naloga
+- [x] Pravne stranice (nacrt — čeka pravnika)
+- [ ] Email obaveštenja (Resend preko SMTP-a ili Edge Function nad `notifications`)
+- [ ] Analitika (Plausible / Vercel Analytics — bez kolačića)
 
-## Faza 3 — Firme
+## Faza 3 — Firme ✅
 
-- [ ] Uloga `company` + registracija firmi (PIB/matični broj za verifikaciju)
-- [ ] Pretraga influensera za firme (filteri: kategorija, publika, budžet, barter)
-- [ ] Upiti za saradnju kroz platformu (inbox nad postojećom `messages` tabelom)
-- [ ] Realtime poruke (Supabase Realtime)
+- [x] Uloga `company`, registracija i profil firme (PIB/MB sa proverom kontrolne cifre)
+- [x] Pretraga kreatora sa filterima i paginacijom
+- [x] Upiti za saradnju (brief, isporuke, barter sa vrednošću, prava korišćenja, rokovi)
+- [x] Poruke po upitu u realnom vremenu (Supabase Realtime)
+- [x] Sačuvani kreatori, ocene posle saradnje, prijave zloupotrebe
 
-## Faza 4 — Naplata
+## Sledeće (pre javnog lansiranja)
 
-- [ ] Model: pretplata za firme (mesečna, tiers) ili provizija po saradnji — odluka
-- [ ] Stripe integracija (checkout + customer portal + webhooks)
-- [ ] Escrow logika za plaćene saradnje (opciono, po uzoru na Collabstr)
-- [ ] Fakturisanje za region (devizni računi / lokalni provajderi tipa LemonSqueezy kao alternativa)
+- [ ] Pokrenuti migraciju `0011_account_deletion.sql` u SQL editoru
+- [ ] SMTP provajder (Resend/Postmark) + email šabloni na srpskom
+- [ ] Pravni pregled uslova i politike privatnosti, popuniti podatke o firmi
+- [ ] Produkcijski domen, Vercel deploy, Supabase redirect URL-ovi
+- [ ] OG slika i favicon set, pravi tekstovi i fotografije za landing
+- [ ] Generisani tipovi (`supabase gen types`) umesto ručnih
 
-## Ideje za kasnije
+## Faza 4 — Naplata (van trenutnog opsega)
 
+- [ ] Model: pretplata za firme ili provizija po saradnji
+- [ ] Stripe / lokalni provajder, escrow za plaćene saradnje
+- [ ] Fakturisanje za region
+
+## Ideje
+
+- Kampanje: firma objavi brief, kreatori se prijavljuju
 - Media kit PDF export profila
-- Instagram/TikTok API konekcija za automatske metrike (umesto ručnog unosa)
-- Ocene i recenzije nakon saradnje
-- Kampanje: firma objavi brief, influenseri se prijavljuju
+- Instagram/TikTok API za automatske metrike
+- Status „isteklo” za upite posle roka za odgovor (pg_cron)
