@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState, useTransition } from "react";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check, ExternalLink, PartyPopper } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -32,16 +32,34 @@ const STEP_KEYS = [
 export function OnboardingWizard({
   initialData,
   mode = "onboarding",
+  initialStep,
 }: {
   initialData?: Partial<OnboardingData>;
   mode?: "onboarding" | "edit";
+  /** Deep link from the dashboard checklist (?step=pricing). */
+  initialStep?: string;
 }) {
   const t = useTranslations("onboarding");
   const tc = useTranslations("common");
   const router = useRouter();
   const reduce = useReducedMotion();
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(() => {
+    const i = STEP_KEYS.indexOf(initialStep as (typeof STEP_KEYS)[number]);
+    return i >= 0 ? i : 0;
+  });
   const [done, setDone] = useState(false);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const firstRender = useRef(true);
+
+  // Move focus to the new step title so keyboard/screen-reader users
+  // land on the content, not on the "Next" button they just pressed.
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    headingRef.current?.focus({ preventScroll: true });
+  }, [step]);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const [data, setData] = useState<OnboardingData>({
@@ -93,7 +111,7 @@ export function OnboardingWizard({
 
   if (done) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="card mx-auto max-w-lg p-10 text-center"
@@ -126,7 +144,7 @@ export function OnboardingWizard({
             </Button>
           )}
         </div>
-      </motion.div>
+      </m.div>
     );
   }
 
@@ -136,7 +154,7 @@ export function OnboardingWizard({
     <div className="mx-auto max-w-2xl">
       {/* Progress */}
       <div className="mb-10">
-        <p className="mb-4 text-sm font-semibold text-muted">
+        <p className="mb-4 text-sm font-semibold text-muted" aria-live="polite">
           {t("stepOf", { current: step + 1, total })}
         </p>
         <div className="flex items-center gap-2">
@@ -170,14 +188,18 @@ export function OnboardingWizard({
 
       {/* Step content */}
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={stepKey}
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -24 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
-          <h1 className="font-display text-2xl font-bold sm:text-3xl">
+          <h1
+            ref={headingRef}
+            tabIndex={-1}
+            className="font-display text-2xl font-bold outline-none sm:text-3xl"
+          >
             {t(`${stepKey === "categories" ? "categoriesStep" : stepKey}.title`)}
           </h1>
           <p className="mt-2 mb-8 text-muted">
@@ -194,11 +216,14 @@ export function OnboardingWizard({
           )}
           {stepKey === "pricing" && <PricingStep data={data} update={update} />}
           {stepKey === "contact" && <ContactStep data={data} update={update} />}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       {error && (
-        <p className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <p
+          role="alert"
+          className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+        >
           {error}
         </p>
       )}

@@ -18,7 +18,10 @@ export function Avatar({
   className?: string;
 }) {
   const radius = company ? "rounded-xl" : "rounded-full";
-  if (src) {
+  // next/image throws for hosts outside remotePatterns — never let a bad
+  // URL (DB constraint should prevent it) take the whole page down.
+  const safe = !!src && /^https:\/\/[a-z0-9-]+\.supabase\.co\//.test(src);
+  if (src && safe) {
     return (
       <Image
         src={src}

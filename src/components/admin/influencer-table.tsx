@@ -57,10 +57,11 @@ export function InfluencerTable({
   const [platform, setPlatform] = useState("");
   const [country, setCountry] = useState("");
   const [barter, setBarter] = useState("");
+  const [status, setStatus] = useState("");
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
-    return rows.filter((r) => {
+    const list = rows.filter((r) => {
       if (
         needle &&
         !r.name.toLowerCase().includes(needle) &&
@@ -71,9 +72,19 @@ export function InfluencerTable({
       if (platform && !r.platforms.includes(platform as Platform)) return false;
       if (country && r.country !== country) return false;
       if (barter && r.barter !== barter) return false;
+      if (status && r.status !== status) return false;
       return true;
     });
-  }, [rows, q, category, platform, country, barter]);
+    if (manage) {
+      // Admin queue: complete-but-unverified profiles first, then newest
+      return [...list].sort(
+        (a, b) =>
+          Number(a.status === "active" && !a.verified) * -1 -
+          Number(b.status === "active" && !b.verified) * -1
+      );
+    }
+    return list;
+  }, [rows, q, category, platform, country, barter, status, manage]);
 
   const barterTone = (b: TableRow["barter"]) =>
     b === "yes" ? "success" : b === "no" ? "neutral" : "warning";
@@ -130,6 +141,21 @@ export function InfluencerTable({
             </option>
           ))}
         </Select>
+        {manage && (
+          <Select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="!w-auto"
+            aria-label={t("filterStatus")}
+          >
+            <option value="">{t("filterStatus")}: {tc("all")}</option>
+            {(["active", "pending", "suspended"] as const).map((s) => (
+              <option key={s} value={s}>
+                {t(`statusLabels.${s}`)}
+              </option>
+            ))}
+          </Select>
+        )}
         <Select
           value={barter}
           onChange={(e) => setBarter(e.target.value)}

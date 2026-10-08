@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { BadgeCheck, Ban, RotateCcw } from "lucide-react";
+import { BadgeCheck, Ban, MailQuestion, RotateCcw } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { resolveReport, setSuspended, setVerified } from "@/app/actions/admin";
+import { requestCompanyInfo, resolveReport, setSuspended, setVerified } from "@/app/actions/admin";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/form";
 import type { ProfileStatus } from "@/lib/types";
@@ -77,6 +77,61 @@ export function ProfileModeration({
         {isSuspended ? <RotateCcw className="h-3.5 w-3.5" /> : <Ban className="h-3.5 w-3.5" />}
         {isSuspended ? t("restore") : t("suspend")}
       </button>
+    </div>
+  );
+}
+
+/** Ask a company to complete its verification details. */
+export function CompanyInfoRequest({ profileId }: { profileId: string }) {
+  const t = useTranslations("admin.companyActions");
+  const tc = useTranslations("common");
+  const [open, setOpen] = useState(false);
+  const [note, setNote] = useState("");
+  const [sent, setSent] = useState(false);
+  const [pending, startTransition] = useTransition();
+
+  if (sent) {
+    return <p className="text-xs font-semibold text-emerald-700">{t("sent")}</p>;
+  }
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-full border border-line px-3 text-xs font-semibold text-ink-soft transition-colors hover:border-amber-300 hover:text-amber-700"
+      >
+        <MailQuestion className="h-3.5 w-3.5" />
+        {t("needInfo")}
+      </button>
+    );
+  }
+  return (
+    <div className="space-y-2">
+      <Textarea
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+        placeholder={t("needInfoPrompt")}
+        aria-label={t("needInfo")}
+        maxLength={500}
+        className="min-h-16 text-xs"
+      />
+      <div className="flex gap-2">
+        <Button
+          size="sm"
+          disabled={pending || !note.trim()}
+          onClick={() =>
+            startTransition(async () => {
+              const res = await requestCompanyInfo(profileId, note);
+              if (res.ok) setSent(true);
+            })
+          }
+        >
+          {pending ? tc("loading") : t("needInfo")}
+        </Button>
+        <Button size="sm" variant="ghost" disabled={pending} onClick={() => setOpen(false)}>
+          {tc("cancel")}
+        </Button>
+      </div>
     </div>
   );
 }

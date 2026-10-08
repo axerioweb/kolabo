@@ -46,6 +46,7 @@ export default async function AdminPage({ params }: Props) {
   let unverifiedCompanies: number;
   let requestStatuses: RequestStatus[];
   let openReports: number;
+  let newCreators = 0;
 
   if (isSupabaseConfigured) {
     const supabase = await createClient();
@@ -56,6 +57,9 @@ export default async function AdminPage({ params }: Props) {
       getAllReports(supabase),
     ]);
     influencers = inf;
+    newCreators = inf.filter(
+      (i) => Date.now() - new Date(i.profile.created_at).getTime() < 7 * 864e5
+    ).length;
     companyCount = companies.length;
     unverifiedCompanies = companies.filter((c) => !c.profile.verified_at).length;
     requestStatuses = requests.map((r) => r.status);
@@ -84,8 +88,17 @@ export default async function AdminPage({ params }: Props) {
         <h1 className="font-display text-3xl font-bold tracking-tight">{t("title")}</h1>
         <p className="mt-1.5 text-muted">{t("subtitle")}</p>
 
-        {(unverifiedCompanies > 0 || openReports > 0) && (
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        {(unverifiedCompanies > 0 || openReports > 0 || newCreators > 0) && (
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {newCreators > 0 && (
+              <Link
+                href="/admin/influencers"
+                className="card flex items-center justify-between gap-3 border-brand-200 bg-brand-50/60 p-4 text-sm font-semibold text-brand-900 hover:shadow-lift"
+              >
+                {t("todo.creators", { count: newCreators })}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            )}
             {unverifiedCompanies > 0 && (
               <Link
                 href="/admin/companies"

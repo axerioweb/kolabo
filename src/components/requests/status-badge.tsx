@@ -9,6 +9,7 @@ const tone: Record<RequestStatus, "brand" | "accent" | "neutral" | "success" | "
   completed: "success",
   declined: "neutral",
   cancelled: "neutral",
+  expired: "neutral",
 };
 
 export function StatusBadge({

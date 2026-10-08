@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { BadgeCheck, MapPin, Search, UserX } from "lucide-react";
+import { BadgeCheck, Gift, MapPin, Search, UserX } from "lucide-react";
 import { getPathname, Link } from "@/i18n/navigation";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
@@ -8,6 +8,7 @@ import { getPublicCreator } from "@/lib/queries";
 import { requireSession } from "@/lib/session";
 import { demoPublicCreator } from "@/lib/demo-data";
 import {
+  BARTER_PREF_LABELS,
   COUNTRY_LABELS,
   FOLLOWER_RANGE_LABELS,
   label,
@@ -96,6 +97,7 @@ export default async function NewRequestPage({ params, searchParams }: Props) {
             creatorName={p.full_name}
             offered={creator.services.map((s) => s.service_type)}
             showMinorWarning={showMinorWarning}
+            prefs={creator.collaboration}
           />
 
           <aside className="order-first lg:order-last">
@@ -134,6 +136,30 @@ export default async function NewRequestPage({ params, searchParams }: Props) {
                     </li>
                   ))}
                 </ul>
+              )}
+              {creator.collaboration && (
+                <div className="mt-5 border-t border-line pt-4 text-sm">
+                  <p className="flex items-center gap-2 font-semibold">
+                    <Gift className="h-4 w-4 text-accent-500" />
+                    {label(BARTER_PREF_LABELS[creator.collaboration.barter], locale)}
+                  </p>
+                  {creator.collaboration.barter_min_value != null && (
+                    <p className="mt-1 text-xs text-muted">
+                      {t("creatorBarterMin", {
+                        value: creator.collaboration.barter_min_value,
+                        currency: creator.collaboration.currency,
+                      })}
+                    </p>
+                  )}
+                  {creator.collaboration.min_budget != null && (
+                    <p className="mt-1 text-xs text-muted">
+                      {t("creatorMinBudget", {
+                        value: creator.collaboration.min_budget,
+                        currency: creator.collaboration.currency,
+                      })}
+                    </p>
+                  )}
+                </div>
               )}
               {creator.services.length > 0 && (
                 <div className="mt-5 border-t border-line pt-4">

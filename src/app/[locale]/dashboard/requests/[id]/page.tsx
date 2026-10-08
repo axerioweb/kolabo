@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { after } from "next/server";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import {
   ArrowLeft,
@@ -56,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const FLOW: RequestStatus[] = ["pending", "accepted", "delivered", "completed"];
 
 function Progress({ status, t }: { status: RequestStatus; t: (k: string) => string }) {
-  if (status === "declined" || status === "cancelled") {
+  if (status === "declined" || status === "cancelled" || status === "expired") {
     return (
       <p className="rounded-xl bg-surface-soft px-4 py-3 text-sm font-semibold text-muted">
         {t(`closedNote.${status}`)}
@@ -138,7 +139,8 @@ export default async function RequestDetailPage({ params }: Props) {
   if (isSupabaseConfigured) {
     const supabase = await createClient();
     detail = await getRequestDetail(supabase, id, session.userId);
-    if (detail) await markRequestRead(id);
+    // Mark as read/seen after the response is sent — does not block render
+    if (detail) after(() => markRequestRead(id));
   } else {
     detail = DEMO_REQUEST_DETAIL;
   }

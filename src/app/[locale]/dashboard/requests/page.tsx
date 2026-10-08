@@ -22,7 +22,7 @@ const TABS: { key: string; statuses: RequestStatus[] | null }[] = [
   { key: "pending", statuses: ["pending"] },
   { key: "active", statuses: ["accepted", "delivered"] },
   { key: "completed", statuses: ["completed"] },
-  { key: "closed", statuses: ["declined", "cancelled"] },
+  { key: "closed", statuses: ["declined", "cancelled", "expired"] },
 ];
 
 type Props = {

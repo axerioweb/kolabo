@@ -57,7 +57,7 @@ export function BasicsStep({ data, update }: StepProps) {
 
   const years: number[] = [];
   const now = new Date().getFullYear();
-  for (let y = now - 13; y >= now - 70; y--) years.push(y);
+  for (let y = now - 18; y >= now - 80; y--) years.push(y);
 
   return (
     <div className="space-y-5">
@@ -216,7 +216,7 @@ export function SocialsStep({ data, update }: StepProps) {
                   "cursor-pointer rounded-lg p-2 transition-colors",
                   s.is_primary
                     ? "text-amber-500"
-                    : "text-muted/50 hover:text-amber-500"
+                    : "text-muted hover:text-amber-500"
                 )}
               >
                 <Star
@@ -228,7 +228,7 @@ export function SocialsStep({ data, update }: StepProps) {
                 type="button"
                 onClick={() => remove(i)}
                 title={tc("delete")}
-                className="cursor-pointer rounded-lg p-2 text-muted/50 transition-colors hover:text-red-500"
+                className="cursor-pointer rounded-lg p-2 text-muted transition-colors hover:text-red-500"
               >
                 <Trash2 className="h-5 w-5" />
               </button>

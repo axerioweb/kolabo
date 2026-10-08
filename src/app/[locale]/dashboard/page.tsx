@@ -46,6 +46,7 @@ import type {
 import { AppHeader } from "@/components/app-header";
 import { ProfileCard } from "@/components/dashboard/profile-card";
 import { NotificationsList } from "@/components/dashboard/notifications-list";
+import { ProfileChecklist } from "@/components/dashboard/profile-checklist";
 import { RequestList } from "@/components/requests/request-list";
 import { CreatorCard } from "@/components/creators/creator-card";
 import { Button } from "@/components/ui/button";
@@ -238,7 +239,7 @@ async function InfluencerDashboard({
           </div>
 
           <div className="space-y-6">
-            <Completeness value={completeness} title={t("profileCompleteness")} hint={t("completenessHint")} />
+            <ProfileChecklist full={f} avatarMissing={!f.profile.avatar_url} />
 
             <div className="card border-amber-200 bg-amber-50/50 p-6">
               <p className="flex items-center gap-2 font-display font-bold text-amber-900">
@@ -284,13 +285,18 @@ async function CompanyDashboard({
 
   if (isSupabaseConfigured) {
     const supabase = await createClient();
-    [full, requests, savedIds] = await Promise.all([
+    const interest = session.company?.interested_categories[0];
+    const country = session.company?.country;
+    let targeted: CreatorCardData[];
+    let fallback: CreatorCardData[];
+    [full, requests, savedIds, targeted, fallback] = await Promise.all([
       getCompanyFull(supabase, session.userId),
       getMyRequests(supabase),
       getSavedIds(supabase, session.userId),
+      searchCreators(supabase, { category: interest, country }).then((r) => r.items.slice(0, 3)),
+      searchCreators(supabase, {}).then((r) => r.items.slice(0, 3)),
     ]);
-    const interest = full?.company.interested_categories[0];
-    recommended = (await searchCreators(supabase, { category: interest })).items.slice(0, 3);
+    recommended = targeted.length > 0 ? targeted : fallback;
     // Nothing in the main interest yet — show the newest public creators instead
     if (recommended.length === 0 && interest) {
       recommended = (await searchCreators(supabase, {})).items.slice(0, 3);

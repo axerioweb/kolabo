@@ -5,6 +5,7 @@ import { AlertTriangle, ArrowRight, Megaphone, Minus, Plus } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { createRequest, type RequestInput } from "@/app/actions/requests";
+import type { CollaborationPrefs } from "@/lib/types";
 import {
   COMPENSATION_LABELS,
   COMPENSATION_TYPES,
@@ -36,12 +37,18 @@ function Section({ n, title, children }: { n: number; title: string; children: R
 }
 
 const today = () => new Date().toISOString().slice(0, 10);
+const plusDays = (n: number) => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
+
+/** Rough EUR conversion for fit warnings only (same rates as DB to_eur). */
+const toEur = (amount: number, cur: string) =>
+  cur === "RSD" ? amount / 117 : cur === "BAM" ? amount / 1.95583 : cur === "MKD" ? amount / 61.5 : amount;
 
 export function RequestForm({
   username,
   creatorName,
   offered,
   showMinorWarning,
+  prefs,
 }: {
   username: string;
   creatorName: string;
@@ -49,6 +56,8 @@ export function RequestForm({
   offered: ServiceType[];
   /** Brand is in a regulated industry and the creator has 13–17 audience. */
   showMinorWarning: boolean;
+  /** Creator's barter / budget preferences — drives fit warnings. */
+  prefs: CollaborationPrefs | null;
 }) {
   const t = useTranslations("requestForm");
   const tc = useTranslations("common");
@@ -72,7 +81,7 @@ export function RequestForm({
     revisions: 1,
     start_date: "",
     end_date: "",
-    respond_by: "",
+    respond_by: plusDays(7),
     ad_disclosure_ack: false,
   });
   const [deliverables, setDeliverables] = useState<Record<string, number>>(
@@ -87,6 +96,31 @@ export function RequestForm({
 
   const paid = data.compensation !== "barter";
   const barter = data.compensation !== "paid";
+
+  // --- Fit warnings (soft — the creator decides, but a mismatch usually = decline)
+  const budgetEur = data.budget_amount ? toEur(Number(data.budget_amount), data.currency) : null;
+  const barterEur = data.barter_value ? toEur(Number(data.barter_value), "EUR") : null;
+  const fit: string[] = [];
+  if (prefs) {
+    if (barter && prefs.barter === "no") fit.push(t("fit.noBarter"));
+    if (
+      barter &&
+      prefs.barter !== "no" &&
+      prefs.barter_min_value != null &&
+      barterEur != null &&
+      barterEur < toEur(prefs.barter_min_value, prefs.currency)
+    ) {
+      fit.push(t("fit.barterBelowMin", { value: prefs.barter_min_value, currency: prefs.currency }));
+    }
+    if (
+      paid &&
+      prefs.min_budget != null &&
+      budgetEur != null &&
+      budgetEur < toEur(prefs.min_budget, prefs.currency)
+    ) {
+      fit.push(t("fit.budgetBelowMin", { value: prefs.min_budget, currency: prefs.currency }));
+    }
+  }
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -113,10 +147,7 @@ export function RequestForm({
     });
   }
 
-  const fieldErr = (f: string) =>
-    error?.field === f ? (
-      <span className="mt-1.5 block text-xs font-semibold text-red-600">{error.message}</span>
-    ) : null;
+  const fieldMsg = (f: string) => (error?.field === f ? error.message : undefined);
 
   return (
     <form onSubmit={submit} className="space-y-6" noValidate>
@@ -127,7 +158,7 @@ export function RequestForm({
       )}
 
       <Section n={1} title={t("sections.campaign")}>
-        <Field label={t("title")} hint={t("titleHint")}>
+        <Field error={fieldMsg("title")} label={t("title")} hint={t("titleHint")}>
           <Input
             id="req-title"
             value={data.title}
@@ -136,7 +167,6 @@ export function RequestForm({
             required
             placeholder={t("titlePlaceholder")}
           />
-          {fieldErr("title")}
         </Field>
         <Field label={t("goal")} optional={tc("optional")}>
           <Input
@@ -146,7 +176,7 @@ export function RequestForm({
             placeholder={t("goalPlaceholder")}
           />
         </Field>
-        <Field label={t("brief")} hint={t("briefHint", { count: data.brief.length })}>
+        <Field error={fieldMsg("brief")} label={t("brief")} hint={t("briefHint", { count: data.brief.length })}>
           <Textarea
             id="req-brief"
             value={data.brief}
@@ -156,7 +186,6 @@ export function RequestForm({
             className="min-h-36"
             placeholder={t("briefPlaceholder", { name: creatorName.split(" ")[0] })}
           />
-          {fieldErr("brief")}
         </Field>
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label={t("keyMessages")} optional={tc("optional")}>
@@ -167,7 +196,7 @@ export function RequestForm({
               placeholder={t("keyMessagesPlaceholder")}
             />
           </Field>
-          <Field label={t("restrictions")} optional={tc("optional")}>
+          <Field error={fieldMsg("deliverables")} label={t("restrictions")} optional={tc("optional")}>
             <Textarea
               value={data.restrictions}
               onChange={(e) => set({ restrictions: e.target.value })}
@@ -180,7 +209,12 @@ export function RequestForm({
 
       <Section n={2} title={t("sections.deliverables")}>
         <p className="-mt-2 text-sm text-muted">{t("deliverablesHint")}</p>
-        <div id="req-deliverables" tabIndex={-1} className="flex flex-wrap gap-2">
+        <div
+          id="req-deliverables"
+          tabIndex={-1}
+          className="flex flex-wrap gap-2"
+          aria-invalid={error?.field === "deliverables" || undefined}
+        >
           {serviceOrder.map((s) => {
             const selected = s in deliverables;
             return (
@@ -202,7 +236,9 @@ export function RequestForm({
             );
           })}
         </div>
-        {fieldErr("deliverables")}
+        {error?.field === "deliverables" && (
+          <p role="alert" className="text-xs font-semibold text-red-600">{error.message}</p>
+        )}
         {Object.keys(deliverables).length > 0 && (
           <ul className="divide-y divide-line rounded-xl border border-line">
             {Object.entries(deliverables).map(([s, count]) => (
@@ -281,7 +317,7 @@ export function RequestForm({
         </div>
         {paid && (
           <div className="grid gap-5 sm:grid-cols-[1fr_140px]">
-            <Field label={t("budget")} hint={t("budgetHint")}>
+            <Field error={fieldMsg("budget_amount")} label={t("budget")} hint={t("budgetHint")}>
               <Input
                 id="req-budget_amount"
                 type="number"
@@ -290,7 +326,6 @@ export function RequestForm({
                 value={data.budget_amount}
                 onChange={(e) => set({ budget_amount: e.target.value })}
               />
-              {fieldErr("budget_amount")}
             </Field>
             <Field label={t("currency")}>
               <Select
@@ -306,9 +341,18 @@ export function RequestForm({
             </Field>
           </div>
         )}
+        {fit.length > 0 && (
+          <Alert tone="warning" title={t("fit.title")}>
+            <ul className="list-disc space-y-0.5 pl-4">
+              {fit.map((f) => (
+                <li key={f}>{f}</li>
+              ))}
+            </ul>
+          </Alert>
+        )}
         {barter && (
           <div className="grid gap-5 sm:grid-cols-[1fr_200px]">
-            <Field label={t("barterDescription")}>
+            <Field error={fieldMsg("barter_description")} label={t("barterDescription")}>
               <Input
                 id="req-barter_description"
                 value={data.barter_description}
@@ -316,7 +360,6 @@ export function RequestForm({
                 maxLength={500}
                 placeholder={t("barterPlaceholder")}
               />
-              {fieldErr("barter_description")}
             </Field>
             <Field label={t("barterValue")} optional={tc("optional")} hint={t("barterValueHint")}>
               <Input
@@ -341,7 +384,7 @@ export function RequestForm({
               onChange={(e) => set({ start_date: e.target.value })}
             />
           </Field>
-          <Field label={t("endDate")} optional={tc("optional")}>
+          <Field error={fieldMsg("end_date")} label={t("endDate")} optional={tc("optional")}>
             <Input
               id="req-end_date"
               type="date"
@@ -349,9 +392,8 @@ export function RequestForm({
               value={data.end_date}
               onChange={(e) => set({ end_date: e.target.value })}
             />
-            {fieldErr("end_date")}
           </Field>
-          <Field label={t("respondBy")} optional={tc("optional")}>
+          <Field error={fieldMsg("ad_disclosure_ack")} label={t("respondBy")} hint={t("respondByHint")}>
             <Input
               type="date"
               min={today()}
@@ -378,7 +420,9 @@ export function RequestForm({
           />
           {t("disclosureAck")}
         </label>
-        {fieldErr("ad_disclosure_ack")}
+        {error?.field === "ad_disclosure_ack" && (
+          <p role="alert" className="mt-2 text-xs font-semibold text-red-600">{error.message}</p>
+        )}
       </section>
 
       {error && !error.field && <Alert tone="error">{error.message}</Alert>}

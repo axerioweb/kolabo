@@ -125,7 +125,7 @@ export function MessageThread({
           return (
             <div key={m.id}>
               {newDay && (
-                <p className="my-3 text-center text-[11px] font-semibold tracking-wide text-muted uppercase">
+                <p className="my-3 text-center text-xs font-semibold tracking-wide text-muted uppercase">
                   {format.dateTime(new Date(m.created_at), { weekday: "long", day: "numeric", month: "long" })}
                 </p>
               )}
@@ -141,7 +141,7 @@ export function MessageThread({
                 >
                   {m.body}
                   <span
-                    className={cn("mt-1 block text-right text-[11px]", mine ? "text-white/70" : "text-muted")}
+                    className={cn("mt-1 block text-right text-xs", mine ? "text-white/70" : "text-muted")}
                   >
                     {format.dateTime(new Date(m.created_at), { hour: "2-digit", minute: "2-digit" })}
                   </span>
@@ -190,7 +190,7 @@ export function MessageThread({
               <Send className="h-4.5 w-4.5" />
             </button>
           </div>
-          <p className="mt-1.5 px-1 text-[11px] text-muted">{t("hint")}</p>
+          <p className="mt-1.5 px-1 text-xs text-muted">{t("hint")}</p>
         </form>
       ) : (
         <p className="flex items-center justify-center gap-2 border-t border-line bg-surface px-4 py-4 text-sm text-muted">

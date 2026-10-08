@@ -168,7 +168,7 @@ export function AppNav({
             type="button"
             onClick={() => setMenuOpen((v) => !v)}
             aria-expanded={menuOpen}
-            aria-haspopup="menu"
+            aria-controls="account-menu"
             aria-label={t("account")}
             className="flex cursor-pointer items-center rounded-full p-0.5 transition-shadow hover:ring-2 hover:ring-brand-200 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:outline-none"
           >
@@ -181,7 +181,7 @@ export function AppNav({
           </button>
           {menuOpen && (
             <div
-              role="menu"
+              id="account-menu"
               className="card absolute right-0 z-50 mt-2 w-64 overflow-hidden p-1.5 shadow-lift"
             >
               <div className="border-b border-line px-3 py-2.5">
@@ -189,7 +189,7 @@ export function AppNav({
                 <p className="truncate text-xs text-muted">{user.email}</p>
               </div>
               {user.role !== "admin" && (
-                <Link href="/dashboard/profile" role="menuitem" className={cn(menuItemCls, "mt-1")}>
+                <Link href="/dashboard/profile" className={cn(menuItemCls, "mt-1")}>
                   <User className="h-4 w-4 text-muted" />
                   {user.role === "company" ? t("companyProfile") : t("myProfile")}
                 </Link>
@@ -200,7 +200,6 @@ export function AppNav({
                     pathname: "/creators/[username]",
                     params: { username: user.username },
                   }}
-                  role="menuitem"
                   className={menuItemCls}
                 >
                   <ExternalLink className="h-4 w-4 text-muted" />
@@ -208,7 +207,7 @@ export function AppNav({
                 </Link>
               )}
               {user.role !== "admin" && (
-                <Link href="/dashboard/settings" role="menuitem" className={menuItemCls}>
+                <Link href="/dashboard/settings" className={menuItemCls}>
                   <Settings className="h-4 w-4 text-muted" />
                   {t("settings")}
                 </Link>
@@ -216,7 +215,6 @@ export function AppNav({
               <form action={signOut}>
                 <button
                   type="submit"
-                  role="menuitem"
                   className={cn(menuItemCls, "w-full cursor-pointer text-left text-red-600 hover:bg-red-50")}
                 >
                   <LogOut className="h-4 w-4" />
@@ -232,6 +230,7 @@ export function AppNav({
           className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl text-ink lg:hidden"
           aria-label={t("menu")}
           aria-expanded={mobileOpen}
+          aria-controls="mobile-nav"
           onClick={() => setMobileOpen((v) => !v)}
         >
           {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -239,7 +238,7 @@ export function AppNav({
       </div>
 
       {mobileOpen && (
-        <div className="absolute inset-x-0 top-16 border-b border-line bg-white/95 shadow-soft backdrop-blur-xl lg:hidden">
+        <div id="mobile-nav" className="absolute inset-x-0 top-16 border-b border-line bg-white/95 shadow-soft backdrop-blur-xl lg:hidden">
           <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4" aria-label={t("main")}>
             {items.map((item) => (
               <Link

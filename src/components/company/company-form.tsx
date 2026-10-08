@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { ArrowRight, Building2, Check, PartyPopper, Search } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -122,7 +122,7 @@ export function CompanyForm({
 
   if (done) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         className="card mx-auto max-w-lg p-10 text-center"
@@ -134,7 +134,15 @@ export function CompanyForm({
         <p className="mt-3 text-muted">{t("done.subtitle")}</p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Button asChild>
-            <Link href="/creators">
+            <Link
+              href={{
+                pathname: "/creators",
+                query: {
+                  ...(data.interested_categories[0] ? { category: data.interested_categories[0] } : {}),
+                  country: data.country,
+                },
+              }}
+            >
               <Search className="h-4 w-4" />
               {t("done.cta")}
             </Link>
@@ -146,14 +154,11 @@ export function CompanyForm({
             </Link>
           </Button>
         </div>
-      </motion.div>
+      </m.div>
     );
   }
 
-  const fieldError = (f: string) =>
-    error?.field === f ? (
-      <span className="mt-1.5 block text-xs font-semibold text-red-600">{error.message}</span>
-    ) : null;
+  const fieldMsg = (f: string) => (error?.field === f ? error.message : undefined);
 
   return (
     <form onSubmit={submit} className="mx-auto max-w-3xl space-y-6" noValidate>
@@ -171,7 +176,7 @@ export function CompanyForm({
 
       <Section title={t("sections.about")} subtitle={t("sections.aboutHint")}>
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label={t("name")} className="sm:col-span-2">
+          <Field error={fieldMsg("name")} label={t("name")} className="sm:col-span-2">
             <Input
               id="company-name"
               value={data.name}
@@ -180,7 +185,6 @@ export function CompanyForm({
               required
               placeholder="Zdravo Organic"
             />
-            {fieldError("name")}
           </Field>
           <Field label={t("type")}>
             <Select
@@ -256,24 +260,20 @@ export function CompanyForm({
               ))}
             </Select>
           </Field>
-          <Field label={taxLabel} hint={t("taxIdHint")}>
+          <Field
+            label={taxLabel}
+            hint={t("taxIdHint")}
+            error={taxInvalid ? t("errors.tax_id_invalid") : fieldMsg("tax_id")}
+          >
             <Input
               id="company-tax_id"
               value={data.tax_id}
               onChange={(e) => set({ tax_id: e.target.value })}
               inputMode="numeric"
               maxLength={20}
-              aria-invalid={taxInvalid || error?.field === "tax_id"}
-              className={taxInvalid ? "border-red-300 focus:border-red-400 focus:ring-red-100" : undefined}
             />
-            {taxInvalid && (
-              <span className="mt-1.5 block text-xs font-semibold text-red-600">
-                {t("errors.tax_id_invalid")}
-              </span>
-            )}
-            {!taxInvalid && fieldError("tax_id")}
           </Field>
-          <Field label={t("registrationNumber")} optional={tc("optional")}>
+          <Field error={fieldMsg("registration_number")} label={t("registrationNumber")} optional={tc("optional")}>
             <Input
               id="company-registration_number"
               value={data.registration_number}
@@ -281,7 +281,6 @@ export function CompanyForm({
               inputMode="numeric"
               maxLength={20}
             />
-            {fieldError("registration_number")}
           </Field>
           <Field label={t("legalName")} optional={tc("optional")}>
             <Input
@@ -296,7 +295,7 @@ export function CompanyForm({
 
       <Section title={t("sections.contact")} subtitle={t("sections.contactHint")}>
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label={t("contactName")}>
+          <Field error={fieldMsg("contact_name")} label={t("contactName")}>
             <Input
               id="company-contact_name"
               value={data.contact_name}
@@ -304,7 +303,6 @@ export function CompanyForm({
               maxLength={100}
               autoComplete="name"
             />
-            {fieldError("contact_name")}
           </Field>
           <Field label={t("contactRole")} optional={tc("optional")}>
             <Input
@@ -333,7 +331,7 @@ export function CompanyForm({
               placeholder="+381 6x xxx xxxx"
             />
           </Field>
-          <Field label={t("website")} optional={tc("optional")}>
+          <Field error={fieldMsg("website")} label={t("website")} optional={tc("optional")}>
             <Input
               id="company-website"
               value={data.website}
@@ -342,7 +340,6 @@ export function CompanyForm({
               placeholder="www.primer.rs"
               inputMode="url"
             />
-            {fieldError("website")}
           </Field>
           <Field label={t("instagram")} optional={tc("optional")}>
             <Input
@@ -396,7 +393,7 @@ export function CompanyForm({
               onChange={(e) => set({ budget_min: e.target.value })}
             />
           </Field>
-          <Field label={t("budgetMax")} optional={tc("optional")}>
+          <Field error={fieldMsg("budget_max")} label={t("budgetMax")} optional={tc("optional")}>
             <Input
               id="company-budget_max"
               type="number"
@@ -405,7 +402,6 @@ export function CompanyForm({
               value={data.budget_max}
               onChange={(e) => set({ budget_max: e.target.value })}
             />
-            {fieldError("budget_max")}
           </Field>
           <Field label={t("currency")}>
             <Select

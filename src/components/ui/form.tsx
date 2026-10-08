@@ -4,21 +4,36 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const inputBase =
-  "w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-muted/70 transition-colors focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100";
+  "w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-ink placeholder:text-muted/70 transition-colors focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100 aria-invalid:border-red-300 aria-invalid:focus:border-red-400 aria-invalid:focus:ring-red-100";
 
 export function Field({
   label,
   hint,
   optional,
+  error,
   children,
   className,
 }: {
   label: string;
   hint?: string;
   optional?: string;
+  /** Validation message — announced via role="alert" and linked to the input. */
+  error?: string;
   children: React.ReactNode;
   className?: string;
 }) {
+  const id = React.useId();
+  const errorId = `${id}-error`;
+  const hintId = `${id}-hint`;
+  // Link the (single) form control to its error/hint for assistive tech.
+  const control = React.isValidElement(children)
+    ? React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
+        "aria-invalid": error ? true : undefined,
+        "aria-describedby":
+          [error ? errorId : null, hint ? hintId : null].filter(Boolean).join(" ") || undefined,
+      })
+    : children;
+
   return (
     <label className={cn("block", className)}>
       <span className="mb-1.5 flex items-baseline gap-2 text-sm font-semibold text-ink">
@@ -27,8 +42,17 @@ export function Field({
           <span className="text-xs font-normal text-muted">({optional})</span>
         )}
       </span>
-      {children}
-      {hint && <span className="mt-1.5 block text-xs text-muted">{hint}</span>}
+      {control}
+      {error && (
+        <span id={errorId} role="alert" className="mt-1.5 block text-xs font-semibold text-red-600">
+          {error}
+        </span>
+      )}
+      {hint && !error && (
+        <span id={hintId} className="mt-1.5 block text-xs text-muted">
+          {hint}
+        </span>
+      )}
     </label>
   );
 }

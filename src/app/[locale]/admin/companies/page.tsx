@@ -7,6 +7,7 @@ import { getAllCompanies } from "@/lib/queries";
 import { requireSession } from "@/lib/session";
 import { DEMO_COMPANY } from "@/lib/demo-data";
 import {
+  COMPANY_REGISTRY_URLS,
   COMPANY_INDUSTRY_LABELS,
   COMPANY_TYPE_LABELS,
   COUNTRY_LABELS,
@@ -19,7 +20,7 @@ import { AppHeader } from "@/components/app-header";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/ui/empty-state";
-import { ProfileModeration } from "@/components/admin/admin-actions";
+import { CompanyInfoRequest, ProfileModeration } from "@/components/admin/admin-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -113,6 +114,17 @@ export default async function AdminCompaniesPage({ params }: Props) {
                             {t("regNo")}: <span className="font-mono">{c.registration_number}</span>
                           </p>
                         )}
+                        {COMPANY_REGISTRY_URLS[c.country] && (
+                          <a
+                            href={COMPANY_REGISTRY_URLS[c.country]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-1 inline-flex items-center gap-1 font-semibold text-brand-600 hover:underline"
+                          >
+                            {t("companyActions.registry")}
+                            <ExternalLink className="h-3 w-3" />
+                          </a>
+                        )}
                       </td>
                       <td className="px-4 py-3 text-xs">
                         <p className="font-semibold">{c.contact_name ?? profile.full_name}</p>
@@ -132,11 +144,14 @@ export default async function AdminCompaniesPage({ params }: Props) {
                         {format.dateTime(new Date(profile.created_at), { dateStyle: "medium" })}
                       </td>
                       <td className="px-4 py-3">
-                        <ProfileModeration
-                          profileId={profile.id}
-                          verified={!!profile.verified_at}
-                          status={profile.status}
-                        />
+                        <div className="space-y-2">
+                          <ProfileModeration
+                            profileId={profile.id}
+                            verified={!!profile.verified_at}
+                            status={profile.status}
+                          />
+                          {!profile.verified_at && <CompanyInfoRequest profileId={profile.id} />}
+                        </div>
                       </td>
                     </tr>
                   );

@@ -15,7 +15,10 @@ import type { CompanyInput } from "@/app/actions/company";
 
 export const dynamic = "force-dynamic";
 
-type Props = { params: Promise<{ locale: string }> };
+type Props = {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ step?: string }>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -23,8 +26,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: t("editProfile"), robots: { index: false } };
 }
 
-export default async function EditProfilePage({ params }: Props) {
+export default async function EditProfilePage({ params, searchParams }: Props) {
   const { locale } = await params;
+  const { step } = await searchParams;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "dashboard" });
   const session = await requireSession(locale, { roles: ["influencer", "company"] });
@@ -45,7 +49,7 @@ export default async function EditProfilePage({ params }: Props) {
         name = full.company.name;
       }
     } else {
-      const full = await getInfluencerFull(supabase, session.userId);
+      const full = await getInfluencerFull(supabase, session.userId, true);
       if (full) {
         influencerData = toOnboardingData(full);
         avatar = full.profile.avatar_url;
@@ -76,7 +80,7 @@ export default async function EditProfilePage({ params }: Props) {
         {isCompany ? (
           <CompanyForm initial={companyData} mode="edit" />
         ) : (
-          <OnboardingWizard initialData={influencerData} mode="edit" />
+          <OnboardingWizard initialData={influencerData} mode="edit" initialStep={step} />
         )}
       </main>
     </>

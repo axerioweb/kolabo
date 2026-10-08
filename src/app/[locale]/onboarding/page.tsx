@@ -43,7 +43,7 @@ export default async function OnboardingPage({ params }: Props) {
       const full = await getCompanyFull(supabase, session.userId);
       if (full) companyData = toCompanyInput(full, session.email);
     } else {
-      const full = await getInfluencerFull(supabase, session.userId);
+      const full = await getInfluencerFull(supabase, session.userId, true);
       if (full) influencerData = toOnboardingData(full);
     }
   } else if (role === "company") {
