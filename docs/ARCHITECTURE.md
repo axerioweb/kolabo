@@ -63,8 +63,21 @@ kanale iz `allowed_channels`.
 - **Kontakt tek posle prihvatanja** — štiti kreatore i podiže odziv (vidi docs/RESEARCH.md).
 - **Poruke pripadaju upitu** — nema neželjenih DM-ova bez konkretne ponude.
 - **Obaveštenja kao šabloni** (`template` + `data`) — prevode se na jezik korisnika.
-- **Prava na nivou kolona** — `anon` ne vidi `birth_year`/`gender`; primalac poruke
-  menja samo `read_at`.
+- **Prava na nivou kolona** — ni `anon` ni `authenticated` ne vide `birth_year`/`gender`
+  drugih korisnika, niti PIB/MB/budžet firmi. Vlasnik ih čita kroz RPC
+  `my_private_profile()` / `company_private()`, admin kroz `company_private()`.
+  Posledica: `select("*")` na `profiles`/`companies` puca — koristi `PROFILE_COLS` /
+  `COMPANY_COLS` iz `queries.ts`, a za `companies` UPDATE umesto UPSERT.
+- **Suspenzija važi i u bazi** — `is_active()` blokira poruke, ocene, prijave,
+  shortlistu i promene statusa upita, ne samo stranice.
+- **Limiti u bazi** — 5/30 upita dnevno (neverifikovana/verifikovana firma), 60 poruka
+  na 10 min, 10 prijava dnevno i jedna otvorena prijava po paru.
+- **Brief se zaključava** čim ga kreator otvori (`viewed_at`).
+- **Isticanje i podsetnici** — `pg_cron` → `expire_requests()`; status `expired`.
+- **Statistika odziva** — `creator_stats(pid)`: stopa odgovora, medijana sati do
+  odgovora, poslednja aktivnost; ulazi u pretragu, karticu i javni profil.
+- **Email iz baze** — trigger na `notifications` šalje Resend email kroz `pg_net`
+  ako u Vault-u postoji `resend_api_key` (vidi SETUP).
 - **Limit upita** — neverifikovana firma 5/dan, verifikovana 30/dan; jedan otvoren upit
   po paru firma–kreator.
 - **Migracije bez DROP** — postojeće polise se menjaju kroz `ALTER POLICY`.
@@ -73,7 +86,10 @@ kanale iz `allowed_channels`.
 
 | Funkcija | Svrha |
 |---|---|
-| `search_influencers(...)` | pretraga sa filterima + paginacija (security invoker) |
+| `search_influencers(...)` | pretraga sa filterima + paginacija (security definer, trigram indeks) |
+| `creator_stats(pid)` | stopa i brzina odgovora, poslednja aktivnost |
+| `my_private_profile()` / `company_private(pid)` | privatne kolone za vlasnika/admina |
+| `expire_requests()` | zakazani posao: istekli upiti + podsetnici |
 | `my_requests(status)` | inbox sa poslednjom porukom i brojem nepročitanih |
 | `get_request_contact(rid)` | kontakt posle prihvatanja (security definer) |
 | `delete_my_account()` | GDPR brisanje (migracija 0011, ručno) |

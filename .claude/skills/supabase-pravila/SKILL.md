@@ -50,6 +50,13 @@ description: Pravila za rad sa Supabase u Kolabo projektu — migracije, RLS pol
   (vidi `saveOnboarding`) — neuspeh na pola nikad ne ostavlja prazan profil.
 - Pretraga i inbox idu kroz RPC (`search_influencers`, `my_requests`); kontakt
   druge strane samo kroz `get_request_contact`.
+- `profiles`/`companies` imaju prava na nivou kolona i za `authenticated`:
+  `select("*")` → "permission denied". UPSERT na `companies` takođe puca
+  (ON CONFLICT čita sve kolone) — koristi UPDATE. Nova privatna kolona ide u
+  RPC `my_private_profile()`/`company_private()`, ne u grant listu.
+- Trigeri u bazi (statusi, limiti, obaveštenja) su izvor istine — menjaj njih,
+  ne dupliraj logiku u TS. Migracije bez DROP/DELETE; ako su neizbežni, poseban
+  fajl `NNNN_manual_*.sql` koji vlasnik pokreće u SQL editoru.
 - Javni podaci (anon) se čitaju eksplicitnim kolonama — `anon` nema pravo na
   `profiles.birth_year`/`gender` (0009), pa `select *` kao anon puca.
 - Novi upit vraća tipove iz `src/lib/types.ts`; kada se uvedu generisani tipovi

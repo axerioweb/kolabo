@@ -67,7 +67,22 @@
       "ctaPrimary": "Create a free profile",
       "ctaSecondary": "I'm looking for creators",
       "socialProof": "For creators from Serbia, Croatia, Bosnia, Montenegro and the region",
-      "noFollowersMin": "No minimum follower count"
+      "noFollowersMin": "No minimum follower count",
+      "card": {
+        "name": "Milica Jovanović",
+        "handle": "@milica.style · Belgrade",
+        "tag1": "Fashion",
+        "tag2": "Beauty",
+        "tag3": "Lifestyle",
+        "followers": "followers",
+        "engagement": "engagement",
+        "perPost": "per post",
+        "open": "Open to collabs",
+        "inquiries": "+3 inquiries",
+        "thisWeek": "this week",
+        "newCollab": "New collab",
+        "newCollabSub": "Beauty brand · barter + fee"
+      }
     },
     "stats": {
       "title": "Built for micro creators",
@@ -205,7 +220,8 @@
       "socials_required": "Add at least one network before finishing.",
       "categories_required": "Pick at least one category before finishing.",
       "save_failed": "Saving failed. Check your data and try again.",
-      "not_authenticated": "Your session expired. Please log in again."
+      "not_authenticated": "Your session expired. Please log in again.",
+      "not_allowed": "Company accounts do not have a creator profile."
     },
     "basics": {
       "title": "Introduce yourself",
@@ -363,7 +379,7 @@
     "companyVerifiedTitle": "Company verified",
     "companyVerifiedText": "Creators see a verified company badge next to your requests. You can send up to 30 requests per day.",
     "companyPendingTitle": "Company verification in progress",
-    "companyPendingText": "We are checking your company details (usually within one business day). Until then you can send up to 5 requests per day.",
+    "companyPendingText": "We are checking your company details and will notify you as soon as verification is done. Until then you can send up to 5 requests per day.",
     "disclosureTitle": "Don't forget the ad label",
     "disclosureText": "Label every paid or barter post at the start of the caption (#ad or #paidpartnership) and turn on the network's paid partnership option. Serbian advertising law requires it.",
     "quickSearch": "Search",
@@ -388,7 +404,21 @@
     "verified": "Verified profile",
     "barterYes": "Accepts barter",
     "barterNo": "Paid collaborations only",
-    "barterDepends": "Barter negotiable"
+    "barterDepends": "Barter negotiable",
+    "checklist": {
+      "title": "Profile completeness",
+      "complete": "Your profile is complete — brands see everything they need.",
+      "hint": "Each item links to the step where you fix it.",
+      "items": {
+        "photo": "Add a profile photo",
+        "bio": "Write a bio (at least 40 characters)",
+        "socials": "Add at least one network",
+        "engagement": "Enter your engagement rate",
+        "categories": "Pick categories",
+        "pricing": "Enter at least one rate or enable barter",
+        "contact": "Add a contact email"
+      }
+    }
   },
   "creators": {
     "metaTitle": "Micro influencers from Serbia and the region — creator search",
@@ -433,7 +463,10 @@
       "sort": "Sort",
       "sortRecommended": "Recommended",
       "sortNewest": "Newest"
-    }
+    },
+    "respondsIn": "Replies in ~{hours}h",
+    "responseRate": "{rate}% reply rate",
+    "newCreator": "New on Kolabo"
   },
   "categoryPage": {
     "metaTitle": "{category} influencers in Serbia and the region",
@@ -485,7 +518,13 @@
     "loginToSend": "Log in",
     "ownerNote": "This is your public profile — this is how brands see it.",
     "editProfile": "Edit profile",
-    "contactPrivacy": "You get the creator's contact details only after they accept your request. Until then you talk through platform messages."
+    "contactPrivacy": "You get the creator's contact details only after they accept your request. Until then you talk through platform messages.",
+    "responseRate": "Reply rate",
+    "responseTime": "Reply time",
+    "responseHours": "~{hours}h",
+    "lastActive": "Active {when}",
+    "noStats": "No requests yet — reply fast to build a reputation.",
+    "verifiedMeaning": "Verified creator: the Kolabo team checked identity and network links."
   },
   "requests": {
     "title": "Requests and collaborations",
@@ -506,7 +545,8 @@
       "delivered": "Delivered",
       "completed": "Completed",
       "declined": "Declined",
-      "cancelled": "Cancelled"
+      "cancelled": "Cancelled",
+      "expired": "Expired"
     },
     "flow": {
       "pending": "Sent",
@@ -516,7 +556,8 @@
     },
     "closedNote": {
       "declined": "The creator declined this request.",
-      "cancelled": "This request was cancelled."
+      "cancelled": "This request was cancelled.",
+      "expired": "The reply deadline passed. Send a new request or pick another creator."
     },
     "progress": "Collaboration progress",
     "new": "New",
@@ -632,7 +673,16 @@
       "not_allowed": "The request can't be sent right now. Check that your company profile is complete.",
       "save_failed": "Sending failed. Please try again.",
       "not_authenticated": "Your session expired. Please log in again."
-    }
+    },
+    "fit": {
+      "title": "The offer does not match the creator's terms",
+      "noBarter": "This creator accepts paid collaborations only — a barter offer will most likely be declined.",
+      "barterBelowMin": "The barter value is below the creator's minimum ({value} {currency}).",
+      "budgetBelowMin": "The budget is below the creator's minimum for paid collaborations ({value} {currency})."
+    },
+    "respondByHint": "After this date the request expires automatically. We recommend 5–7 days.",
+    "creatorBarterMin": "Minimum barter value: {value} {currency}",
+    "creatorMinBudget": "Minimum budget: {value} {currency}"
   },
   "requestActions": {
     "do": {
@@ -657,7 +707,8 @@
       "invalid_transition": "This action is no longer possible — refresh the page.",
       "not_allowed": "You are not allowed to do this.",
       "save_failed": "The action failed. Please try again.",
-      "not_authenticated": "Your session expired. Please log in again."
+      "not_authenticated": "Your session expired. Please log in again.",
+      "suspended": "The account is suspended — this action is not allowed."
     }
   },
   "thread": {
@@ -687,7 +738,11 @@
     "details": "Details",
     "detailsPlaceholder": "Describe what happened...",
     "submit": "Send report",
-    "sent": "Thank you — the report was received and will be reviewed."
+    "sent": "Thank you — the report was received and will be reviewed.",
+    "errors": {
+      "already_reported": "You already have an open report for this account.",
+      "rate_limited": "You reached the daily report limit."
+    }
   },
   "saved": {
     "title": "Saved creators",
@@ -705,7 +760,7 @@
       },
       "welcome_company": {
         "title": "Welcome to Kolabo 🎉",
-        "body": "Complete your company profile and send your first request to a creator. Company verification usually takes one business day."
+        "body": "Complete your company profile and send your first request to a creator. We will let you know once the company is verified."
       },
       "request_new": {
         "title": "New request: {title}",
@@ -746,6 +801,18 @@
       "verified": {
         "title": "Profile verified ✔",
         "body": "A verified badge now appears next to your name."
+      },
+      "request_expired": {
+        "title": "Request expired",
+        "body": "{name} did not reply to “{title}” in time. Try another creator."
+      },
+      "request_reminder": {
+        "title": "Reply deadline is tomorrow",
+        "body": "{name} is waiting for your reply to “{title}”."
+      },
+      "company_info_needed": {
+        "title": "More details needed for verification",
+        "body": "{note}"
       }
     }
   },
@@ -869,7 +936,8 @@
     "regNo": "Reg. no.",
     "todo": {
       "companies": "{count, plural, one {# company awaits verification} other {# companies await verification}}",
-      "reports": "{count, plural, one {# open report} other {# open reports}}"
+      "reports": "{count, plural, one {# open report} other {# open reports}}",
+      "creators": "{count, plural, one {# new creator this week} other {# new creators this week}}"
     },
     "kpi": {
       "totalInfluencers": "Total influencers",
@@ -913,7 +981,9 @@
       "filterCountry": "Country",
       "filterBarter": "Barter",
       "noResults": "No results for the selected filters.",
-      "searchPlaceholder": "Search by name or username..."
+      "searchPlaceholder": "Search by name or username...",
+      "filterStatus": "Status",
+      "unverifiedFirst": "Unverified first"
     },
     "companyCols": {
       "company": "Company",
@@ -953,7 +1023,13 @@
         "dismissed": "Dismissed"
       }
     },
-    "notAdmin": "You do not have access to the admin panel."
+    "notAdmin": "You do not have access to the admin panel.",
+    "companyActions": {
+      "registry": "Check in registry",
+      "needInfo": "Request details",
+      "needInfoPrompt": "What should the company add? The message is sent as a notification and email.",
+      "sent": "The request for details was sent."
+    }
   },
   "legal": {
     "updated": "Last updated: {date}",
@@ -1119,5 +1195,23 @@
     "title": "Page not found",
     "text": "The page you are looking for does not exist or has been moved.",
     "home": "Back to home"
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "text": "The error has been logged. Try again, and if it keeps happening write to hello@kolabo.rs.",
+    "code": "Error code",
+    "retry": "Try again",
+    "home": "Back to home"
+  },
+  "og": {
+    "tagline": "The platform connecting micro influencers and brands in the Balkans",
+    "homeTitle": "Your content. Your first collaboration.",
+    "chip1": "Free for creators",
+    "chip2": "Verified companies",
+    "chip3": "Contact only after acceptance",
+    "creatorKicker": "Creator on Kolabo",
+    "categoryKicker": "Creator search",
+    "categoryTitle": "{category} influencers",
+    "footerTag": "Micro influencers × brands · Balkans"
   }
 }

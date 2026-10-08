@@ -25,6 +25,10 @@ Stack: Next.js 15 (App Router) + Supabase + Tailwind v4 + next-intl + Framer Mot
 8. **Javne stranice** (katalog, profil, kategorije, sitemap) čitaju kroz
    `createPublicClient()` (anon, keš sa tagom `public-creators`). Akcija koja menja
    javne podatke kreatora mora da pozove `revalidateTag(PUBLIC_CREATORS_TAG)`.
+9. **Kolone `profiles` i `companies` su ograničene** (0014): nikad `select("*")` —
+   koristi `PROFILE_COLS`/`COMPANY_COLS` iz `queries.ts`; privatne kolone samo kroz
+   `my_private_profile()` / `company_private()`. Na `companies` koristi UPDATE, ne
+   UPSERT. Svaka javna stranica dobija metadata kroz `publicMetadata()` iz `lib/seo.ts`.
 
 ## Konvencije
 

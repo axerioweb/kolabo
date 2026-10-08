@@ -33,12 +33,42 @@ Redosled (folder `supabase/migrations/`):
 | `0010_delete_policies.sql` | polise za brisanje | primenjeno |
 | `0011_account_deletion.sql` | RPC `delete_my_account()` | **pokreni ručno** |
 | `0012_revoke_anon_helpers.sql` | EXECUTE samo za prijavljene | primenjeno |
+| `0013_extensions_enums.sql` | pg_trgm, pg_cron, pg_net, status `expired` | primenjeno |
+| `0014_hardening.sql` | suspenzija, privatne kolone, limiti, pretraga, statistika odziva, isticanje upita, email | primenjeno |
+| `0015_manual_reviews_fk.sql` | ocene preživljavaju brisanje naloga | **pokreni ručno** |
 | `seed.sql` | šifarnik kategorija | primenjeno |
 
-> **0011 se pokreće ručno** u Supabase dashboardu → SQL Editor (nalepi sadržaj
-> fajla i Run). Supabase konektor koji koristi Claude traži ručnu potvrdu za
-> naredbe sa `DELETE`, a bez ove funkcije dugme „Obriši nalog” prikazuje poruku
-> da se korisnik javi podršci.
+> **0011 i 0015 se pokreću ručno** u Supabase dashboardu → SQL Editor (nalepi
+> sadržaj fajla i Run). Supabase konektor koji koristi Claude traži ručnu potvrdu
+> za `DROP`/`DELETE`. Bez 0011 dugme „Obriši nalog” upućuje na podršku; bez 0015
+> brisanje naloga firme briše i ocene koje je ostavila kreatorima.
+
+## 2a. Email obaveštenja (Resend preko baze)
+
+Obaveštenja se šalju emailom direktno iz baze (`pg_net` + Vault), bez posebnog
+servera. Potrebno je:
+
+1. Nalog na [resend.com](https://resend.com), verifikovan domen (npr. `kolabo.rs`)
+   i API ključ.
+2. U Supabase SQL editoru:
+
+```sql
+select vault.create_secret('re_xxxxxxxx', 'resend_api_key');
+select vault.create_secret('Kolabo <obavestenja@kolabo.rs>', 'email_from');   -- opciono
+select vault.create_secret('https://kolabo.rs', 'site_url');                  -- opciono
+```
+
+Dok ključ nije unet, emailovi se tiho preskaču, a in-app obaveštenja rade.
+Šalju se: novi upit, prihvaćen/odbijen/otkazan, isporučeno, izmene, završeno,
+istekao upit, podsetnik dan pre roka, nova poruka (jednom po razgovoru), ocena,
+verifikacija, zahtev za dopunu firme. Korisnik ih gasi u onboardingu / kontakt
+preferencama (`email_notifications`).
+
+## 2b. Zakazani posao
+
+`pg_cron` svakog dana u 06:15 UTC pokreće `expire_requests()`: upiti kojima je
+prošao rok za odgovor prelaze u `expired` (firma dobija obaveštenje), a kreatori
+dobijaju podsetnik dan pre roka. Pregled: `select * from cron.job;`
 
 Na novom projektu: pokreni sve fajlove redom u SQL editoru (ili
 `supabase link --project-ref <ref>` pa `supabase db push`), zatim `seed.sql`.

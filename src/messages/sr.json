@@ -67,7 +67,22 @@
       "ctaPrimary": "Napravi besplatan profil",
       "ctaSecondary": "Tražim kreatore za brend",
       "socialProof": "Za kreatore iz Srbije, Hrvatske, BiH, Crne Gore i regiona",
-      "noFollowersMin": "Bez minimalnog broja pratilaca"
+      "noFollowersMin": "Bez minimalnog broja pratilaca",
+      "card": {
+        "name": "Milica Jovanović",
+        "handle": "@milica.style · Beograd",
+        "tag1": "Moda",
+        "tag2": "Lepota",
+        "tag3": "Lifestyle",
+        "followers": "pratilaca",
+        "engagement": "engagement",
+        "perPost": "po objavi",
+        "open": "Otvorena za saradnje",
+        "inquiries": "+3 upita",
+        "thisWeek": "ove nedelje",
+        "newCollab": "Nova saradnja",
+        "newCollabSub": "Beauty brend · barter + honorar"
+      }
     },
     "stats": {
       "title": "Napravljeno za mikro kreatore",
@@ -205,7 +220,8 @@
       "socials_required": "Dodaj bar jednu mrežu pre završetka.",
       "categories_required": "Izaberi bar jednu kategoriju pre završetka.",
       "save_failed": "Čuvanje nije uspelo. Proveri unete podatke i pokušaj ponovo.",
-      "not_authenticated": "Sesija je istekla. Prijavi se ponovo."
+      "not_authenticated": "Sesija je istekla. Prijavi se ponovo.",
+      "not_allowed": "Nalog firme nema profil kreatora."
     },
     "basics": {
       "title": "Predstavi se",
@@ -363,7 +379,7 @@
     "companyVerifiedTitle": "Firma je verifikovana",
     "companyVerifiedText": "Kreatori uz tvoje upite vide oznaku verifikovane firme. Možeš poslati do 30 upita dnevno.",
     "companyPendingTitle": "Verifikacija firme je u toku",
-    "companyPendingText": "Proveravamo podatke firme (obično u roku od jednog radnog dana). Do tada možeš poslati do 5 upita dnevno.",
+    "companyPendingText": "Proveravamo podatke firme. Obavestićemo te čim verifikacija bude gotova. Do tada možeš poslati do 5 upita dnevno.",
     "disclosureTitle": "Ne zaboravi oznaku reklame",
     "disclosureText": "Svaku plaćenu ili barter objavu označi na početku opisa (#reklama ili #plaćenasaradnja) i uključi opciju za plaćeno partnerstvo na mreži. To traži Zakon o oglašavanju.",
     "quickSearch": "Pretraži",
@@ -388,7 +404,21 @@
     "verified": "Verifikovan profil",
     "barterYes": "Prihvata barter",
     "barterNo": "Samo plaćene saradnje",
-    "barterDepends": "Barter po dogovoru"
+    "barterDepends": "Barter po dogovoru",
+    "checklist": {
+      "title": "Popunjenost profila",
+      "complete": "Profil je kompletan — brendovi vide sve što im treba.",
+      "hint": "Svaka stavka vodi na korak gde je dopunjavaš.",
+      "items": {
+        "photo": "Dodaj profilnu fotografiju",
+        "bio": "Napiši biografiju (bar 40 znakova)",
+        "socials": "Dodaj bar jednu mrežu",
+        "engagement": "Unesi engagement rate",
+        "categories": "Izaberi kategorije",
+        "pricing": "Unesi bar jednu cenu ili uključi barter",
+        "contact": "Dodaj kontakt email"
+      }
+    }
   },
   "creators": {
     "metaTitle": "Mikro influenseri iz Srbije i regiona — pretraga kreatora",
@@ -433,7 +463,10 @@
       "sort": "Sortiranje",
       "sortRecommended": "Preporučeno",
       "sortNewest": "Najnoviji"
-    }
+    },
+    "respondsIn": "Odgovara za ~{hours}h",
+    "responseRate": "{rate}% odgovora",
+    "newCreator": "Nov na platformi"
   },
   "categoryPage": {
     "metaTitle": "{category} influenseri u Srbiji i regionu",
@@ -485,7 +518,13 @@
     "loginToSend": "Prijavi se",
     "ownerNote": "Ovo je tvoj javni profil — ovako ga vide brendovi.",
     "editProfile": "Uredi profil",
-    "contactPrivacy": "Kontakt podatke kreatora dobijaš tek kada prihvati tvoj upit. Do tada se dogovarate porukama na platformi."
+    "contactPrivacy": "Kontakt podatke kreatora dobijaš tek kada prihvati tvoj upit. Do tada se dogovarate porukama na platformi.",
+    "responseRate": "Stopa odgovora",
+    "responseTime": "Vreme odgovora",
+    "responseHours": "~{hours}h",
+    "lastActive": "Aktivan/na {when}",
+    "noStats": "Još nema upita — odgovori brzo i gradi reputaciju.",
+    "verifiedMeaning": "Verifikovan kreator: Kolabo tim je proverio identitet i linkove ka mrežama."
   },
   "requests": {
     "title": "Upiti i saradnje",
@@ -506,7 +545,8 @@
       "delivered": "Isporučeno",
       "completed": "Završeno",
       "declined": "Odbijen",
-      "cancelled": "Otkazan"
+      "cancelled": "Otkazan",
+      "expired": "Isteklo"
     },
     "flow": {
       "pending": "Poslat",
@@ -516,7 +556,8 @@
     },
     "closedNote": {
       "declined": "Kreator je odbio ovaj upit.",
-      "cancelled": "Ovaj upit je otkazan."
+      "cancelled": "Ovaj upit je otkazan.",
+      "expired": "Rok za odgovor je istekao. Pošalji novi upit ili izaberi drugog kreatora."
     },
     "progress": "Tok saradnje",
     "new": "Novo",
@@ -632,7 +673,16 @@
       "not_allowed": "Upit trenutno ne može da se pošalje. Proveri da li je profil firme završen.",
       "save_failed": "Slanje nije uspelo. Pokušaj ponovo.",
       "not_authenticated": "Sesija je istekla. Prijavi se ponovo."
-    }
+    },
+    "fit": {
+      "title": "Ponuda se ne uklapa sa uslovima kreatora",
+      "noBarter": "Kreator prihvata samo plaćene saradnje — barter ponuda će najverovatnije biti odbijena.",
+      "barterBelowMin": "Vrednost bartera je ispod minimuma kreatora ({value} {currency}).",
+      "budgetBelowMin": "Budžet je ispod minimuma kreatora za plaćene saradnje ({value} {currency})."
+    },
+    "respondByHint": "Posle ovog datuma upit automatski ističe. Preporučujemo 5–7 dana.",
+    "creatorBarterMin": "Minimalna vrednost bartera: {value} {currency}",
+    "creatorMinBudget": "Minimalni budžet: {value} {currency}"
   },
   "requestActions": {
     "do": {
@@ -657,7 +707,8 @@
       "invalid_transition": "Ova akcija više nije moguća — osveži stranicu.",
       "not_allowed": "Nemaš dozvolu za ovu akciju.",
       "save_failed": "Akcija nije uspela. Pokušaj ponovo.",
-      "not_authenticated": "Sesija je istekla. Prijavi se ponovo."
+      "not_authenticated": "Sesija je istekla. Prijavi se ponovo.",
+      "suspended": "Nalog je suspendovan — akcija nije dozvoljena."
     }
   },
   "thread": {
@@ -687,7 +738,11 @@
     "details": "Detalji",
     "detailsPlaceholder": "Opiši šta se desilo...",
     "submit": "Pošalji prijavu",
-    "sent": "Hvala — prijava je primljena i biće pregledana."
+    "sent": "Hvala — prijava je primljena i biće pregledana.",
+    "errors": {
+      "already_reported": "Već imaš otvorenu prijavu za ovaj nalog.",
+      "rate_limited": "Dostigao/la si dnevni limit prijava."
+    }
   },
   "saved": {
     "title": "Sačuvani kreatori",
@@ -705,7 +760,7 @@
       },
       "welcome_company": {
         "title": "Dobrodošli na Kolabo 🎉",
-        "body": "Završi profil firme i pošalji prvi upit kreatoru. Verifikacija firme obično traje jedan radni dan."
+        "body": "Završi profil firme i pošalji prvi upit kreatoru. Javićemo ti kada firma bude verifikovana."
       },
       "request_new": {
         "title": "Novi upit: {title}",
@@ -746,6 +801,18 @@
       "verified": {
         "title": "Profil je verifikovan ✔",
         "body": "Uz tvoje ime se sada prikazuje oznaka verifikacije."
+      },
+      "request_expired": {
+        "title": "Upit je istekao",
+        "body": "{name} nije odgovorio/la na „{title}” u roku. Probaj sa drugim kreatorom."
+      },
+      "request_reminder": {
+        "title": "Sutra ističe rok za odgovor",
+        "body": "{name} čeka tvoj odgovor na „{title}”."
+      },
+      "company_info_needed": {
+        "title": "Potrebne su dopune za verifikaciju",
+        "body": "{note}"
       }
     }
   },
@@ -869,7 +936,8 @@
     "regNo": "MB",
     "todo": {
       "companies": "{count, plural, one {# firma čeka verifikaciju} few {# firme čekaju verifikaciju} other {# firmi čeka verifikaciju}}",
-      "reports": "{count, plural, one {# otvorena prijava} few {# otvorene prijave} other {# otvorenih prijava}}"
+      "reports": "{count, plural, one {# otvorena prijava} few {# otvorene prijave} other {# otvorenih prijava}}",
+      "creators": "{count, plural, one {# nov kreator ove nedelje} few {# nova kreatora ove nedelje} other {# novih kreatora ove nedelje}}"
     },
     "kpi": {
       "totalInfluencers": "Ukupno influensera",
@@ -913,7 +981,9 @@
       "filterCountry": "Zemlja",
       "filterBarter": "Barter",
       "noResults": "Nema rezultata za izabrane filtere.",
-      "searchPlaceholder": "Pretraži po imenu ili korisničkom imenu..."
+      "searchPlaceholder": "Pretraži po imenu ili korisničkom imenu...",
+      "filterStatus": "Status",
+      "unverifiedFirst": "Neverifikovani prvi"
     },
     "companyCols": {
       "company": "Firma",
@@ -953,7 +1023,13 @@
         "dismissed": "Odbačena"
       }
     },
-    "notAdmin": "Nemaš pristup admin panelu."
+    "notAdmin": "Nemaš pristup admin panelu.",
+    "companyActions": {
+      "registry": "Proveri u registru",
+      "needInfo": "Traži dopunu",
+      "needInfoPrompt": "Šta firma treba da dopuni? Poruka se šalje kao obaveštenje i email.",
+      "sent": "Zahtev za dopunu je poslat."
+    }
   },
   "legal": {
     "updated": "Poslednja izmena: {date}",
@@ -1119,5 +1195,23 @@
     "title": "Stranica nije pronađena",
     "text": "Stranica koju tražiš ne postoji ili je premeštena.",
     "home": "Nazad na početnu"
+  },
+  "errorPage": {
+    "title": "Nešto je pošlo naopako",
+    "text": "Greška je zabeležena. Pokušaj ponovo, a ako se ponavlja, piši nam na hello@kolabo.rs.",
+    "code": "Kod greške",
+    "retry": "Pokušaj ponovo",
+    "home": "Nazad na početnu"
+  },
+  "og": {
+    "tagline": "Platforma koja spaja mikro influensere i brendove na Balkanu",
+    "homeTitle": "Tvoj sadržaj. Tvoja prva saradnja.",
+    "chip1": "Besplatno za kreatore",
+    "chip2": "Verifikovane firme",
+    "chip3": "Kontakt tek posle prihvatanja",
+    "creatorKicker": "Kreator na Kolabo",
+    "categoryKicker": "Pretraga kreatora",
+    "categoryTitle": "{category} influenseri",
+    "footerTag": "Mikro influenseri × brendovi · Balkan"
   }
 }

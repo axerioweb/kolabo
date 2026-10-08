@@ -14,7 +14,9 @@
 - [x] Verifikacija profila (admin) i suspenzija
 - [x] Zaboravljena lozinka, podešavanja, izvoz podataka, brisanje naloga
 - [x] Pravne stranice (nacrt — čeka pravnika)
-- [ ] Email obaveštenja (Resend preko SMTP-a ili Edge Function nad `notifications`)
+- [x] Email obaveštenja (Resend kroz pg_net + Vault; ključ unosi vlasnik)
+- [x] Isticanje upita i podsetnici (pg_cron), statistika odziva kreatora
+- [x] OG slike, loading/error stanja, lista zadataka za profil, upozorenja o uklapanju ponude
 - [ ] Analitika (Plausible / Vercel Analytics — bez kolačića)
 
 ## Faza 3 — Firme ✅
@@ -27,8 +29,8 @@
 
 ## Sledeće (pre javnog lansiranja)
 
-- [ ] Pokrenuti migraciju `0011_account_deletion.sql` u SQL editoru
-- [ ] SMTP provajder (Resend/Postmark) + email šabloni na srpskom
+- [ ] Pokrenuti migracije `0011_account_deletion.sql` i `0015_manual_reviews_fk.sql` u SQL editoru
+- [ ] Resend nalog + `vault.create_secret('re_…', 'resend_api_key')` (docs/SETUP.md 2a)
 - [ ] Pravni pregled uslova i politike privatnosti, popuniti podatke o firmi
 - [ ] Produkcijski domen, Vercel deploy, Supabase redirect URL-ovi
 - [ ] OG slika i favicon set, pravi tekstovi i fotografije za landing
@@ -45,4 +47,5 @@
 - Kampanje: firma objavi brief, kreatori se prijavljuju
 - Media kit PDF export profila
 - Instagram/TikTok API za automatske metrike
-- Status „isteklo” za upite posle roka za odgovor (pg_cron)
+- Zahtev za verifikaciju kreatora (screenshot statistike → admin red)
+- Strukturisani razlozi odbijanja (budžet / barter / termin / nije fit) + saveti firmi
