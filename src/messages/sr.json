@@ -1,15 +1,17 @@
 {
   "meta": {
     "title": "Kolabo — platforma koja spaja mikro influensere i brendove na Balkanu",
-    "description": "Napravi besplatan profil, prikaži svoje mreže, publiku i cene, i dođi do prve ili nove saradnje sa brendovima. Platforma za mikro influensere sa Balkana.",
-    "keywords": "mikro influenseri, influencer marketing, saradnja sa brendovima, Balkan, Srbija, influenser platforma"
+    "description": "Napravi besplatan profil, prikaži svoje mreže, publiku i cene, i dođi do prve ili nove saradnje sa brendovima. Brendovi ovde pronalaze proverene mikro influensere iz Srbije i regiona.",
+    "keywords": "mikro influenseri, influencer marketing Srbija, saradnja sa brendovima, influenseri Balkan, barter saradnja, influenser platforma"
   },
   "common": {
     "brand": "Kolabo",
     "loading": "Učitavanje...",
     "save": "Sačuvaj",
     "saving": "Čuvanje...",
+    "saved": "Sačuvano",
     "cancel": "Otkaži",
+    "close": "Zatvori",
     "back": "Nazad",
     "next": "Dalje",
     "finish": "Završi",
@@ -27,35 +29,55 @@
     "onRequest": "Na upit"
   },
   "nav": {
+    "main": "Glavna navigacija",
+    "menu": "Meni",
+    "account": "Moj nalog",
     "howItWorks": "Kako radi",
     "categories": "Kategorije",
     "forBrands": "Za brendove",
+    "findCreators": "Pronađi kreatore",
     "faq": "Pitanja",
     "login": "Prijava",
-    "signup": "Napravi profil",
+    "signup": "Napravi nalog",
     "dashboard": "Moj panel",
-    "admin": "Admin"
+    "admin": "Admin",
+    "overview": "Pregled",
+    "influencers": "Influenseri",
+    "companies": "Kompanije",
+    "requests": "Upiti",
+    "reports": "Prijave",
+    "saved": "Sačuvani",
+    "myProfile": "Moj profil",
+    "companyProfile": "Profil firme",
+    "publicProfile": "Javni profil",
+    "settings": "Podešavanja",
+    "notifications": "Obaveštenja",
+    "notificationsUnread": "Obaveštenja ({count} nepročitanih)",
+    "demoRole": "Demo uloga",
+    "demoInfluencer": "Demo: kreator",
+    "demoCompany": "Demo: firma",
+    "demoAdmin": "Demo: admin"
   },
   "landing": {
     "hero": {
-      "badge": "Platforma za kreatore sa Balkana",
+      "badge": "Platforma za kreatore i brendove sa Balkana",
       "title1": "Tvoj sadržaj.",
       "title2": "Tvoja prva saradnja.",
-      "subtitle": "Kolabo spaja mikro influensere i brendove na Balkanu. Napravi profil za 5 minuta, prikaži svoju publiku i cene — i pusti da te pravi brendovi pronađu.",
+      "subtitle": "Kolabo spaja mikro influensere i brendove na Balkanu. Napravi profil za 5 minuta, prikaži publiku i cene, a brendovi ti šalju jasne ponude — sa budžetom, rokom i bez skrivenih uslova.",
       "ctaPrimary": "Napravi besplatan profil",
-      "ctaSecondary": "Pogledaj kako radi",
-      "socialProof": "Pridruži se kreatorima iz Srbije, Hrvatske, BiH i Crne Gore",
+      "ctaSecondary": "Tražim kreatore za brend",
+      "socialProof": "Za kreatore iz Srbije, Hrvatske, BiH, Crne Gore i regiona",
       "noFollowersMin": "Bez minimalnog broja pratilaca"
     },
     "stats": {
-      "title": "Zašto mikro influenseri?",
-      "subtitle": "Brojevi su na tvojoj strani — brendovi sve više biraju manje, autentične kreatore.",
-      "stat1Value": "65%",
-      "stat1Label": "svih saradnji brendova čine mikro influenseri",
-      "stat2Value": "5–8%",
-      "stat2Label": "engagement nano kreatora — više nego kod zvezda",
-      "stat3Value": "3x",
-      "stat3Label": "više upita dobijaju kompletni profili",
+      "title": "Napravljeno za mikro kreatore",
+      "subtitle": "Sve što brendu treba da te izabere — na jednom profilu, bez agencije u sredini.",
+      "stat1Value": "0 €",
+      "stat1Label": "članarina za kreatore — profil je besplatan",
+      "stat2Value": "30",
+      "stat2Label": "kategorija sadržaja po kojima te brendovi pronalaze",
+      "stat3Value": "5",
+      "stat3Label": "društvenih mreža na jednom profilu",
       "stat4Value": "5 min",
       "stat4Label": "je dovoljno da napraviš profil"
     },
@@ -63,11 +85,11 @@
       "title": "Kako Kolabo radi",
       "subtitle": "Tri koraka od registracije do saradnje.",
       "step1Title": "Napravi profil",
-      "step1Text": "Poveži svoje mreže, izaberi kategorije sadržaja i unesi raspon publike. Sve na jednom mestu — kao tvoj media kit.",
+      "step1Text": "Dodaj svoje mreže, izaberi kategorije sadržaja i unesi raspon publike. Sve na jednom mestu — kao tvoj media kit.",
       "step2Title": "Postavi uslove",
-      "step2Text": "Odredi raspon cena za usluge, naznači da li prihvataš barter saradnje i kako želiš da te kontaktiraju.",
-      "step3Title": "Dobij saradnje",
-      "step3Text": "Brendovi te pronalaze po kategoriji, publici i budžetu. Ti odlučuješ sa kim i kako sarađuješ."
+      "step2Text": "Odredi raspon cena za usluge, naznači da li prihvataš barter saradnje i koje kanale kontakta dozvoljavaš.",
+      "step3Title": "Primaj upite",
+      "step3Text": "Brendovi ti šalju upit sa briefom, budžetom i rokovima. Ti prihvataš ili odbijaš — a kontakt se deli tek kada prihvatiš."
     },
     "categories": {
       "title": "Za svaki tip sadržaja",
@@ -78,20 +100,25 @@
       "subtitle": "Instagram, TikTok, YouTube, Facebook i LinkedIn — jedan profil umesto pet linkova."
     },
     "forBrands": {
-      "title": "Vodiš brend?",
-      "subtitle": "Uskoro: nalozi za firme sa pretragom kreatora po kategoriji, publici i budžetu. Prijavi se na listu čekanja.",
-      "cta": "Prijavi interesovanje"
+      "title": "Vodiš brend ili agenciju?",
+      "subtitle": "Pretraži kreatore po kategoriji, gradu, publici i budžetu, pošalji strukturisan upit i dogovori saradnju na jednom mestu.",
+      "browse": "Pogledaj kreatore",
+      "cta": "Kako radi za brendove"
     },
     "faq": {
       "title": "Česta pitanja",
       "q1": "Da li je Kolabo besplatan za influensere?",
-      "a1": "Da. Pravljenje profila i osnovno korišćenje platforme je besplatno za kreatore.",
+      "a1": "Da. Pravljenje profila, primanje upita i dogovaranje saradnje je besplatno za kreatore.",
       "q2": "Koliko pratilaca mi treba?",
       "a2": "Ne postoji minimalan broj pratilaca. Brendovima su bitni angažovanost publike, kvalitet sadržaja i uklapanje sa kategorijom — ne samo brojke.",
       "q3": "Šta je barter saradnja?",
-      "a3": "Saradnja u kojoj umesto novca dobijaš proizvode, usluge, putovanja ili ulaznice u zameni za objavu. Na profilu sam biraš da li i pod kojim uslovima prihvataš barter.",
-      "q4": "Kako me brendovi kontaktiraju?",
-      "a4": "Ti biraš način: poruke na platformi, email, telefon, WhatsApp, Viber ili Instagram DM. Prikazujemo samo ono što ti dozvoliš."
+      "a3": "Saradnja u kojoj umesto novca dobijaš proizvode, usluge, putovanja ili ulaznice u zameni za objavu. Na profilu biraš da li i pod kojim uslovima prihvataš barter, a brend u upitu mora da navede šta tačno nudi i koliko to vredi.",
+      "q4": "Ko vidi moj email i telefon?",
+      "a4": "Niko, dok ne prihvatiš upit. Tada brend vidi samo kanale koje si sam/a dozvolio/la. Do tada se sve dogovara kroz poruke na platformi.",
+      "q5": "Moram li da označim reklamu?",
+      "a5": "Da. Zakon o oglašavanju zabranjuje prikriveno oglašavanje. Plaćenu ili barter objavu jasno označi na početku opisa (npr. #reklama ili #plaćenasaradnja) i koristi alat mreže za plaćeno partnerstvo.",
+      "q6": "Kako znam da je firma prava?",
+      "a6": "Firme pri registraciji unose PIB i podatke o firmi, a naš tim ih proverava i dodeljuje oznaku verifikovane firme. Svaku sumnjivu ponudu možeš prijaviti jednim klikom."
     },
     "cta": {
       "title": "Spreman za prvu saradnju?",
@@ -102,22 +129,63 @@
   "auth": {
     "loginTitle": "Dobrodošao nazad",
     "loginSubtitle": "Prijavi se na svoj Kolabo nalog.",
-    "signupTitle": "Napravi svoj profil",
+    "signupTitle": "Napravi nalog",
     "signupSubtitle": "Besplatna registracija — profil je spreman za 5 minuta.",
+    "accountType": "Ja sam...",
+    "typeCreator": "Kreator",
+    "typeCreatorHint": "Influenser ili UGC kreator koji traži saradnje",
+    "typeBrand": "Brend / firma",
+    "typeBrandHint": "Firma ili agencija koja traži kreatore",
     "fullName": "Ime i prezime",
+    "contactPerson": "Tvoje ime i prezime",
+    "companyName": "Naziv firme ili brenda",
     "email": "Email adresa",
     "password": "Lozinka",
     "passwordHint": "Najmanje 8 karaktera",
+    "showPassword": "Prikaži lozinku",
+    "hidePassword": "Sakrij lozinku",
     "loginButton": "Prijavi se",
-    "signupButton": "Registruj se",
+    "signupButton": "Napravi profil kreatora",
+    "signupButtonBrand": "Napravi nalog firme",
     "noAccount": "Nemaš nalog?",
     "haveAccount": "Već imaš nalog?",
     "signupLink": "Registruj se",
     "loginLink": "Prijavi se",
-    "terms": "Registracijom prihvataš uslove korišćenja i politiku privatnosti.",
-    "checkEmail": "Proveri email — poslali smo ti link za potvrdu naloga.",
+    "forgotPassword": "Zaboravljena lozinka?",
+    "consentTerms": "Imam najmanje 18 godina i prihvatam <terms>uslove korišćenja</terms> i <privacy>politiku privatnosti</privacy>.",
+    "consentMarketing": "Želim povremene emailove o novim mogućnostima i savetima za saradnje.",
+    "mustAcceptTerms": "Za registraciju je potrebno da prihvatiš uslove korišćenja.",
+    "checkEmailTitle": "Proveri email",
+    "checkEmail": "Poslali smo link za potvrdu na {email}. Klikni na njega da aktiviraš nalog.",
     "demoDisabled": "Registracija i prijava biće aktivne kada se poveže Supabase projekat. Pogledaj docs/SETUP.md za uputstvo.",
-    "invalidCredentials": "Pogrešan email ili lozinka."
+    "invalidCredentials": "Pogrešan email ili lozinka.",
+    "emailNotConfirmed": "Email još nije potvrđen. Proveri inbox (i spam) za link za potvrdu.",
+    "emailTaken": "Nalog sa ovom email adresom već postoji. Probaj da se prijaviš.",
+    "rateLimited": "Previše pokušaja. Sačekaj nekoliko minuta pa pokušaj ponovo.",
+    "weakPassword": "Lozinka mora imati najmanje 8 karaktera.",
+    "genericError": "Registracija trenutno nije uspela. Pokušaj ponovo.",
+    "suspended": "Tvoj nalog je privremeno suspendovan. Za više informacija piši nam na hello@kolabo.rs.",
+    "linkExpired": "Link je istekao ili je već iskorišćen. Zatraži novi.",
+    "forgotTitle": "Zaboravljena lozinka",
+    "forgotSubtitle": "Unesi email adresu naloga i poslaćemo ti link za novu lozinku.",
+    "sendResetLink": "Pošalji link",
+    "resetSent": "Ako nalog sa tom adresom postoji, poslali smo ti link za postavljanje nove lozinke.",
+    "backToLogin": "Nazad na prijavu",
+    "resetTitle": "Nova lozinka",
+    "resetSubtitle": "Izaberi novu lozinku za svoj nalog.",
+    "newPassword": "Nova lozinka",
+    "confirmPassword": "Ponovi lozinku",
+    "savePassword": "Sačuvaj lozinku",
+    "passwordsDontMatch": "Lozinke se ne poklapaju.",
+    "passwordChanged": "Lozinka je promenjena. Preusmeravamo te na panel...",
+    "side": {
+      "line1": "Tvoj media kit.",
+      "line2": "Tvoje cene.",
+      "line3": "Tvoja pravila.",
+      "point1": "Brendovi ti šalju jasne upite — sa briefom, budžetom i rokovima.",
+      "point2": "Tvoj kontakt vide tek kada prihvatiš saradnju.",
+      "point3": "Firme su proverene po PIB-u, a svaku sumnjivu ponudu možeš prijaviti."
+    }
   },
   "onboarding": {
     "title": "Podešavanje profila",
@@ -129,11 +197,21 @@
       "pricing": "Cene i barter",
       "contact": "Kontakt"
     },
+    "errors": {
+      "username_format": "Korisničko ime može imati 3–30 znakova: mala slova, brojeve, tačku, crticu i donju crtu.",
+      "username_reserved": "To korisničko ime je rezervisano. Izaberi drugo.",
+      "username_taken": "To korisničko ime je već zauzeto. Izaberi drugo.",
+      "username_required": "Unesi korisničko ime u prvom koraku — ono je link tvog javnog profila.",
+      "socials_required": "Dodaj bar jednu mrežu pre završetka.",
+      "categories_required": "Izaberi bar jednu kategoriju pre završetka.",
+      "save_failed": "Čuvanje nije uspelo. Proveri unete podatke i pokušaj ponovo.",
+      "not_authenticated": "Sesija je istekla. Prijavi se ponovo."
+    },
     "basics": {
       "title": "Predstavi se",
       "subtitle": "Osnovni podaci koje brendovi prvo vide.",
       "username": "Korisničko ime",
-      "usernameHint": "Deo linka tvog profila, npr. kolabo.rs/@milica.style",
+      "usernameHint": "Deo linka tvog javnog profila, npr. kolabo.rs/kreatori/milica.style",
       "bio": "Kratka biografija",
       "bioPlaceholder": "Ko si, kakav sadržaj praviš i sa kakvim brendovima želiš da sarađuješ...",
       "birthYear": "Godina rođenja",
@@ -180,7 +258,7 @@
     },
     "contact": {
       "title": "Kontakt i obaveštenja",
-      "subtitle": "Ti biraš kako brendovi mogu da te kontaktiraju — prikazujemo samo ono što dozvoliš.",
+      "subtitle": "Ti biraš kako brendovi mogu da te kontaktiraju — kontakt se otkriva tek kada prihvatiš upit.",
       "contactEmail": "Kontakt email",
       "contactEmailHint": "Može biti različit od emaila za prijavu.",
       "phone": "Telefon",
@@ -191,48 +269,621 @@
     },
     "done": {
       "title": "Profil je spreman! 🎉",
-      "subtitle": "Tvoj profil je aktivan. Možeš ga dopunjavati u svakom trenutku iz panela.",
-      "cta": "Idi na panel"
+      "subtitle": "Tvoj profil je javan i brendovi mogu da ti šalju upite. Možeš ga dopunjavati u svakom trenutku.",
+      "savedTitle": "Izmene su sačuvane",
+      "savedSubtitle": "Tvoj javni profil je ažuriran.",
+      "cta": "Idi na panel",
+      "viewPublic": "Pogledaj javni profil"
+    }
+  },
+  "company": {
+    "onboardingTitle": "Podaci o firmi",
+    "onboardingSubtitle": "Treba nam par minuta. Kreatori vide ove podatke kada im pošalješ upit — kompletan profil uliva poverenje i donosi više prihvaćenih saradnji.",
+    "sections": {
+      "about": "O firmi",
+      "aboutHint": "Kako se predstavljaš kreatorima.",
+      "legal": "Pravni podaci",
+      "legalHint": "Koristimo ih samo za verifikaciju firme. Kreatori vide oznaku verifikovane firme, ne i same brojeve.",
+      "contact": "Kontakt i online prisustvo",
+      "contactHint": "Kontakt podatke kreator vidi tek kada prihvati tvoj upit.",
+      "looking": "Šta tražite",
+      "lookingHint": "Pomaže nam da ti preporučimo prave kreatore."
+    },
+    "name": "Naziv brenda / firme",
+    "type": "Tip",
+    "industry": "Delatnost",
+    "size": "Veličina firme",
+    "city": "Grad",
+    "country": "Zemlja sedišta",
+    "description": "Kratak opis",
+    "descriptionHint": "Još {count} znakova",
+    "descriptionPlaceholder": "Čime se bavite, kakvi su vaši proizvodi i kakve kreatore tražite...",
+    "taxIdHint": "Bez razmaka i crtica. Proveravamo kontrolnu cifru.",
+    "registrationNumber": "Matični broj",
+    "legalName": "Pun pravni naziv",
+    "contactName": "Kontakt osoba",
+    "contactRole": "Pozicija",
+    "contactRolePlaceholder": "npr. Brand menadžer",
+    "contactEmail": "Kontakt email",
+    "contactEmailHint": "Na ovu adresu kreator može da ti piše posle prihvatanja.",
+    "phone": "Telefon",
+    "website": "Sajt",
+    "instagram": "Instagram",
+    "interests": "Kategorije kreatora koje vas zanimaju",
+    "interestsCount": "Izabrano: {count} / {max}",
+    "budgetMin": "Tipičan budžet od",
+    "budgetMax": "Tipičan budžet do",
+    "currency": "Valuta",
+    "finish": "Sačuvaj i počni",
+    "errors": {
+      "required": "Ovo polje je obavezno.",
+      "invalid": "Neispravna vrednost.",
+      "tax_id_invalid": "Poreski broj nije ispravan za izabranu zemlju.",
+      "reg_no_invalid": "Matični broj nije ispravan.",
+      "url_invalid": "Unesi ispravnu adresu sajta (npr. www.primer.rs).",
+      "budget_order": "Budžet „do” mora biti veći od budžeta „od”.",
+      "save_failed": "Čuvanje nije uspelo. Pokušaj ponovo.",
+      "not_authenticated": "Sesija je istekla. Prijavi se ponovo.",
+      "checkFields": "Proveri označena polja iznad."
+    },
+    "done": {
+      "title": "Spremni ste! 🎉",
+      "subtitle": "Profil firme je sačuvan. Dok verifikujemo podatke, već možeš da pretražuješ kreatore i šalješ upite.",
+      "cta": "Pronađi kreatore",
+      "dashboard": "Idi na panel"
     }
   },
   "dashboard": {
     "title": "Moj panel",
     "welcome": "Zdravo, {name}",
+    "influencerSubtitle": "Ovde pratiš upite brendova, saradnje i svoj profil.",
+    "companySubtitle": "Panel za {company} — upiti, saradnje i preporučeni kreatori.",
     "profileCompleteness": "Popunjenost profila",
-    "completenessHint": "Kompletni profili dobijaju više upita od brendova.",
-    "sections": {
-      "profile": "Profil",
-      "socials": "Mreže i publika",
-      "categories": "Kategorije",
-      "services": "Usluge i cene",
-      "barter": "Barter",
-      "contact": "Kontakt"
-    },
+    "completenessHint": "Kompletni profili sa fotografijom i cenama brendovima ulivaju više poverenja.",
+    "companyCompleteness": "Popunjenost profila firme",
+    "companyCompletenessHint": "Logo, opis i PIB ubrzavaju verifikaciju i povećavaju šansu da kreator prihvati upit.",
     "notifications": "Obaveštenja",
     "noNotifications": "Nemaš novih obaveštenja.",
     "markRead": "Označi kao pročitano",
-    "viewAll": "Prikaži sva",
+    "viewAll": "Prikaži sve",
     "editProfile": "Uredi profil",
+    "editCompany": "Uredi profil firme",
+    "viewPublicProfile": "Javni profil",
+    "photoTitle": "Profilna fotografija",
+    "logoTitle": "Logo firme",
     "profilePreview": "Ovako te vide brendovi",
+    "latestRequests": "Najnoviji upiti",
+    "noRequestsTitle": "Još nema upita",
+    "noRequestsText": "Kada ti brend pošalje upit, pojaviće se ovde. Kompletan profil i jasne cene ubrzavaju prve ponude.",
+    "noSentTitle": "Još nisi poslao/la nijedan upit",
+    "noSentText": "Pronađi kreatore po kategoriji, gradu i budžetu i pošalji prvi upit za par minuta.",
+    "findCreators": "Pronađi kreatore",
+    "verifyTitle": "Verifikacija profila",
+    "verifyText": "Naš tim proverava profile i dodeljuje oznaku verifikovanog kreatora. Kompletan profil sa linkovima ka mrežama ubrzava proveru.",
+    "companyVerifiedTitle": "Firma je verifikovana",
+    "companyVerifiedText": "Kreatori uz tvoje upite vide oznaku verifikovane firme. Možeš poslati do 30 upita dnevno.",
+    "companyPendingTitle": "Verifikacija firme je u toku",
+    "companyPendingText": "Proveravamo podatke firme (obično u roku od jednog radnog dana). Do tada možeš poslati do 5 upita dnevno.",
+    "disclosureTitle": "Ne zaboravi oznaku reklame",
+    "disclosureText": "Svaku plaćenu ili barter objavu označi na početku opisa (#reklama ili #plaćenasaradnja) i uključi opciju za plaćeno partnerstvo na mreži. To traži Zakon o oglašavanju.",
+    "quickSearch": "Pretraži",
+    "quickSearchPlaceholder": "Ime, korisničko ime ili tema (npr. fitnes, Novi Sad)",
+    "recommendedTitle": "Preporučeni kreatori",
+    "howItWorksTitle": "Kako do saradnje",
+    "companySteps": {
+      "step1": "Pronađi kreatore po kategoriji, mreži, publici i budžetu i sačuvaj ih u listu.",
+      "step2": "Pošalji upit sa briefom, isporukama, budžetom ili barterom i rokovima.",
+      "step3": "Kada kreator prihvati, dobijaš njegov kontakt, a saradnju pratiš do kraja i ocenjuješ."
+    },
+    "stats": {
+      "newRequests": "Novi upiti",
+      "activeCollabs": "Aktivne saradnje",
+      "completed": "Završene saradnje",
+      "completeness": "Popunjenost profila",
+      "sent": "Poslati upiti",
+      "awaiting": "Čekaju odgovor",
+      "accepted": "Prihvaćeni",
+      "saved": "Sačuvani kreatori"
+    },
+    "verified": "Verifikovan profil",
     "barterYes": "Prihvata barter",
     "barterNo": "Samo plaćene saradnje",
-    "barterDepends": "Barter po dogovoru",
-    "primaryNetwork": "Glavna mreža",
-    "completeOnboarding": "Završi podešavanje profila da bi bio vidljiv brendovima.",
-    "continueOnboarding": "Nastavi podešavanje"
+    "barterDepends": "Barter po dogovoru"
+  },
+  "creators": {
+    "metaTitle": "Mikro influenseri iz Srbije i regiona — pretraga kreatora",
+    "metaDescription": "Pretraži mikro influensere i UGC kreatore sa Balkana po kategoriji, gradu, mreži, publici i ceni. Pogledaj profile i pošalji upit za saradnju.",
+    "title": "Pronađi kreatore",
+    "titleCategory": "{category} — kreatori",
+    "subtitle": "Mikro influenseri i UGC kreatori iz Srbije i regiona. Filtriraj po kategoriji, mreži, publici i budžetu.",
+    "resultsCount": "{count, plural, =0 {Nema rezultata} one {# kreator} few {# kreatora} other {# kreatora}}",
+    "emptyTitle": "Nema kreatora za ove filtere",
+    "emptyText": "Probaj sa manje filtera ili širim rasponom publike i cena.",
+    "verified": "Verifikovan kreator",
+    "fromPrice": "od {price} €",
+    "barterOk": "Prihvata barter",
+    "onRequest": "Cena na upit",
+    "engagement": "ER {value}%",
+    "save": "Sačuvaj kreatora",
+    "unsave": "Ukloni iz sačuvanih",
+    "savedLabel": "Sačuvano",
+    "pagination": "Stranice rezultata",
+    "prev": "Prethodna stranica",
+    "next": "Sledeća stranica",
+    "ctaTitle": "Vodiš brend?",
+    "ctaText": "Napravi besplatan nalog firme da sačuvaš kreatore i pošalješ im upit za saradnju.",
+    "ctaButton": "Napravi nalog firme",
+    "filters": {
+      "title": "Filteri",
+      "any": "Sve",
+      "searchPlaceholder": "Pretraži po imenu, korisničkom imenu ili opisu",
+      "category": "Kategorija",
+      "platform": "Mreža",
+      "minFollowers": "Najmanje pratilaca",
+      "maxPrice": "Budžet do (EUR)",
+      "maxPriceHint": "Kreatori sa bar jednom uslugom do ove cene",
+      "country": "Zemlja",
+      "city": "Grad",
+      "audienceGender": "Publika po polu",
+      "audienceAge": "Godište publike",
+      "language": "Jezik sadržaja",
+      "barter": "Prihvata barter",
+      "verifiedOnly": "Samo verifikovani",
+      "clear": "Poništi filtere",
+      "sort": "Sortiranje",
+      "sortRecommended": "Preporučeno",
+      "sortNewest": "Najnoviji"
+    }
+  },
+  "categoryPage": {
+    "metaTitle": "{category} influenseri u Srbiji i regionu",
+    "metaDescription": "Pronađi mikro influensere za kategoriju {category} iz Srbije, Hrvatske, BiH i Crne Gore. Pogledaj publiku, cene i pošalji upit za saradnju.",
+    "breadcrumb": "Kreatori",
+    "h1": "{category} — influenseri sa Balkana",
+    "intro": "Mikro influenseri i UGC kreatori čiji se sadržaj bavi temom „{category}”. Pogledaj njihove mreže, publiku i okvirne cene i pošalji upit direktno kroz Kolabo.",
+    "filterCta": "Filtriraj po publici i budžetu",
+    "count": "{count, plural, =0 {Još nema kreatora} one {# kreator} few {# kreatora} other {# kreatora}}",
+    "emptyTitle": "Budi prvi kreator u ovoj kategoriji",
+    "emptyText": "Još nema javnih profila za kategoriju {category}. Napravi profil i brendovi će te ovde pronaći.",
+    "emptyCta": "Napravi profil kreatora",
+    "whyTitle": "Zašto mikro influenseri za {category}?",
+    "why1": "Manja, ali angažovanija publika — preporuka deluje kao savet prijatelja, ne kao oglas.",
+    "why2": "Pristupačni budžeti i mogućnost barter saradnje za proizvode i usluge.",
+    "why3": "Lokalna publika: kreatori iz tvog grada i regiona, na jeziku tvojih kupaca.",
+    "brandCta": "Napravi nalog firme",
+    "related": "Srodne kategorije"
+  },
+  "profile": {
+    "notFound": "Profil nije pronađen",
+    "metaTitle": "{name} (@{username}) — kreator na Kolabo",
+    "metaDescription": "{name}, kreator sadržaja ({categories}) iz grada {city}. Pogledaj mreže, publiku i cene i pošalji upit za saradnju.",
+    "verified": "Verifikovan kreator",
+    "about": "O kreatoru",
+    "memberSince": "Na Kolabo od {date}",
+    "networks": "Mreže i publika",
+    "primary": "Glavna",
+    "followers": "Pratioci",
+    "engagement": "Engagement",
+    "avgViews": "Prosečni pregledi",
+    "audienceGender": "Publika",
+    "audienceAge": "Godište",
+    "audienceCountries": "Zemlje publike",
+    "selfReported": "Podatke o publici unosi kreator. Za tačne brojke zatraži uvid u statistiku kroz poruke.",
+    "services": "Usluge i okvirne cene",
+    "pricesNote": "Cene su orijentacione — konačan dogovor zavisi od briefa, rokova i prava korišćenja.",
+    "barter": "Barter saradnje",
+    "barterMin": "Minimalna vrednost ponude: {value} {currency}",
+    "reviews": "Ocene brendova",
+    "noReviews": "Još nema ocena. Ocene ostavljaju samo brendovi sa kojima je saradnja završena kroz Kolabo.",
+    "verifiedCollab": "Ocena nakon završene saradnje kroz Kolabo",
+    "startingFrom": "Saradnja već od",
+    "onRequest": "Na upit",
+    "minBudget": "Minimalni budžet {value} {currency}",
+    "openToTravel": "Spreman/na za putovanja",
+    "sendRequest": "Pošalji upit za saradnju",
+    "haveBrandAccount": "Već imaš nalog firme?",
+    "loginToSend": "Prijavi se",
+    "ownerNote": "Ovo je tvoj javni profil — ovako ga vide brendovi.",
+    "editProfile": "Uredi profil",
+    "contactPrivacy": "Kontakt podatke kreatora dobijaš tek kada prihvati tvoj upit. Do tada se dogovarate porukama na platformi."
+  },
+  "requests": {
+    "title": "Upiti i saradnje",
+    "detailTitle": "Upit za saradnju",
+    "subtitleCompany": "Svi upiti koje si poslao/la kreatorima.",
+    "subtitleInfluencer": "Upiti koje su ti poslali brendovi.",
+    "tabsLabel": "Filtriraj upite",
+    "tabs": {
+      "all": "Svi",
+      "pending": "Na čekanju",
+      "active": "U toku",
+      "completed": "Završeni",
+      "closed": "Zatvoreni"
+    },
+    "status": {
+      "pending": "Na čekanju",
+      "accepted": "Prihvaćen",
+      "delivered": "Isporučeno",
+      "completed": "Završeno",
+      "declined": "Odbijen",
+      "cancelled": "Otkazan"
+    },
+    "flow": {
+      "pending": "Poslat",
+      "accepted": "Prihvaćen",
+      "delivered": "Isporučeno",
+      "completed": "Završeno"
+    },
+    "closedNote": {
+      "declined": "Kreator je odbio ovaj upit.",
+      "cancelled": "Ovaj upit je otkazan."
+    },
+    "progress": "Tok saradnje",
+    "new": "Novo",
+    "you": "Ti",
+    "respondBy": "odgovor do {date}",
+    "respondByFull": "Odgovor se očekuje do {date}",
+    "emptyTitle": "Nema upita u ovoj grupi",
+    "emptyCompany": "Pronađi kreatore i pošalji prvi upit za saradnju.",
+    "emptyInfluencer": "Kada ti brend pošalje upit, pojaviće se ovde.",
+    "findCreators": "Pronađi kreatore",
+    "improveProfile": "Dopuni profil",
+    "back": "Svi upiti",
+    "with": "Saradnja sa",
+    "from": "Od",
+    "verified": "Verifikovano",
+    "sentOn": "poslato {date}",
+    "pendingInfluencer": "Pročitaj brief i odgovori. Ako ti nešto nije jasno, pitaj brend u porukama pre nego što prihvatiš.",
+    "pendingCompany": "Kreator još nije otvorio upit.",
+    "pendingCompanySeen": "Kreator je video upit — čeka se odgovor.",
+    "acceptedInfluencer": "Saradnja je dogovorena. Kada objaviš ili predaš sadržaj, označi upit kao isporučen.",
+    "acceptedCompany": "Kreator je prihvatio saradnju. Kontakt podaci su ispod, a dogovor nastavite porukama.",
+    "deliveredCompany": "Kreator je označio sadržaj kao isporučen. Proveri i potvrdi ili zatraži izmene.",
+    "deliveredInfluencer": "Čeka se potvrda brenda.",
+    "declineReason": "Razlog odbijanja",
+    "disclosureTitle": "Oznaka reklame je obavezna",
+    "disclosureText": "Objavu označi na početku opisa (#reklama ili #plaćenasaradnja), uključi alat mreže za plaćeno partnerstvo i ne prikazuj proizvod bez oznake. To važi i za barter.",
+    "disclosureAcked": "Firma je potvrdila da će sadržaj biti jasno označen kao reklama.",
+    "yourReview": "Tvoja ocena",
+    "brief": "Brief",
+    "goal": "Cilj kampanje",
+    "deliverables": "Isporuke",
+    "compensation": "Kompenzacija",
+    "budget": "Budžet",
+    "barter": "Barter",
+    "usageRights": "Prava korišćenja",
+    "revisions": "Revizije",
+    "timeline": "Rokovi",
+    "keyMessages": "Ključne poruke",
+    "restrictions": "Šta izbegavati",
+    "aboutCompany": "O firmi",
+    "unverifiedCompany": "Firma još nije verifikovana — budi oprezan/na sa zahtevima za uplatu unapred.",
+    "contact": {
+      "title": "Kontakt: {name}",
+      "email": "Email",
+      "phone": "Telefon",
+      "platformOnly": "Ova strana je izabrala komunikaciju samo preko poruka na platformi."
+    }
+  },
+  "requestForm": {
+    "pageTitle": "Novi upit za saradnju",
+    "pageSubtitle": "Upit za {name}. Što jasniji brief, to brži odgovor.",
+    "creatorMissingTitle": "Kreator nije pronađen",
+    "creatorMissingText": "Profil ne postoji ili trenutno nije javan. Izaberi kreatora iz pretrage.",
+    "browse": "Pretraži kreatore",
+    "sections": {
+      "campaign": "Kampanja",
+      "deliverables": "Isporuke i prava",
+      "compensation": "Kompenzacija",
+      "timeline": "Rokovi"
+    },
+    "title": "Naziv kampanje",
+    "titleHint": "Kratko i jasno — kreator ga prvo vidi.",
+    "titlePlaceholder": "npr. Jesenja kampanja — nova granola",
+    "goal": "Cilj",
+    "goalPlaceholder": "npr. upoznavanje mlađe publike sa novim proizvodom",
+    "brief": "Brief",
+    "briefHint": "{count} / 3000 — najmanje 20 znakova",
+    "briefPlaceholder": "Zdravo {name}! Opiši proizvod, kakav sadržaj očekuješ, ton i stil, i šta je za vas uspešna saradnja...",
+    "keyMessages": "Ključne poruke",
+    "keyMessagesPlaceholder": "Šta mora da se pomene (npr. 100% organski, proizvedeno u Srbiji)",
+    "restrictions": "Šta izbegavati",
+    "restrictionsPlaceholder": "npr. bez poređenja sa konkurencijom",
+    "deliverablesHint": "Izaberi šta tačno tražiš i koliko komada. Usluge koje kreator nudi su prve u listi.",
+    "quantity": "Količina",
+    "decrease": "Smanji",
+    "increase": "Povećaj",
+    "usageRights": "Prava korišćenja sadržaja",
+    "usageRightsHint": "Korišćenje u plaćenim oglasima se obično dodatno plaća.",
+    "revisions": "Broj revizija",
+    "revisionsCount": "{count, plural, =0 {Bez revizija} one {# revizija} few {# revizije} other {# revizija}}",
+    "compensation": "Tip kompenzacije",
+    "budget": "Budžet",
+    "budgetHint": "Ukupan iznos za sve isporuke.",
+    "currency": "Valuta",
+    "barterDescription": "Šta nudite u barteru",
+    "barterPlaceholder": "npr. paket proizvoda (6 granola + 2 namaza)",
+    "barterValue": "Vrednost bartera (EUR)",
+    "barterValueHint": "Kreatori ovo traže — pomaže da procene ponudu.",
+    "startDate": "Početak",
+    "endDate": "Kraj",
+    "respondBy": "Odgovor do",
+    "disclosureTitle": "Oznaka reklame",
+    "disclosureText": "Zakon o oglašavanju zabranjuje prikriveno oglašavanje. Kreator će objavu jasno označiti kao reklamu (npr. #reklama) — i kod bartera. Upit u kome se traži skrivanje saradnje kreator može prijaviti.",
+    "disclosureAck": "Razumem i saglasan/na sam da sadržaj bude jasno označen kao reklama.",
+    "minorWarningTitle": "Publika uključuje maloletnike",
+    "minorWarning": "Deo publike ovog kreatora je mlađi od 18 godina. Proveri da li se tvoj proizvod (npr. alkohol, suplementi, energetska pića) sme reklamirati maloletnicima.",
+    "footnote": "Kreator vidi tvoj kontakt tek kada prihvati upit.",
+    "submit": "Pošalji upit",
+    "creatorRates": "Cene kreatora",
+    "tipsTitle": "Saveti za upit koji se prihvata",
+    "tip1": "Navedi konkretne isporuke i rok.",
+    "tip2": "Kod bartera napiši tačnu vrednost paketa.",
+    "tip3": "Ponudi budžet u skladu sa cenama kreatora.",
+    "errors": {
+      "required": "Ovo polje je obavezno.",
+      "invalid": "Neispravna vrednost.",
+      "brief_short": "Brief mora imati najmanje 20 znakova.",
+      "dates_order": "Kraj ne može biti pre početka.",
+      "disclosure_required": "Potrebno je da potvrdiš označavanje reklame.",
+      "creator_not_found": "Kreator više nije dostupan.",
+      "duplicate_pending": "Već imaš otvoren upit kod ovog kreatora. Sačekaj odgovor ili ga otkaži.",
+      "rate_limited": "Dostigao/la si dnevni limit upita. Verifikovane firme imaju veći limit.",
+      "not_allowed": "Upit trenutno ne može da se pošalje. Proveri da li je profil firme završen.",
+      "save_failed": "Slanje nije uspelo. Pokušaj ponovo.",
+      "not_authenticated": "Sesija je istekla. Prijavi se ponovo."
+    }
+  },
+  "requestActions": {
+    "do": {
+      "accept": "Prihvati",
+      "decline": "Odbij",
+      "cancel": "Otkaži",
+      "deliver": "Označi kao isporučeno",
+      "complete": "Potvrdi i završi",
+      "revision": "Zatraži izmene"
+    },
+    "confirm": {
+      "accept": "Prihvatiti upit?",
+      "decline": "Odbiti upit? Možeš navesti razlog — brendu pomaže da sledeći put pošalje bolju ponudu.",
+      "cancel": "Sigurno želiš da otkažeš?",
+      "deliver": "Označiti sadržaj kao isporučen? Brend će dobiti obaveštenje da proveri.",
+      "complete": "Potvrditi da je saradnja uspešno završena?",
+      "revision": "Vratiti saradnju kreatoru na izmene? Napiši u porukama šta treba promeniti."
+    },
+    "declineReason": "Razlog odbijanja",
+    "declineReasonPlaceholder": "npr. budžet je ispod mojih cena / ne uklapa se u moj sadržaj",
+    "errors": {
+      "invalid_transition": "Ova akcija više nije moguća — osveži stranicu.",
+      "not_allowed": "Nemaš dozvolu za ovu akciju.",
+      "save_failed": "Akcija nije uspela. Pokušaj ponovo.",
+      "not_authenticated": "Sesija je istekla. Prijavi se ponovo."
+    }
+  },
+  "thread": {
+    "title": "Poruke — {name}",
+    "empty": "Još nema poruka. Napiši prvu — pitaj sve što ti treba pre dogovora.",
+    "placeholder": "Napiši poruku...",
+    "send": "Pošalji",
+    "hint": "Enter šalje, Shift+Enter za novi red.",
+    "sendError": "Poruka nije poslata. Pokušaj ponovo.",
+    "closed": "Razgovor je zatvoren."
+  },
+  "review": {
+    "title": "Oceni saradnju sa: {name}",
+    "ratingLabel": "Ocena",
+    "stars": "{count, plural, one {# zvezdica} few {# zvezdice} other {# zvezdica}}",
+    "commentLabel": "Komentar",
+    "placeholder": "Kako je protekla saradnja? (opciono, javno vidljivo)",
+    "submit": "Pošalji ocenu",
+    "pickRating": "Izaberi ocenu od 1 do 5.",
+    "already": "Već si ocenio/la ovu saradnju."
+  },
+  "report": {
+    "open": "Prijavi",
+    "title": "Prijava zloupotrebe",
+    "subtitle": "Prijava je poverljiva. Naš tim je pregleda i po potrebi suspenduje nalog.",
+    "reason": "Razlog",
+    "details": "Detalji",
+    "detailsPlaceholder": "Opiši šta se desilo...",
+    "submit": "Pošalji prijavu",
+    "sent": "Hvala — prijava je primljena i biće pregledana."
+  },
+  "saved": {
+    "title": "Sačuvani kreatori",
+    "subtitle": "Tvoja lista kreatora za buduće kampanje.",
+    "emptyTitle": "Lista je prazna",
+    "emptyText": "Klikni na srce na kartici kreatora da ga sačuvaš za kasnije.",
+    "browse": "Pretraži kreatore"
+  },
+  "notifications": {
+    "markAllRead": "Označi sve kao pročitano",
+    "templates": {
+      "welcome_influencer": {
+        "title": "Dobrodošao/la na Kolabo 🎉",
+        "body": "Popuni profil do kraja — kompletni profili sa fotografijom i cenama dobijaju više upita."
+      },
+      "welcome_company": {
+        "title": "Dobrodošli na Kolabo 🎉",
+        "body": "Završi profil firme i pošalji prvi upit kreatoru. Verifikacija firme obično traje jedan radni dan."
+      },
+      "request_new": {
+        "title": "Novi upit: {title}",
+        "body": "{name} ti je poslao/la upit za saradnju."
+      },
+      "request_accepted": {
+        "title": "Upit je prihvaćen 🎉",
+        "body": "{name} je prihvatio/la „{title}”. Kontakt podaci su sada vidljivi."
+      },
+      "request_declined": {
+        "title": "Upit je odbijen",
+        "body": "{name} je odbio/la „{title}”."
+      },
+      "request_cancelled": {
+        "title": "Saradnja je otkazana",
+        "body": "{name} je otkazao/la „{title}”."
+      },
+      "request_delivered": {
+        "title": "Sadržaj je isporučen",
+        "body": "{name} je označio/la „{title}” kao isporučeno. Proveri i potvrdi."
+      },
+      "request_revision": {
+        "title": "Tražene su izmene",
+        "body": "{name} traži izmene za „{title}”. Detalji su u porukama."
+      },
+      "request_completed": {
+        "title": "Saradnja je završena ✅",
+        "body": "„{title}” je završena. Ostavi ocenu — pomaže drugima da izaberu."
+      },
+      "message_new": {
+        "title": "Nova poruka od: {name}",
+        "body": "U vezi sa „{title}”."
+      },
+      "review_new": {
+        "title": "Dobio/la si novu ocenu ⭐",
+        "body": "Ocena: {rating}/5."
+      },
+      "verified": {
+        "title": "Profil je verifikovan ✔",
+        "body": "Uz tvoje ime se sada prikazuje oznaka verifikacije."
+      }
+    }
+  },
+  "settings": {
+    "title": "Podešavanja",
+    "loggedInAs": "Prijavljen/a kao {email}",
+    "passwordTitle": "Lozinka",
+    "passwordText": "Promeni lozinku za prijavu.",
+    "newPassword": "Nova lozinka",
+    "confirmPassword": "Ponovi lozinku",
+    "changePassword": "Promeni lozinku",
+    "passwordShort": "Lozinka mora imati najmanje 8 karaktera.",
+    "passwordMismatch": "Lozinke se ne poklapaju.",
+    "passwordChanged": "Lozinka je promenjena.",
+    "privacyTitle": "Privatnost i podaci",
+    "privacyText": "Upravljaj pristancima i preuzmi kopiju svojih podataka.",
+    "marketing": "Primaj povremene emailove o novostima i savetima",
+    "exportText": "Preuzmi sve svoje podatke (JSON).",
+    "export": "Preuzmi podatke",
+    "dangerTitle": "Brisanje naloga",
+    "dangerText": "Trajno briše nalog, profil, upite, poruke i fotografije. Ova radnja se ne može poništiti.",
+    "deleteAccount": "Obriši nalog",
+    "deleteWarning": "Svi tvoji podaci biće trajno obrisani. Ako imaš saradnje u toku, prvo ih završi ili otkaži.",
+    "deleteKeyword": "OBRISI",
+    "deleteConfirmLabel": "Upiši {keyword} za potvrdu",
+    "deleteConfirm": "Trajno obriši nalog",
+    "deleteErrors": {
+      "confirm_mismatch": "Potvrdna reč nije ispravna.",
+      "deletion_unavailable": "Brisanje naloga trenutno nije dostupno. Piši nam na hello@kolabo.rs i obrisaćemo ga u roku od 30 dana.",
+      "admin_cannot_delete": "Admin nalog se ne može obrisati na ovaj način.",
+      "delete_failed": "Brisanje nije uspelo. Pokušaj ponovo ili nam piši."
+    },
+    "avatar": {
+      "upload": "Dodaj fotografiju",
+      "uploadLogo": "Dodaj logo",
+      "change": "Promeni",
+      "remove": "Ukloni",
+      "uploading": "Otpremanje...",
+      "hint": "JPG, PNG ili WebP, najviše 2 MB. Kvadratna slika izgleda najbolje.",
+      "errorType": "Dozvoljeni su samo JPG, PNG i WebP formati.",
+      "errorSize": "Slika je veća od 2 MB.",
+      "errorUpload": "Otpremanje nije uspelo. Pokušaj ponovo."
+    }
+  },
+  "forBrands": {
+    "metaTitle": "Za brendove — pronađite mikro influensere na Balkanu",
+    "metaDescription": "Pretražite proverene mikro influensere iz Srbije i regiona po kategoriji, gradu, publici i budžetu. Pošaljite jasan upit, dogovorite saradnju i pratite je do kraja.",
+    "badge": "Za firme, brendove i agencije",
+    "title1": "Mikro influenseri koji",
+    "title2": "prodaju vaš brend.",
+    "subtitle": "Pronađite kreatore iz svog grada i niše, pošaljite strukturisan upit sa budžetom ili barterom i dogovorite saradnju bez posrednika i bez provizije.",
+    "ctaPrimary": "Napravi besplatan nalog firme",
+    "ctaSecondary": "Pogledaj kreatore",
+    "note": "Bez kartice i bez provizije u ovoj fazi.",
+    "stepsTitle": "Od pretrage do objave u tri koraka",
+    "stepLabel": "Korak {n}",
+    "step1Title": "Pretražite i sačuvajte",
+    "step1Text": "Filtrirajte po kategoriji, mreži, broju pratilaca, gradu, polu i godištu publike i ceni. Zanimljive kreatore sačuvajte u listu.",
+    "step2Title": "Pošaljite upit",
+    "step2Text": "Brief, isporuke i količine, budžet ili barter sa vrednošću, prava korišćenja i rokovi — sve što kreatoru treba da odluči.",
+    "step3Title": "Sarađujte i ocenite",
+    "step3Text": "Kada kreator prihvati, dobijate kontakt. Pratite isporuku, potvrdite rezultat i ostavite ocenu.",
+    "featuresTitle": "Sve za saradnju na jednom mestu",
+    "featuresSubtitle": "Bez tabela, DM-ova na pet mreža i izgubljenih dogovora.",
+    "features": {
+      "filters": {
+        "title": "Precizni filteri",
+        "text": "Kategorija, mreža, raspon pratilaca, grad, publika po polu i godištu, jezik sadržaja, barter i budžet."
+      },
+      "brief": {
+        "title": "Strukturisan brief",
+        "text": "Kreatori dobijaju jasan upit sa isporukama, rokovima i pravima korišćenja — zato brže odgovaraju."
+      },
+      "chat": {
+        "title": "Poruke po saradnji",
+        "text": "Svaki dogovor ima svoju prepisku u realnom vremenu, bez mešanja sa privatnim porukama."
+      },
+      "privacy": {
+        "title": "Poštovanje privatnosti",
+        "text": "Kontakt kreatora se otkriva tek posle prihvatanja — to kreatorima uliva poverenje i povećava odziv."
+      },
+      "barter": {
+        "title": "Barter sa vrednošću",
+        "text": "Ponudite proizvode ili usluge i navedite njihovu vrednost. Kreatori unapred vide šta dobijaju."
+      },
+      "reviews": {
+        "title": "Ocene i verifikacija",
+        "text": "Verifikovane firme i ocene posle završenih saradnji grade poverenje na obe strane."
+      }
+    },
+    "categoriesTitle": "Kreatori za svaku nišu",
+    "faqTitle": "Pitanja brendova",
+    "faq": {
+      "q1": "Koliko košta korišćenje platforme?",
+      "a1": "U ovoj fazi je besplatno: nalog firme, pretraga, upiti i poruke. Kreatoru plaćate direktno, po dogovoru.",
+      "q2": "Kako se obavlja plaćanje kreatoru?",
+      "a2": "Kolabo trenutno ne posreduje u plaćanju. Nakon prihvatanja upita dobijate kontakt kreatora i dogovarate način plaćanja (račun, ugovor o delu i sl.).",
+      "q3": "Zašto treba PIB?",
+      "a3": "PIB koristimo samo za proveru da je firma stvarna. Verifikovane firme dobijaju oznaku i veći dnevni limit upita.",
+      "q4": "Da li kreator mora da označi objavu kao reklamu?",
+      "a4": "Da. Zakon o oglašavanju zabranjuje prikriveno oglašavanje — svaka plaćena ili barter objava mora biti jasno označena. Pri slanju upita to potvrđujete."
+    },
+    "finalTitle": "Prvi upit za 5 minuta",
+    "finalText": "Napravite nalog, pronađite kreatora i pošaljite upit još danas."
   },
   "admin": {
     "title": "Admin panel",
-    "subtitle": "Pregled svih influensera, metrika i statistike platforme.",
+    "subtitle": "Pregled platforme: kreatori, firme, upiti i statistika.",
+    "influencersTitle": "Influenseri",
+    "influencersSubtitle": "Verifikacija i moderacija profila kreatora.",
+    "companiesTitle": "Kompanije",
+    "companiesSubtitle": "Proveri PIB i podatke firme pre verifikacije. Neverifikovane su prve.",
+    "requestsTitle": "Upiti",
+    "requestsSubtitle": "Svi upiti za saradnju na platformi.",
+    "reportsTitle": "Prijave",
+    "reportsSubtitle": "Prijave zloupotrebe koje čekaju odluku.",
+    "noCompanies": "Još nema registrovanih firmi.",
+    "noRequests": "Još nema upita.",
+    "taxOk": "ispravan",
+    "taxCheck": "proveri",
+    "regNo": "MB",
+    "todo": {
+      "companies": "{count, plural, one {# firma čeka verifikaciju} few {# firme čekaju verifikaciju} other {# firmi čeka verifikaciju}}",
+      "reports": "{count, plural, one {# otvorena prijava} few {# otvorene prijave} other {# otvorenih prijava}}"
+    },
     "kpi": {
       "totalInfluencers": "Ukupno influensera",
-      "newThisMonth": "Novi ovog meseca",
+      "companies": "Firme",
+      "requests": "Upiti",
+      "acceptRate": "Stopa prihvatanja",
+      "newThisMonth": "Novi kreatori ovog meseca",
       "completedProfiles": "Kompletni profili",
       "barterReady": "Prihvataju barter",
       "avgEngagement": "Prosečan engagement",
       "activeNetworks": "Povezanih mreža"
     },
     "charts": {
+      "requestsByStatus": "Upiti po statusu",
       "byCategory": "Influenseri po kategorijama",
       "byNetwork": "Zastupljenost mreža",
       "byTier": "Raspodela po veličini publike",
@@ -250,6 +901,13 @@
       "priceFrom": "Cene od",
       "barter": "Barter",
       "joined": "Registrovan",
+      "status": "Status",
+      "actions": "Akcije",
+      "statusLabels": {
+        "pending": "Nedovršen",
+        "active": "Aktivan",
+        "suspended": "Suspendovan"
+      },
       "filterCategory": "Kategorija",
       "filterNetwork": "Mreža",
       "filterCountry": "Zemlja",
@@ -257,15 +915,205 @@
       "noResults": "Nema rezultata za izabrane filtere.",
       "searchPlaceholder": "Pretraži po imenu ili korisničkom imenu..."
     },
+    "companyCols": {
+      "company": "Firma",
+      "legal": "Pravni podaci",
+      "contact": "Kontakt",
+      "status": "Status",
+      "joined": "Registrovana"
+    },
+    "requestCols": {
+      "title": "Upit",
+      "company": "Firma",
+      "creator": "Kreator",
+      "compensation": "Kompenzacija",
+      "status": "Status",
+      "created": "Poslat"
+    },
+    "actions": {
+      "verify": "Verifikuj",
+      "verified": "Verifikovan",
+      "suspend": "Suspenduj",
+      "restore": "Vrati",
+      "suspendConfirm": "Suspendovati nalog? Profil će biti sakriven i korisnik neće moći da koristi platformu."
+    },
+    "reports": {
+      "empty": "Nema otvorenih prijava 🎉",
+      "reporter": "Prijavio",
+      "target": "Prijavljen",
+      "viewRequest": "Otvori upit",
+      "note": "Interna napomena",
+      "notePlaceholder": "Odluka i obrazloženje (interno)",
+      "resolve": "Rešeno",
+      "dismiss": "Odbaci",
+      "closed": "Zatvorene prijave",
+      "status": {
+        "open": "Otvorena",
+        "resolved": "Rešena",
+        "dismissed": "Odbačena"
+      }
+    },
     "notAdmin": "Nemaš pristup admin panelu."
+  },
+  "legal": {
+    "updated": "Poslednja izmena: {date}",
+    "draftNotice": "Radna verzija dokumenta. Pre javnog lansiranja mora je pregledati pravnik i dopuniti podacima o pružaocu usluge.",
+    "privacy": {
+      "title": "Politika privatnosti",
+      "date": "8. oktobar 2026.",
+      "intro": "Ova politika objašnjava kako {entity} („Kolabo”, „mi”) obrađuje podatke o ličnosti korisnika platforme Kolabo, u skladu sa Zakonom o zaštiti podataka o ličnosti Republike Srbije (ZZPL) i, kada se primenjuje, Opštom uredbom o zaštiti podataka EU (GDPR).",
+      "sections": [
+        {
+          "title": "Rukovalac i kontakt",
+          "body": [
+            "Rukovalac podacima je {entity}, {address}, MB {mb}, PIB {pib}. Za sva pitanja o podacima piši nam na {email}."
+          ]
+        },
+        {
+          "title": "Koje podatke obrađujemo",
+          "body": [
+            "Podaci naloga: ime i prezime, email adresa, lozinka (čuvamo samo heš), tip naloga i datum prihvatanja uslova.",
+            "Podaci profila kreatora: korisničko ime, fotografija, biografija, grad i zemlja, godina rođenja i pol (opciono), jezici sadržaja, društvene mreže i podaci o publici koje sam unosiš, kategorije, usluge i cene, barter preference i kontakt preference.",
+            "Podaci firme: naziv, pravni podaci (PIB, matični broj), delatnost, sajt, kontakt osoba i kontakt podaci.",
+            "Podaci o korišćenju: upiti za saradnju, poruke, ocene, prijave i obaveštenja nastala kroz platformu, kao i tehnički podaci neophodni za bezbednost (npr. vreme prijave)."
+          ]
+        },
+        {
+          "title": "Svrha i pravni osnov",
+          "body": [
+            "Izvršenje ugovora (čl. 12 st. 1 tač. 2 ZZPL): vođenje naloga, prikaz javnog profila, slanje i praćenje upita, poruke i ocene.",
+            "Legitimni interes: bezbednost platforme, sprečavanje prevara i zloupotreba, verifikacija firmi i anonimna statistika.",
+            "Pristanak (čl. 15 ZZPL): marketinški emailovi. Pristanak je izdvojen od ostalih uslova i možeš ga povući u svakom trenutku u podešavanjima."
+          ]
+        },
+        {
+          "title": "Šta je javno, a šta nije",
+          "body": [
+            "Javni profil kreatora (ime, korisničko ime, fotografija, biografija, grad, mreže, publika, kategorije, cene, barter preference i ocene) vidljiv je svima i može se pojaviti u pretraživačima.",
+            "Godina rođenja i pol se ne prikazuju javno. Kontakt podaci (email, telefon) nikada se ne prikazuju javno — firma ih vidi tek kada prihvatiš njen upit, i to samo kanale koje si dozvolio/la."
+          ]
+        },
+        {
+          "title": "Primaoci i prenos podataka",
+          "body": [
+            "Podatke čuvamo kod obrađivača Supabase (baza i autentikacija, region EU — Frankfurt) i kod pružaoca hostinga aplikacije. Sa obrađivačima imamo ugovore o obradi podataka. Podatke ne prodajemo i ne delimo u reklamne svrhe.",
+            "Ukoliko neki obrađivač prenosi podatke van EU/EEA, to se radi na osnovu standardnih ugovornih klauzula ili drugog zakonitog mehanizma."
+          ]
+        },
+        {
+          "title": "Rok čuvanja",
+          "body": [
+            "Podatke čuvamo dok imaš nalog. Kada obrišeš nalog, brišemo profil, upite, poruke i fotografije, osim podataka koje smo zakonski dužni da čuvamo duže."
+          ]
+        },
+        {
+          "title": "Tvoja prava",
+          "body": [
+            "Imaš pravo na pristup, ispravku, brisanje, ograničenje obrade, prenosivost (izvoz podataka u podešavanjima) i prigovor. Nalog možeš sam/a obrisati u podešavanjima.",
+            "Ako smatraš da je obrada nezakonita, možeš podneti pritužbu Povereniku za informacije od javnog značaja i zaštitu podataka o ličnosti (www.poverenik.rs)."
+          ]
+        },
+        {
+          "title": "Kolačići",
+          "body": [
+            "Koristimo samo neophodne kolačiće: za prijavu (sesija) i za izabrani jezik. Ne koristimo reklamne kolačiće ni praćenje trećih strana."
+          ]
+        },
+        {
+          "title": "Bezbednost i povrede podataka",
+          "body": [
+            "Pristup podacima je ograničen pravilima na nivou baze (Row Level Security), komunikacija je šifrovana (HTTPS), a lozinke se čuvaju kao heš. O povredi podataka koja može da ugrozi tvoja prava obavestićemo Poverenika u roku od 72 sata i tebe bez odlaganja."
+          ]
+        },
+        {
+          "title": "Maloletnici",
+          "body": [
+            "Platforma je namenjena osobama od 18 i više godina. Ne prikupljamo svesno podatke maloletnika."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Uslovi korišćenja",
+      "date": "8. oktobar 2026.",
+      "intro": "Ovi uslovi uređuju korišćenje platforme Kolabo koju pruža {entity}, {address}, MB {mb}, PIB {pib}, email {email}. Registracijom prihvataš ove uslove.",
+      "sections": [
+        {
+          "title": "Šta je Kolabo",
+          "body": [
+            "Kolabo je onlajn platforma koja povezuje kreatore sadržaja (influensere) i firme. Kolabo nije strana u ugovoru o saradnji, ne garantuje sklapanje saradnje i trenutno ne posreduje u plaćanju — dogovor i plaćanje su direktno između kreatora i firme."
+          ]
+        },
+        {
+          "title": "Nalog",
+          "body": [
+            "Za korišćenje je potrebno da imaš najmanje 18 godina i da uneseš tačne podatke. Odgovoran/na si za čuvanje lozinke i za sve aktivnosti na svom nalogu.",
+            "Firme unose tačne pravne podatke. Kolabo može da proveri podatke firme i dodeli oznaku verifikacije; neverifikovane firme imaju ograničen broj upita dnevno."
+          ]
+        },
+        {
+          "title": "Pravila za kreatore",
+          "body": [
+            "Podaci o mrežama i publici moraju biti tačni. Zabranjeno je prikazivanje kupljenih ili lažnih pratilaca i angažovanja.",
+            "Svaku plaćenu ili barter objavu dužan/na si da jasno označiš kao reklamu u skladu sa Zakonom o oglašavanju (npr. #reklama ili #plaćenasaradnja na početku opisa i alat mreže za plaćeno partnerstvo)."
+          ]
+        },
+        {
+          "title": "Pravila za firme",
+          "body": [
+            "Upit mora sadržati stvarnu ponudu: isporuke, kompenzaciju (iznos ili tačan opis i vrednost bartera) i rokove. Zabranjeno je tražiti prikriveno oglašavanje, uplate unapred od kreatora ili sadržaj koji krši propise (npr. oglašavanje proizvoda zabranjenih za maloletnike publici mlađoj od 18).",
+            "Kontakt podatke kreatora koje dobiješ posle prihvatanja upita smeš da koristiš samo za tu saradnju."
+          ]
+        },
+        {
+          "title": "Ponašanje i moderacija",
+          "body": [
+            "Zabranjeni su spam, uznemiravanje, prevare, diskriminatorni i nezakoniti sadržaj. Svaki korisnik može prijaviti zloupotrebu. Kolabo može da ukloni sadržaj ili suspenduje nalog koji krši ove uslove i o tome obaveštava korisnika uz obrazloženje."
+          ]
+        },
+        {
+          "title": "Ocene",
+          "body": [
+            "Ocenu može ostaviti samo strana u saradnji završenoj kroz platformu. Ocene moraju biti iskrene i bez uvreda; Kolabo može ukloniti ocene koje krše ova pravila."
+          ]
+        },
+        {
+          "title": "Sadržaj i prava",
+          "body": [
+            "Sadržaj koji uneseš na profil ostaje tvoj. Dozvoljavaš Kolabo-u da ga prikazuje na platformi i u rezultatima pretrage radi pružanja usluge. Prava korišćenja sadržaja nastalog u saradnji dogovaraju kreator i firma (polje „prava korišćenja” u upitu)."
+          ]
+        },
+        {
+          "title": "Odgovornost",
+          "body": [
+            "Kolabo ne odgovara za izvršenje dogovora između korisnika, za tačnost podataka koje unose korisnici niti za štetu nastalu iz saradnje, osim u meri u kojoj zakon ne dozvoljava isključenje odgovornosti."
+          ]
+        },
+        {
+          "title": "Prestanak i izmene",
+          "body": [
+            "Nalog možeš obrisati u svakom trenutku u podešavanjima. O bitnim izmenama ovih uslova obavestićemo te emailom ili na platformi pre nego što stupe na snagu."
+          ]
+        },
+        {
+          "title": "Merodavno pravo",
+          "body": [
+            "Na ove uslove primenjuje se pravo Republike Srbije. Za sporove je nadležan stvarno nadležan sud u mestu sedišta pružaoca usluge, osim ako zakon o zaštiti potrošača ne predviđa drugačije."
+          ]
+        }
+      ]
+    }
   },
   "footer": {
     "tagline": "Platforma koja spaja mikro influensere i brendove na Balkanu.",
     "product": "Platforma",
+    "categories": "Popularne kategorije",
     "legal": "Pravno",
     "privacy": "Politika privatnosti",
     "terms": "Uslovi korišćenja",
-    "rights": "Sva prava zadržana."
+    "rights": "Sva prava zadržana.",
+    "regNo": "MB",
+    "taxId": "PIB"
   },
   "notFound": {
     "title": "Stranica nije pronađena",

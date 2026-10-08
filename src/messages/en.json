@@ -1,15 +1,17 @@
 {
   "meta": {
     "title": "Kolabo — the platform connecting micro influencers and brands in the Balkans",
-    "description": "Create a free profile, showcase your networks, audience and rates, and land your first or next brand collaboration. The platform for micro influencers from the Balkans.",
-    "keywords": "micro influencers, influencer marketing, brand collaborations, Balkans, Serbia, influencer platform"
+    "description": "Create a free profile, showcase your networks, audience and rates, and land your next brand collaboration. Brands find vetted micro influencers from Serbia and the region here.",
+    "keywords": "micro influencers, influencer marketing Serbia, brand collaborations, Balkan influencers, barter collaboration, influencer platform"
   },
   "common": {
     "brand": "Kolabo",
     "loading": "Loading...",
     "save": "Save",
     "saving": "Saving...",
+    "saved": "Saved",
     "cancel": "Cancel",
+    "close": "Close",
     "back": "Back",
     "next": "Next",
     "finish": "Finish",
@@ -27,35 +29,55 @@
     "onRequest": "On request"
   },
   "nav": {
+    "main": "Main navigation",
+    "menu": "Menu",
+    "account": "My account",
     "howItWorks": "How it works",
     "categories": "Categories",
     "forBrands": "For brands",
+    "findCreators": "Find creators",
     "faq": "FAQ",
     "login": "Log in",
-    "signup": "Create profile",
+    "signup": "Create account",
     "dashboard": "My dashboard",
-    "admin": "Admin"
+    "admin": "Admin",
+    "overview": "Overview",
+    "influencers": "Influencers",
+    "companies": "Companies",
+    "requests": "Requests",
+    "reports": "Reports",
+    "saved": "Saved",
+    "myProfile": "My profile",
+    "companyProfile": "Company profile",
+    "publicProfile": "Public profile",
+    "settings": "Settings",
+    "notifications": "Notifications",
+    "notificationsUnread": "Notifications ({count} unread)",
+    "demoRole": "Demo role",
+    "demoInfluencer": "Demo: creator",
+    "demoCompany": "Demo: company",
+    "demoAdmin": "Demo: admin"
   },
   "landing": {
     "hero": {
-      "badge": "The platform for Balkan creators",
+      "badge": "The platform for Balkan creators and brands",
       "title1": "Your content.",
       "title2": "Your first collaboration.",
-      "subtitle": "Kolabo connects micro influencers and brands across the Balkans. Build your profile in 5 minutes, showcase your audience and rates — and let the right brands find you.",
+      "subtitle": "Kolabo connects micro influencers and brands across the Balkans. Build your profile in 5 minutes, show your audience and rates, and brands send you clear offers — with budget, deadline and no hidden terms.",
       "ctaPrimary": "Create a free profile",
-      "ctaSecondary": "See how it works",
-      "socialProof": "Join creators from Serbia, Croatia, Bosnia and Montenegro",
+      "ctaSecondary": "I'm looking for creators",
+      "socialProof": "For creators from Serbia, Croatia, Bosnia, Montenegro and the region",
       "noFollowersMin": "No minimum follower count"
     },
     "stats": {
-      "title": "Why micro influencers?",
-      "subtitle": "The numbers are on your side — brands increasingly choose smaller, authentic creators.",
-      "stat1Value": "65%",
-      "stat1Label": "of all brand partnerships are with micro influencers",
-      "stat2Value": "5–8%",
-      "stat2Label": "engagement of nano creators — higher than celebrities",
-      "stat3Value": "3x",
-      "stat3Label": "more inquiries go to complete profiles",
+      "title": "Built for micro creators",
+      "subtitle": "Everything a brand needs to choose you — on one profile, no agency in the middle.",
+      "stat1Value": "€0",
+      "stat1Label": "membership for creators — your profile is free",
+      "stat2Value": "30",
+      "stat2Label": "content categories brands use to find you",
+      "stat3Value": "5",
+      "stat3Label": "social networks on one profile",
       "stat4Value": "5 min",
       "stat4Label": "is all it takes to build your profile"
     },
@@ -63,11 +85,11 @@
       "title": "How Kolabo works",
       "subtitle": "Three steps from sign-up to collaboration.",
       "step1Title": "Create your profile",
-      "step1Text": "Connect your networks, pick your content categories and add your audience ranges. Everything in one place — like your media kit.",
+      "step1Text": "Add your networks, pick your content categories and your audience ranges. Everything in one place — like your media kit.",
       "step2Title": "Set your terms",
-      "step2Text": "Define price ranges for your services, choose whether you accept barter deals and how you want to be contacted.",
-      "step3Title": "Get collaborations",
-      "step3Text": "Brands find you by category, audience and budget. You decide who you work with and how."
+      "step2Text": "Define price ranges for your services, choose whether you accept barter deals and which contact channels you allow.",
+      "step3Title": "Receive requests",
+      "step3Text": "Brands send you a request with a brief, budget and deadlines. You accept or decline — and contact details are shared only after you accept."
     },
     "categories": {
       "title": "For every type of content",
@@ -78,20 +100,25 @@
       "subtitle": "Instagram, TikTok, YouTube, Facebook and LinkedIn — one profile instead of five links."
     },
     "forBrands": {
-      "title": "Running a brand?",
-      "subtitle": "Coming soon: company accounts with creator search by category, audience and budget. Join the waitlist.",
-      "cta": "Register interest"
+      "title": "Running a brand or an agency?",
+      "subtitle": "Search creators by category, city, audience and budget, send a structured request and agree on the collaboration in one place.",
+      "browse": "Browse creators",
+      "cta": "How it works for brands"
     },
     "faq": {
       "title": "Frequently asked questions",
       "q1": "Is Kolabo free for influencers?",
-      "a1": "Yes. Creating a profile and basic use of the platform is free for creators.",
+      "a1": "Yes. Creating a profile, receiving requests and agreeing on collaborations is free for creators.",
       "q2": "How many followers do I need?",
       "a2": "There is no minimum follower count. Brands care about audience engagement, content quality and category fit — not just numbers.",
       "q3": "What is a barter collaboration?",
-      "a3": "A collaboration where instead of money you receive products, services, travel or tickets in exchange for a post. On your profile you choose whether and under which conditions you accept barter.",
-      "q4": "How do brands contact me?",
-      "a4": "You choose: platform messages, email, phone, WhatsApp, Viber or Instagram DM. We only show what you allow."
+      "a3": "A collaboration where instead of money you receive products, services, travel or tickets in exchange for a post. You choose whether and under which conditions you accept barter, and brands must state exactly what they offer and what it is worth.",
+      "q4": "Who sees my email and phone?",
+      "a4": "Nobody, until you accept a request. Then the brand sees only the channels you allowed. Until then everything is agreed through platform messages.",
+      "q5": "Do I have to label ads?",
+      "a5": "Yes. Serbian advertising law prohibits hidden advertising. Clearly label paid or barter posts at the start of the caption (e.g. #ad or #paidpartnership) and use the network's paid partnership tool.",
+      "q6": "How do I know a company is real?",
+      "a6": "Companies enter their tax ID and company details at sign-up, and our team verifies them and grants a verified badge. You can report any suspicious offer with one click."
     },
     "cta": {
       "title": "Ready for your first collaboration?",
@@ -102,22 +129,63 @@
   "auth": {
     "loginTitle": "Welcome back",
     "loginSubtitle": "Log in to your Kolabo account.",
-    "signupTitle": "Create your profile",
+    "signupTitle": "Create an account",
     "signupSubtitle": "Free sign-up — your profile is ready in 5 minutes.",
+    "accountType": "I am...",
+    "typeCreator": "A creator",
+    "typeCreatorHint": "Influencer or UGC creator looking for collaborations",
+    "typeBrand": "A brand / company",
+    "typeBrandHint": "Company or agency looking for creators",
     "fullName": "Full name",
+    "contactPerson": "Your full name",
+    "companyName": "Company or brand name",
     "email": "Email address",
     "password": "Password",
     "passwordHint": "At least 8 characters",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
     "loginButton": "Log in",
-    "signupButton": "Sign up",
+    "signupButton": "Create creator profile",
+    "signupButtonBrand": "Create company account",
     "noAccount": "Don't have an account?",
     "haveAccount": "Already have an account?",
     "signupLink": "Sign up",
     "loginLink": "Log in",
-    "terms": "By signing up you accept the terms of service and privacy policy.",
-    "checkEmail": "Check your email — we sent you a confirmation link.",
+    "forgotPassword": "Forgot password?",
+    "consentTerms": "I am at least 18 years old and accept the <terms>terms of service</terms> and the <privacy>privacy policy</privacy>.",
+    "consentMarketing": "Send me occasional emails about new features and collaboration tips.",
+    "mustAcceptTerms": "You need to accept the terms of service to sign up.",
+    "checkEmailTitle": "Check your email",
+    "checkEmail": "We sent a confirmation link to {email}. Click it to activate your account.",
     "demoDisabled": "Sign-up and login will be enabled once the Supabase project is connected. See docs/SETUP.md for instructions.",
-    "invalidCredentials": "Wrong email or password."
+    "invalidCredentials": "Wrong email or password.",
+    "emailNotConfirmed": "Your email is not confirmed yet. Check your inbox (and spam) for the confirmation link.",
+    "emailTaken": "An account with this email already exists. Try logging in.",
+    "rateLimited": "Too many attempts. Wait a few minutes and try again.",
+    "weakPassword": "The password must have at least 8 characters.",
+    "genericError": "Sign-up failed right now. Please try again.",
+    "suspended": "Your account is temporarily suspended. Write to hello@kolabo.rs for more information.",
+    "linkExpired": "The link has expired or was already used. Request a new one.",
+    "forgotTitle": "Forgot password",
+    "forgotSubtitle": "Enter your account email and we'll send you a link to set a new password.",
+    "sendResetLink": "Send link",
+    "resetSent": "If an account with that address exists, we sent you a link to set a new password.",
+    "backToLogin": "Back to login",
+    "resetTitle": "New password",
+    "resetSubtitle": "Choose a new password for your account.",
+    "newPassword": "New password",
+    "confirmPassword": "Repeat password",
+    "savePassword": "Save password",
+    "passwordsDontMatch": "Passwords don't match.",
+    "passwordChanged": "Password changed. Redirecting to your dashboard...",
+    "side": {
+      "line1": "Your media kit.",
+      "line2": "Your rates.",
+      "line3": "Your rules.",
+      "point1": "Brands send you clear requests — with a brief, budget and deadlines.",
+      "point2": "Your contact details are revealed only after you accept.",
+      "point3": "Companies are verified by tax ID, and you can report any suspicious offer."
+    }
   },
   "onboarding": {
     "title": "Profile setup",
@@ -129,11 +197,21 @@
       "pricing": "Rates & barter",
       "contact": "Contact"
     },
+    "errors": {
+      "username_format": "Usernames have 3–30 characters: lowercase letters, numbers, dot, hyphen and underscore.",
+      "username_reserved": "That username is reserved. Pick another one.",
+      "username_taken": "That username is already taken. Pick another one.",
+      "username_required": "Enter a username in the first step — it is the link to your public profile.",
+      "socials_required": "Add at least one network before finishing.",
+      "categories_required": "Pick at least one category before finishing.",
+      "save_failed": "Saving failed. Check your data and try again.",
+      "not_authenticated": "Your session expired. Please log in again."
+    },
     "basics": {
       "title": "Introduce yourself",
       "subtitle": "The basics brands see first.",
       "username": "Username",
-      "usernameHint": "Part of your profile link, e.g. kolabo.rs/@milica.style",
+      "usernameHint": "Part of your public profile link, e.g. kolabo.rs/en/creators/milica.style",
       "bio": "Short bio",
       "bioPlaceholder": "Who you are, what content you create and which brands you want to work with...",
       "birthYear": "Year of birth",
@@ -180,7 +258,7 @@
     },
     "contact": {
       "title": "Contact & notifications",
-      "subtitle": "You choose how brands can reach you — we only show what you allow.",
+      "subtitle": "You choose how brands can reach you — contact details are revealed only after you accept a request.",
       "contactEmail": "Contact email",
       "contactEmailHint": "Can be different from your login email.",
       "phone": "Phone",
@@ -191,48 +269,621 @@
     },
     "done": {
       "title": "Your profile is ready! 🎉",
-      "subtitle": "Your profile is active. You can update it anytime from your dashboard.",
-      "cta": "Go to dashboard"
+      "subtitle": "Your profile is public and brands can send you requests. You can update it anytime.",
+      "savedTitle": "Changes saved",
+      "savedSubtitle": "Your public profile has been updated.",
+      "cta": "Go to dashboard",
+      "viewPublic": "View public profile"
+    }
+  },
+  "company": {
+    "onboardingTitle": "Company details",
+    "onboardingSubtitle": "This takes a couple of minutes. Creators see these details when you send them a request — a complete profile builds trust and gets more requests accepted.",
+    "sections": {
+      "about": "About the company",
+      "aboutHint": "How you introduce yourself to creators.",
+      "legal": "Legal details",
+      "legalHint": "Used only to verify your company. Creators see a verified badge, not the numbers.",
+      "contact": "Contact and online presence",
+      "contactHint": "Creators see your contact details only after they accept your request.",
+      "looking": "What you are looking for",
+      "lookingHint": "Helps us recommend the right creators."
+    },
+    "name": "Brand / company name",
+    "type": "Type",
+    "industry": "Industry",
+    "size": "Company size",
+    "city": "City",
+    "country": "Country of registration",
+    "description": "Short description",
+    "descriptionHint": "{count} characters left",
+    "descriptionPlaceholder": "What you do, what your products are like and what kind of creators you are looking for...",
+    "taxIdHint": "No spaces or dashes. We validate the check digit.",
+    "registrationNumber": "Registration number",
+    "legalName": "Full legal name",
+    "contactName": "Contact person",
+    "contactRole": "Position",
+    "contactRolePlaceholder": "e.g. Brand manager",
+    "contactEmail": "Contact email",
+    "contactEmailHint": "Creators can write to this address after accepting.",
+    "phone": "Phone",
+    "website": "Website",
+    "instagram": "Instagram",
+    "interests": "Creator categories you are interested in",
+    "interestsCount": "Selected: {count} / {max}",
+    "budgetMin": "Typical budget from",
+    "budgetMax": "Typical budget to",
+    "currency": "Currency",
+    "finish": "Save and start",
+    "errors": {
+      "required": "This field is required.",
+      "invalid": "Invalid value.",
+      "tax_id_invalid": "The tax ID is not valid for the selected country.",
+      "reg_no_invalid": "The registration number is not valid.",
+      "url_invalid": "Enter a valid website address (e.g. www.example.com).",
+      "budget_order": "The “to” budget must be higher than the “from” budget.",
+      "save_failed": "Saving failed. Please try again.",
+      "not_authenticated": "Your session expired. Please log in again.",
+      "checkFields": "Check the highlighted fields above."
+    },
+    "done": {
+      "title": "You're all set! 🎉",
+      "subtitle": "Your company profile is saved. While we verify your details, you can already search creators and send requests.",
+      "cta": "Find creators",
+      "dashboard": "Go to dashboard"
     }
   },
   "dashboard": {
     "title": "My dashboard",
     "welcome": "Hi, {name}",
+    "influencerSubtitle": "Track brand requests, collaborations and your profile here.",
+    "companySubtitle": "Dashboard for {company} — requests, collaborations and recommended creators.",
     "profileCompleteness": "Profile completeness",
-    "completenessHint": "Complete profiles get more inquiries from brands.",
-    "sections": {
-      "profile": "Profile",
-      "socials": "Networks & audience",
-      "categories": "Categories",
-      "services": "Services & rates",
-      "barter": "Barter",
-      "contact": "Contact"
-    },
+    "completenessHint": "Complete profiles with a photo and rates earn more trust from brands.",
+    "companyCompleteness": "Company profile completeness",
+    "companyCompletenessHint": "A logo, description and tax ID speed up verification and increase the chance a creator accepts.",
     "notifications": "Notifications",
     "noNotifications": "No new notifications.",
     "markRead": "Mark as read",
     "viewAll": "View all",
     "editProfile": "Edit profile",
+    "editCompany": "Edit company profile",
+    "viewPublicProfile": "Public profile",
+    "photoTitle": "Profile photo",
+    "logoTitle": "Company logo",
     "profilePreview": "How brands see you",
+    "latestRequests": "Latest requests",
+    "noRequestsTitle": "No requests yet",
+    "noRequestsText": "When a brand sends you a request, it will show up here. A complete profile and clear rates speed up the first offers.",
+    "noSentTitle": "You haven't sent any requests yet",
+    "noSentText": "Find creators by category, city and budget and send your first request in a few minutes.",
+    "findCreators": "Find creators",
+    "verifyTitle": "Profile verification",
+    "verifyText": "Our team reviews profiles and grants a verified creator badge. A complete profile with links to your networks speeds up the check.",
+    "companyVerifiedTitle": "Company verified",
+    "companyVerifiedText": "Creators see a verified company badge next to your requests. You can send up to 30 requests per day.",
+    "companyPendingTitle": "Company verification in progress",
+    "companyPendingText": "We are checking your company details (usually within one business day). Until then you can send up to 5 requests per day.",
+    "disclosureTitle": "Don't forget the ad label",
+    "disclosureText": "Label every paid or barter post at the start of the caption (#ad or #paidpartnership) and turn on the network's paid partnership option. Serbian advertising law requires it.",
+    "quickSearch": "Search",
+    "quickSearchPlaceholder": "Name, username or topic (e.g. fitness, Novi Sad)",
+    "recommendedTitle": "Recommended creators",
+    "howItWorksTitle": "How to get a collaboration",
+    "companySteps": {
+      "step1": "Find creators by category, network, audience and budget and save them to a list.",
+      "step2": "Send a request with a brief, deliverables, budget or barter and deadlines.",
+      "step3": "When the creator accepts, you get their contact details, follow the collaboration to the end and leave a review."
+    },
+    "stats": {
+      "newRequests": "New requests",
+      "activeCollabs": "Active collaborations",
+      "completed": "Completed collaborations",
+      "completeness": "Profile completeness",
+      "sent": "Requests sent",
+      "awaiting": "Awaiting reply",
+      "accepted": "Accepted",
+      "saved": "Saved creators"
+    },
+    "verified": "Verified profile",
     "barterYes": "Accepts barter",
     "barterNo": "Paid collaborations only",
-    "barterDepends": "Barter negotiable",
-    "primaryNetwork": "Primary network",
-    "completeOnboarding": "Finish setting up your profile to become visible to brands.",
-    "continueOnboarding": "Continue setup"
+    "barterDepends": "Barter negotiable"
+  },
+  "creators": {
+    "metaTitle": "Micro influencers from Serbia and the region — creator search",
+    "metaDescription": "Search micro influencers and UGC creators from the Balkans by category, city, network, audience and price. View profiles and send a collaboration request.",
+    "title": "Find creators",
+    "titleCategory": "{category} — creators",
+    "subtitle": "Micro influencers and UGC creators from Serbia and the region. Filter by category, network, audience and budget.",
+    "resultsCount": "{count, plural, =0 {No results} one {# creator} other {# creators}}",
+    "emptyTitle": "No creators for these filters",
+    "emptyText": "Try fewer filters or a wider audience and price range.",
+    "verified": "Verified creator",
+    "fromPrice": "from €{price}",
+    "barterOk": "Accepts barter",
+    "onRequest": "Price on request",
+    "engagement": "ER {value}%",
+    "save": "Save creator",
+    "unsave": "Remove from saved",
+    "savedLabel": "Saved",
+    "pagination": "Result pages",
+    "prev": "Previous page",
+    "next": "Next page",
+    "ctaTitle": "Running a brand?",
+    "ctaText": "Create a free company account to save creators and send them collaboration requests.",
+    "ctaButton": "Create company account",
+    "filters": {
+      "title": "Filters",
+      "any": "Any",
+      "searchPlaceholder": "Search by name, username or bio",
+      "category": "Category",
+      "platform": "Network",
+      "minFollowers": "Minimum followers",
+      "maxPrice": "Budget up to (EUR)",
+      "maxPriceHint": "Creators with at least one service up to this price",
+      "country": "Country",
+      "city": "City",
+      "audienceGender": "Audience gender",
+      "audienceAge": "Audience age",
+      "language": "Content language",
+      "barter": "Accepts barter",
+      "verifiedOnly": "Verified only",
+      "clear": "Clear filters",
+      "sort": "Sort",
+      "sortRecommended": "Recommended",
+      "sortNewest": "Newest"
+    }
+  },
+  "categoryPage": {
+    "metaTitle": "{category} influencers in Serbia and the region",
+    "metaDescription": "Find micro influencers for {category} from Serbia, Croatia, Bosnia and Montenegro. See their audience and rates and send a collaboration request.",
+    "breadcrumb": "Creators",
+    "h1": "{category} — influencers from the Balkans",
+    "intro": "Micro influencers and UGC creators whose content is about “{category}”. See their networks, audience and indicative rates and send a request directly through Kolabo.",
+    "filterCta": "Filter by audience and budget",
+    "count": "{count, plural, =0 {No creators yet} one {# creator} other {# creators}}",
+    "emptyTitle": "Be the first creator in this category",
+    "emptyText": "There are no public profiles for {category} yet. Create a profile and brands will find you here.",
+    "emptyCta": "Create creator profile",
+    "whyTitle": "Why micro influencers for {category}?",
+    "why1": "A smaller but more engaged audience — a recommendation feels like advice from a friend, not an ad.",
+    "why2": "Accessible budgets and the option of barter collaborations for products and services.",
+    "why3": "Local audience: creators from your city and region, speaking your customers' language.",
+    "brandCta": "Create company account",
+    "related": "Related categories"
+  },
+  "profile": {
+    "notFound": "Profile not found",
+    "metaTitle": "{name} (@{username}) — creator on Kolabo",
+    "metaDescription": "{name}, content creator ({categories}) from {city}. See networks, audience and rates and send a collaboration request.",
+    "verified": "Verified creator",
+    "about": "About the creator",
+    "memberSince": "On Kolabo since {date}",
+    "networks": "Networks and audience",
+    "primary": "Primary",
+    "followers": "Followers",
+    "engagement": "Engagement",
+    "avgViews": "Average views",
+    "audienceGender": "Audience",
+    "audienceAge": "Age",
+    "audienceCountries": "Audience countries",
+    "selfReported": "Audience data is entered by the creator. Ask for insights screenshots via messages for exact numbers.",
+    "services": "Services and indicative rates",
+    "pricesNote": "Rates are indicative — the final deal depends on the brief, deadlines and usage rights.",
+    "barter": "Barter collaborations",
+    "barterMin": "Minimum offer value: {value} {currency}",
+    "reviews": "Brand reviews",
+    "noReviews": "No reviews yet. Only brands that completed a collaboration through Kolabo can leave a review.",
+    "verifiedCollab": "Review after a collaboration completed on Kolabo",
+    "startingFrom": "Collaborations from",
+    "onRequest": "On request",
+    "minBudget": "Minimum budget {value} {currency}",
+    "openToTravel": "Open to travel",
+    "sendRequest": "Send a collaboration request",
+    "haveBrandAccount": "Already have a company account?",
+    "loginToSend": "Log in",
+    "ownerNote": "This is your public profile — this is how brands see it.",
+    "editProfile": "Edit profile",
+    "contactPrivacy": "You get the creator's contact details only after they accept your request. Until then you talk through platform messages."
+  },
+  "requests": {
+    "title": "Requests and collaborations",
+    "detailTitle": "Collaboration request",
+    "subtitleCompany": "All requests you sent to creators.",
+    "subtitleInfluencer": "Requests brands sent you.",
+    "tabsLabel": "Filter requests",
+    "tabs": {
+      "all": "All",
+      "pending": "Pending",
+      "active": "In progress",
+      "completed": "Completed",
+      "closed": "Closed"
+    },
+    "status": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "delivered": "Delivered",
+      "completed": "Completed",
+      "declined": "Declined",
+      "cancelled": "Cancelled"
+    },
+    "flow": {
+      "pending": "Sent",
+      "accepted": "Accepted",
+      "delivered": "Delivered",
+      "completed": "Completed"
+    },
+    "closedNote": {
+      "declined": "The creator declined this request.",
+      "cancelled": "This request was cancelled."
+    },
+    "progress": "Collaboration progress",
+    "new": "New",
+    "you": "You",
+    "respondBy": "reply by {date}",
+    "respondByFull": "A reply is expected by {date}",
+    "emptyTitle": "No requests in this group",
+    "emptyCompany": "Find creators and send your first collaboration request.",
+    "emptyInfluencer": "When a brand sends you a request, it will show up here.",
+    "findCreators": "Find creators",
+    "improveProfile": "Complete your profile",
+    "back": "All requests",
+    "with": "Collaboration with",
+    "from": "From",
+    "verified": "Verified",
+    "sentOn": "sent {date}",
+    "pendingInfluencer": "Read the brief and reply. If anything is unclear, ask the brand in messages before accepting.",
+    "pendingCompany": "The creator hasn't opened the request yet.",
+    "pendingCompanySeen": "The creator has seen the request — waiting for a reply.",
+    "acceptedInfluencer": "The collaboration is agreed. When you publish or hand over the content, mark the request as delivered.",
+    "acceptedCompany": "The creator accepted. Contact details are below — continue the agreement in messages.",
+    "deliveredCompany": "The creator marked the content as delivered. Review it and confirm or ask for changes.",
+    "deliveredInfluencer": "Waiting for the brand to confirm.",
+    "declineReason": "Reason for declining",
+    "disclosureTitle": "Ad labeling is mandatory",
+    "disclosureText": "Label the post at the start of the caption (#ad or #paidpartnership), turn on the network's paid partnership tool and never show the product without a label. This applies to barter too.",
+    "disclosureAcked": "The company confirmed the content will be clearly labeled as advertising.",
+    "yourReview": "Your review",
+    "brief": "Brief",
+    "goal": "Campaign goal",
+    "deliverables": "Deliverables",
+    "compensation": "Compensation",
+    "budget": "Budget",
+    "barter": "Barter",
+    "usageRights": "Usage rights",
+    "revisions": "Revisions",
+    "timeline": "Timeline",
+    "keyMessages": "Key messages",
+    "restrictions": "What to avoid",
+    "aboutCompany": "About the company",
+    "unverifiedCompany": "This company is not verified yet — be careful with requests for upfront payments.",
+    "contact": {
+      "title": "Contact: {name}",
+      "email": "Email",
+      "phone": "Phone",
+      "platformOnly": "This party chose to communicate only through platform messages."
+    }
+  },
+  "requestForm": {
+    "pageTitle": "New collaboration request",
+    "pageSubtitle": "Request for {name}. The clearer the brief, the faster the reply.",
+    "creatorMissingTitle": "Creator not found",
+    "creatorMissingText": "The profile doesn't exist or isn't public right now. Pick a creator from the search.",
+    "browse": "Browse creators",
+    "sections": {
+      "campaign": "Campaign",
+      "deliverables": "Deliverables and rights",
+      "compensation": "Compensation",
+      "timeline": "Timeline"
+    },
+    "title": "Campaign name",
+    "titleHint": "Short and clear — the creator sees it first.",
+    "titlePlaceholder": "e.g. Autumn campaign — new granola",
+    "goal": "Goal",
+    "goalPlaceholder": "e.g. introduce a new product to a younger audience",
+    "brief": "Brief",
+    "briefHint": "{count} / 3000 — at least 20 characters",
+    "briefPlaceholder": "Hi {name}! Describe the product, what content you expect, tone and style, and what a successful collaboration means to you...",
+    "keyMessages": "Key messages",
+    "keyMessagesPlaceholder": "What must be mentioned (e.g. 100% organic, made in Serbia)",
+    "restrictions": "What to avoid",
+    "restrictionsPlaceholder": "e.g. no comparisons with competitors",
+    "deliverablesHint": "Pick exactly what you need and how many. Services the creator offers come first.",
+    "quantity": "Quantity",
+    "decrease": "Decrease",
+    "increase": "Increase",
+    "usageRights": "Content usage rights",
+    "usageRightsHint": "Using content in paid ads is usually charged extra.",
+    "revisions": "Revisions",
+    "revisionsCount": "{count, plural, =0 {No revisions} one {# revision} other {# revisions}}",
+    "compensation": "Compensation type",
+    "budget": "Budget",
+    "budgetHint": "Total amount for all deliverables.",
+    "currency": "Currency",
+    "barterDescription": "What you offer as barter",
+    "barterPlaceholder": "e.g. product package (6 granolas + 2 spreads)",
+    "barterValue": "Barter value (EUR)",
+    "barterValueHint": "Creators ask for this — it helps them evaluate the offer.",
+    "startDate": "Start",
+    "endDate": "End",
+    "respondBy": "Reply by",
+    "disclosureTitle": "Ad labeling",
+    "disclosureText": "Serbian advertising law prohibits hidden advertising. The creator will clearly label the post as an ad (e.g. #ad) — barter included. Creators can report requests that ask to hide a collaboration.",
+    "disclosureAck": "I understand and agree that the content will be clearly labeled as advertising.",
+    "minorWarningTitle": "The audience includes minors",
+    "minorWarning": "Part of this creator's audience is under 18. Check whether your product (e.g. alcohol, supplements, energy drinks) may be advertised to minors.",
+    "footnote": "The creator sees your contact details only after accepting.",
+    "submit": "Send request",
+    "creatorRates": "Creator's rates",
+    "tipsTitle": "Tips for a request that gets accepted",
+    "tip1": "List concrete deliverables and a deadline.",
+    "tip2": "For barter, state the exact package value.",
+    "tip3": "Offer a budget in line with the creator's rates.",
+    "errors": {
+      "required": "This field is required.",
+      "invalid": "Invalid value.",
+      "brief_short": "The brief must have at least 20 characters.",
+      "dates_order": "The end can't be before the start.",
+      "disclosure_required": "You need to confirm ad labeling.",
+      "creator_not_found": "This creator is no longer available.",
+      "duplicate_pending": "You already have an open request with this creator. Wait for a reply or cancel it.",
+      "rate_limited": "You reached the daily request limit. Verified companies have a higher limit.",
+      "not_allowed": "The request can't be sent right now. Check that your company profile is complete.",
+      "save_failed": "Sending failed. Please try again.",
+      "not_authenticated": "Your session expired. Please log in again."
+    }
+  },
+  "requestActions": {
+    "do": {
+      "accept": "Accept",
+      "decline": "Decline",
+      "cancel": "Cancel",
+      "deliver": "Mark as delivered",
+      "complete": "Confirm and complete",
+      "revision": "Request changes"
+    },
+    "confirm": {
+      "accept": "Accept the request?",
+      "decline": "Decline the request? You can add a reason — it helps the brand send a better offer next time.",
+      "cancel": "Are you sure you want to cancel?",
+      "deliver": "Mark the content as delivered? The brand will be notified to review it.",
+      "complete": "Confirm the collaboration was completed successfully?",
+      "revision": "Send the collaboration back to the creator for changes? Explain what to change in messages."
+    },
+    "declineReason": "Reason for declining",
+    "declineReasonPlaceholder": "e.g. the budget is below my rates / it doesn't fit my content",
+    "errors": {
+      "invalid_transition": "This action is no longer possible — refresh the page.",
+      "not_allowed": "You are not allowed to do this.",
+      "save_failed": "The action failed. Please try again.",
+      "not_authenticated": "Your session expired. Please log in again."
+    }
+  },
+  "thread": {
+    "title": "Messages — {name}",
+    "empty": "No messages yet. Write the first one — ask anything you need before agreeing.",
+    "placeholder": "Write a message...",
+    "send": "Send",
+    "hint": "Enter sends, Shift+Enter for a new line.",
+    "sendError": "The message wasn't sent. Please try again.",
+    "closed": "This conversation is closed."
+  },
+  "review": {
+    "title": "Rate the collaboration with: {name}",
+    "ratingLabel": "Rating",
+    "stars": "{count, plural, one {# star} other {# stars}}",
+    "commentLabel": "Comment",
+    "placeholder": "How did the collaboration go? (optional, publicly visible)",
+    "submit": "Submit review",
+    "pickRating": "Pick a rating from 1 to 5.",
+    "already": "You already reviewed this collaboration."
+  },
+  "report": {
+    "open": "Report",
+    "title": "Report abuse",
+    "subtitle": "Reports are confidential. Our team reviews them and suspends accounts when needed.",
+    "reason": "Reason",
+    "details": "Details",
+    "detailsPlaceholder": "Describe what happened...",
+    "submit": "Send report",
+    "sent": "Thank you — the report was received and will be reviewed."
+  },
+  "saved": {
+    "title": "Saved creators",
+    "subtitle": "Your list of creators for future campaigns.",
+    "emptyTitle": "Your list is empty",
+    "emptyText": "Click the heart on a creator card to save them for later.",
+    "browse": "Browse creators"
+  },
+  "notifications": {
+    "markAllRead": "Mark all as read",
+    "templates": {
+      "welcome_influencer": {
+        "title": "Welcome to Kolabo 🎉",
+        "body": "Complete your profile — profiles with a photo and rates get more requests."
+      },
+      "welcome_company": {
+        "title": "Welcome to Kolabo 🎉",
+        "body": "Complete your company profile and send your first request to a creator. Company verification usually takes one business day."
+      },
+      "request_new": {
+        "title": "New request: {title}",
+        "body": "{name} sent you a collaboration request."
+      },
+      "request_accepted": {
+        "title": "Request accepted 🎉",
+        "body": "{name} accepted “{title}”. Contact details are now visible."
+      },
+      "request_declined": {
+        "title": "Request declined",
+        "body": "{name} declined “{title}”."
+      },
+      "request_cancelled": {
+        "title": "Collaboration cancelled",
+        "body": "{name} cancelled “{title}”."
+      },
+      "request_delivered": {
+        "title": "Content delivered",
+        "body": "{name} marked “{title}” as delivered. Review and confirm."
+      },
+      "request_revision": {
+        "title": "Changes requested",
+        "body": "{name} asked for changes on “{title}”. Details are in messages."
+      },
+      "request_completed": {
+        "title": "Collaboration completed ✅",
+        "body": "“{title}” is completed. Leave a review — it helps others choose."
+      },
+      "message_new": {
+        "title": "New message from: {name}",
+        "body": "About “{title}”."
+      },
+      "review_new": {
+        "title": "You received a new review ⭐",
+        "body": "Rating: {rating}/5."
+      },
+      "verified": {
+        "title": "Profile verified ✔",
+        "body": "A verified badge now appears next to your name."
+      }
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "loggedInAs": "Logged in as {email}",
+    "passwordTitle": "Password",
+    "passwordText": "Change your login password.",
+    "newPassword": "New password",
+    "confirmPassword": "Repeat password",
+    "changePassword": "Change password",
+    "passwordShort": "The password must have at least 8 characters.",
+    "passwordMismatch": "Passwords don't match.",
+    "passwordChanged": "Password changed.",
+    "privacyTitle": "Privacy and data",
+    "privacyText": "Manage consents and download a copy of your data.",
+    "marketing": "Receive occasional emails about news and tips",
+    "exportText": "Download all your data (JSON).",
+    "export": "Download data",
+    "dangerTitle": "Delete account",
+    "dangerText": "Permanently deletes your account, profile, requests, messages and photos. This can't be undone.",
+    "deleteAccount": "Delete account",
+    "deleteWarning": "All your data will be permanently deleted. If you have collaborations in progress, finish or cancel them first.",
+    "deleteKeyword": "DELETE",
+    "deleteConfirmLabel": "Type {keyword} to confirm",
+    "deleteConfirm": "Permanently delete account",
+    "deleteErrors": {
+      "confirm_mismatch": "The confirmation word is not correct.",
+      "deletion_unavailable": "Account deletion isn't available right now. Write to hello@kolabo.rs and we will delete it within 30 days.",
+      "admin_cannot_delete": "Admin accounts can't be deleted this way.",
+      "delete_failed": "Deletion failed. Try again or contact us."
+    },
+    "avatar": {
+      "upload": "Add photo",
+      "uploadLogo": "Add logo",
+      "change": "Change",
+      "remove": "Remove",
+      "uploading": "Uploading...",
+      "hint": "JPG, PNG or WebP, max 2 MB. A square image looks best.",
+      "errorType": "Only JPG, PNG and WebP are allowed.",
+      "errorSize": "The image is larger than 2 MB.",
+      "errorUpload": "Upload failed. Please try again."
+    }
+  },
+  "forBrands": {
+    "metaTitle": "For brands — find micro influencers in the Balkans",
+    "metaDescription": "Search vetted micro influencers from Serbia and the region by category, city, audience and budget. Send a clear request, agree on the collaboration and follow it to the end.",
+    "badge": "For companies, brands and agencies",
+    "title1": "Micro influencers who",
+    "title2": "sell your brand.",
+    "subtitle": "Find creators from your city and niche, send a structured request with a budget or barter, and agree on the collaboration with no middlemen and no commission.",
+    "ctaPrimary": "Create a free company account",
+    "ctaSecondary": "Browse creators",
+    "note": "No card and no commission at this stage.",
+    "stepsTitle": "From search to post in three steps",
+    "stepLabel": "Step {n}",
+    "step1Title": "Search and save",
+    "step1Text": "Filter by category, network, follower range, city, audience gender and age and price. Save interesting creators to a list.",
+    "step2Title": "Send a request",
+    "step2Text": "Brief, deliverables and quantities, budget or barter with its value, usage rights and deadlines — everything a creator needs to decide.",
+    "step3Title": "Collaborate and review",
+    "step3Text": "When the creator accepts, you get their contact. Track delivery, confirm the result and leave a review.",
+    "featuresTitle": "Everything for collaborations in one place",
+    "featuresSubtitle": "No spreadsheets, DMs on five networks or lost agreements.",
+    "features": {
+      "filters": {
+        "title": "Precise filters",
+        "text": "Category, network, follower range, city, audience gender and age, content language, barter and budget."
+      },
+      "brief": {
+        "title": "Structured brief",
+        "text": "Creators get a clear request with deliverables, deadlines and usage rights — that's why they reply faster."
+      },
+      "chat": {
+        "title": "Messages per collaboration",
+        "text": "Every deal has its own real-time thread, separate from private messages."
+      },
+      "privacy": {
+        "title": "Privacy first",
+        "text": "Creator contact details are revealed only after acceptance — creators trust it and reply more."
+      },
+      "barter": {
+        "title": "Barter with a value",
+        "text": "Offer products or services and state their value. Creators see upfront what they get."
+      },
+      "reviews": {
+        "title": "Reviews and verification",
+        "text": "Verified companies and reviews after completed collaborations build trust on both sides."
+      }
+    },
+    "categoriesTitle": "Creators for every niche",
+    "faqTitle": "Questions from brands",
+    "faq": {
+      "q1": "How much does the platform cost?",
+      "a1": "At this stage it's free: company account, search, requests and messages. You pay the creator directly, as agreed.",
+      "q2": "How is the creator paid?",
+      "a2": "Kolabo doesn't handle payments at the moment. After a request is accepted you get the creator's contact and agree on the payment method (invoice, service contract etc.).",
+      "q3": "Why do you need a tax ID?",
+      "a3": "We use the tax ID only to check that the company is real. Verified companies get a badge and a higher daily request limit.",
+      "q4": "Does the creator have to label the post as an ad?",
+      "a4": "Yes. Advertising law prohibits hidden advertising — every paid or barter post must be clearly labeled. You confirm this when sending a request."
+    },
+    "finalTitle": "Your first request in 5 minutes",
+    "finalText": "Create an account, find a creator and send a request today."
   },
   "admin": {
     "title": "Admin panel",
-    "subtitle": "Overview of all influencers, metrics and platform statistics.",
+    "subtitle": "Platform overview: creators, companies, requests and statistics.",
+    "influencersTitle": "Influencers",
+    "influencersSubtitle": "Verification and moderation of creator profiles.",
+    "companiesTitle": "Companies",
+    "companiesSubtitle": "Check the tax ID and company details before verifying. Unverified ones come first.",
+    "requestsTitle": "Requests",
+    "requestsSubtitle": "All collaboration requests on the platform.",
+    "reportsTitle": "Reports",
+    "reportsSubtitle": "Abuse reports waiting for a decision.",
+    "noCompanies": "No companies registered yet.",
+    "noRequests": "No requests yet.",
+    "taxOk": "valid",
+    "taxCheck": "check",
+    "regNo": "Reg. no.",
+    "todo": {
+      "companies": "{count, plural, one {# company awaits verification} other {# companies await verification}}",
+      "reports": "{count, plural, one {# open report} other {# open reports}}"
+    },
     "kpi": {
       "totalInfluencers": "Total influencers",
-      "newThisMonth": "New this month",
+      "companies": "Companies",
+      "requests": "Requests",
+      "acceptRate": "Acceptance rate",
+      "newThisMonth": "New creators this month",
       "completedProfiles": "Complete profiles",
       "barterReady": "Accept barter",
       "avgEngagement": "Average engagement",
       "activeNetworks": "Connected networks"
     },
     "charts": {
+      "requestsByStatus": "Requests by status",
       "byCategory": "Influencers by category",
       "byNetwork": "Network presence",
       "byTier": "Distribution by audience size",
@@ -250,6 +901,13 @@
       "priceFrom": "Prices from",
       "barter": "Barter",
       "joined": "Joined",
+      "status": "Status",
+      "actions": "Actions",
+      "statusLabels": {
+        "pending": "Incomplete",
+        "active": "Active",
+        "suspended": "Suspended"
+      },
       "filterCategory": "Category",
       "filterNetwork": "Network",
       "filterCountry": "Country",
@@ -257,15 +915,205 @@
       "noResults": "No results for the selected filters.",
       "searchPlaceholder": "Search by name or username..."
     },
+    "companyCols": {
+      "company": "Company",
+      "legal": "Legal details",
+      "contact": "Contact",
+      "status": "Status",
+      "joined": "Joined"
+    },
+    "requestCols": {
+      "title": "Request",
+      "company": "Company",
+      "creator": "Creator",
+      "compensation": "Compensation",
+      "status": "Status",
+      "created": "Sent"
+    },
+    "actions": {
+      "verify": "Verify",
+      "verified": "Verified",
+      "suspend": "Suspend",
+      "restore": "Restore",
+      "suspendConfirm": "Suspend this account? The profile will be hidden and the user won't be able to use the platform."
+    },
+    "reports": {
+      "empty": "No open reports 🎉",
+      "reporter": "Reported by",
+      "target": "Reported",
+      "viewRequest": "Open request",
+      "note": "Internal note",
+      "notePlaceholder": "Decision and reasoning (internal)",
+      "resolve": "Resolved",
+      "dismiss": "Dismiss",
+      "closed": "Closed reports",
+      "status": {
+        "open": "Open",
+        "resolved": "Resolved",
+        "dismissed": "Dismissed"
+      }
+    },
     "notAdmin": "You do not have access to the admin panel."
+  },
+  "legal": {
+    "updated": "Last updated: {date}",
+    "draftNotice": "Working draft. Before public launch it must be reviewed by a lawyer and completed with the service provider's details.",
+    "privacy": {
+      "title": "Privacy policy",
+      "date": "8 October 2026",
+      "intro": "This policy explains how {entity} (“Kolabo”, “we”) processes personal data of Kolabo platform users, in line with the Serbian Law on Personal Data Protection (ZZPL) and, where applicable, the EU General Data Protection Regulation (GDPR).",
+      "sections": [
+        {
+          "title": "Controller and contact",
+          "body": [
+            "The data controller is {entity}, {address}, reg. no. {mb}, tax ID {pib}. For any questions about your data write to {email}."
+          ]
+        },
+        {
+          "title": "What data we process",
+          "body": [
+            "Account data: full name, email address, password (only a hash is stored), account type and date of accepting the terms.",
+            "Creator profile data: username, photo, bio, city and country, year of birth and gender (optional), content languages, social networks and audience data you enter, categories, services and rates, barter and contact preferences.",
+            "Company data: name, legal details (tax ID, registration number), industry, website, contact person and contact details.",
+            "Usage data: collaboration requests, messages, reviews, reports and notifications created on the platform, plus technical data needed for security (e.g. login time)."
+          ]
+        },
+        {
+          "title": "Purpose and legal basis",
+          "body": [
+            "Performance of a contract (Art. 12(1)(2) ZZPL): running your account, showing your public profile, sending and tracking requests, messages and reviews.",
+            "Legitimate interest: platform security, fraud and abuse prevention, company verification and anonymous statistics.",
+            "Consent (Art. 15 ZZPL): marketing emails. Consent is separate from other terms and you can withdraw it at any time in settings."
+          ]
+        },
+        {
+          "title": "What is public and what is not",
+          "body": [
+            "A creator's public profile (name, username, photo, bio, city, networks, audience, categories, rates, barter preferences and reviews) is visible to everyone and may appear in search engines.",
+            "Year of birth and gender are never shown publicly. Contact details (email, phone) are never public — a company sees them only after you accept its request, and only the channels you allowed."
+          ]
+        },
+        {
+          "title": "Recipients and transfers",
+          "body": [
+            "Data is stored with the processor Supabase (database and authentication, EU region — Frankfurt) and with the application hosting provider. We have data processing agreements with our processors. We do not sell data or share it for advertising.",
+            "If a processor transfers data outside the EU/EEA, this is done under standard contractual clauses or another lawful mechanism."
+          ]
+        },
+        {
+          "title": "Retention",
+          "body": [
+            "We keep your data while you have an account. When you delete your account we delete your profile, requests, messages and photos, except data we are legally required to keep longer."
+          ]
+        },
+        {
+          "title": "Your rights",
+          "body": [
+            "You have the right to access, rectification, erasure, restriction of processing, portability (data export in settings) and objection. You can delete your account yourself in settings.",
+            "If you believe the processing is unlawful, you can file a complaint with the Commissioner for Information of Public Importance and Personal Data Protection (www.poverenik.rs)."
+          ]
+        },
+        {
+          "title": "Cookies",
+          "body": [
+            "We only use strictly necessary cookies: for login (session) and for your selected language. We do not use advertising cookies or third-party tracking."
+          ]
+        },
+        {
+          "title": "Security and data breaches",
+          "body": [
+            "Data access is restricted by database-level rules (Row Level Security), communication is encrypted (HTTPS) and passwords are stored as hashes. We will notify the Commissioner within 72 hours, and you without undue delay, of any breach that may endanger your rights."
+          ]
+        },
+        {
+          "title": "Minors",
+          "body": [
+            "The platform is intended for people aged 18 and over. We do not knowingly collect data from minors."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms of service",
+      "date": "8 October 2026",
+      "intro": "These terms govern the use of the Kolabo platform provided by {entity}, {address}, reg. no. {mb}, tax ID {pib}, email {email}. By signing up you accept these terms.",
+      "sections": [
+        {
+          "title": "What Kolabo is",
+          "body": [
+            "Kolabo is an online platform connecting content creators (influencers) and companies. Kolabo is not a party to the collaboration agreement, does not guarantee that a collaboration will happen and currently does not handle payments — the deal and payment are directly between the creator and the company."
+          ]
+        },
+        {
+          "title": "Account",
+          "body": [
+            "You must be at least 18 years old and enter accurate data. You are responsible for keeping your password safe and for all activity on your account.",
+            "Companies must enter accurate legal details. Kolabo may verify company details and grant a verified badge; unverified companies have a limited number of requests per day."
+          ]
+        },
+        {
+          "title": "Rules for creators",
+          "body": [
+            "Network and audience data must be accurate. Showing bought or fake followers and engagement is prohibited.",
+            "You must clearly label every paid or barter post as advertising in line with the Serbian Law on Advertising (e.g. #ad or #paidpartnership at the start of the caption and the network's paid partnership tool)."
+          ]
+        },
+        {
+          "title": "Rules for companies",
+          "body": [
+            "A request must contain a real offer: deliverables, compensation (an amount or an exact description and value of the barter) and deadlines. It is prohibited to ask for hidden advertising, upfront payments from creators, or content that breaks the law (e.g. advertising products banned for minors to an audience under 18).",
+            "You may use creator contact details received after acceptance only for that collaboration."
+          ]
+        },
+        {
+          "title": "Conduct and moderation",
+          "body": [
+            "Spam, harassment, fraud, discriminatory and illegal content are prohibited. Any user can report abuse. Kolabo may remove content or suspend accounts that break these terms and informs the user with a statement of reasons."
+          ]
+        },
+        {
+          "title": "Reviews",
+          "body": [
+            "Only a party to a collaboration completed on the platform can leave a review. Reviews must be honest and free of insults; Kolabo may remove reviews that break these rules."
+          ]
+        },
+        {
+          "title": "Content and rights",
+          "body": [
+            "Content you add to your profile remains yours. You allow Kolabo to display it on the platform and in search results to provide the service. Usage rights for content created in a collaboration are agreed between the creator and the company (the “usage rights” field in the request)."
+          ]
+        },
+        {
+          "title": "Liability",
+          "body": [
+            "Kolabo is not liable for the performance of agreements between users, for the accuracy of data users enter, or for damage resulting from a collaboration, except to the extent the law does not allow liability to be excluded."
+          ]
+        },
+        {
+          "title": "Termination and changes",
+          "body": [
+            "You can delete your account at any time in settings. We will notify you by email or on the platform about material changes to these terms before they take effect."
+          ]
+        },
+        {
+          "title": "Governing law",
+          "body": [
+            "These terms are governed by the law of the Republic of Serbia. Disputes fall under the competent court at the service provider's seat, unless consumer protection law provides otherwise."
+          ]
+        }
+      ]
+    }
   },
   "footer": {
     "tagline": "The platform connecting micro influencers and brands in the Balkans.",
     "product": "Platform",
+    "categories": "Popular categories",
     "legal": "Legal",
     "privacy": "Privacy policy",
     "terms": "Terms of service",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "regNo": "Reg. no.",
+    "taxId": "Tax ID"
   },
   "notFound": {
     "title": "Page not found",
