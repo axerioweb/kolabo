@@ -272,7 +272,6 @@ export const COUNTRIES = [
   "MK",
   "SI",
   "AL",
-  "XK",
   "diaspora",
   "other",
 ] as const;
@@ -286,7 +285,6 @@ export const COUNTRY_LABELS: Record<Country, LocalizedLabel> = {
   MK: { sr: "Severna Makedonija", en: "North Macedonia" },
   SI: { sr: "Slovenija", en: "Slovenia" },
   AL: { sr: "Albanija", en: "Albania" },
-  XK: { sr: "Kosovo*", en: "Kosovo*" },
   diaspora: { sr: "Dijaspora (EU/svet)", en: "Diaspora (EU/world)" },
   other: { sr: "Ostalo", en: "Other" },
 };

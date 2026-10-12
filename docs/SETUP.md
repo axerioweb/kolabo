@@ -36,6 +36,8 @@ Redosled (folder `supabase/migrations/`):
 | `0013_extensions_enums.sql` | pg_trgm, pg_cron, pg_net, status `expired` | primenjeno |
 | `0014_hardening.sql` | suspenzija, privatne kolone, limiti, pretraga, statistika odziva, isticanje upita, email | primenjeno |
 | `0015_manual_reviews_fk.sql` | ocene preživljavaju brisanje naloga | **pokreni ručno** |
+| `0016_anon_updated_at.sql` | sitemap čita `updated_at` javnih profila | proveri |
+| `0017_remove_xk.sql` | uklonjena zemlja `XK` (redovi → `other`, CHECK) | čeka |
 | `seed.sql` | šifarnik kategorija | primenjeno |
 
 > **0011 i 0015 se pokreću ručno** u Supabase dashboardu → SQL Editor (nalepi
